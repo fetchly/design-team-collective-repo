@@ -1,0 +1,90 @@
+{
+  "color": {
+    "malibu": {
+      "darkest": {
+        "$value": "#1F444B"
+      },
+      "darker": {
+        "$value": "#2A5B64"
+      },
+      "dark": {
+        "$value": "#54B7C8"
+      },
+      "default": {
+        "$value": "#69E5FB"
+      },
+      "light": {
+        "$value": "#96ECFC"
+      },
+      "lighter": {
+        "$value": "#E1F9FE"
+      },
+      "lightest": {
+        "$value": "#F0FCFE"
+      }
+    },
+    "spring-green": {
+      "default": {
+        "$value": "#04FFA8"
+      },
+      "$description": "Graphic accents only"
+    },
+    "info": {
+      "default": {
+        "$value": "#007BFF"
+      },
+      "$description": "Azure Radiance"
+    },
+    "danger": {
+      "default": {
+        "$value": "#E35A5A"
+      },
+      "$description": "Mandy"
+    },
+    "neutral": {
+      "darkest": {
+        "$value": "#050B0D"
+      },
+      "darker": {
+        "$value": "#1E2325"
+      },
+      "dark": {
+        "$value": "#505455"
+      },
+      "default": {
+        "$value": "#E5E4DF"
+      },
+      "light": {
+        "$value": "#F5F3EF"
+      },
+      "lighter": {
+        "$value": "#F6F5F1"
+      },
+      "lightest": {
+        "$value": "#FFFEFA"
+      }
+    }
+  },
+  "font": {
+    "display": {
+      "$value": "Marjorie"
+    },
+    "body": {
+      "$value": "Inter"
+    },
+    "mono": {
+      "$value": "Geist Mono"
+    }
+  },
+  "type": {
+    "heading-tracking": {
+      "$value": "-1px"
+    },
+    "heading-leading": {
+      "$value": 1.2
+    },
+    "eyebrow-tracking": {
+      "$value": "0.08em"
+    }
+  }
+}

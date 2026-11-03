@@ -1,0 +1,1 @@
+Rules and test templates for design team repos. A CLAUDE.md rule set for branches, commits, PRs and reviews, plus copy-ready GitHub Actions for lint, unit, accessibility, visual regression, Lighthouse, link and HTML checks.

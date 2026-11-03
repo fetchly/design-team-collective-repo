@@ -1,0 +1,66 @@
+/* Fetchly brand tokens. Source of truth: Fetchly-GUIDES Figma file (rAimUuMdyfbEDtvAlac9Up).
+   Each token falls back to the verified fetch.ly Webflow site variable when present. */
+:root {
+  /* Primary: Malibu */
+  --fly-malibu-darkest: var(--_primitives---colors--malibu-darkest, #1F444B);
+  --fly-malibu-darker:  var(--_primitives---colors--malibu-darker, #2A5B64);
+  --fly-malibu-dark:    var(--_primitives---colors--malibu-dark, #54B7C8);
+  --fly-malibu:         var(--_primitives---colors--malibu, #69E5FB);
+  --fly-malibu-light:   var(--_primitives---colors--malibu-light, #96ECFC);
+  --fly-malibu-lighter: var(--_primitives---colors--malibu-lighter, #E1F9FE);
+  --fly-malibu-lightest:var(--_primitives---colors--malibu-lightest, #F0FCFE);
+
+  /* Secondary: Spring Green (graphic accents only, never body text) */
+  --fly-spring-green: var(--_primitives---colors--spring-green, #04FFA8);
+
+  /* Status */
+  --fly-info:   #007BFF; /* Azure Radiance */
+  --fly-danger: #E35A5A; /* Mandy */
+
+  /* Neutrals (brand book values; site neutral and neutral-dark differ, see README) */
+  --fly-neutral-darkest:  var(--_primitives---colors--neutral-darkest, #050B0D);
+  --fly-neutral-darker:   var(--_primitives---colors--neutral-darker, #1E2325);
+  --fly-neutral-dark:     #505455;
+  --fly-neutral:          #E5E4DF;
+  --fly-neutral-light:    #F5F3EF;
+  --fly-neutral-lighter:  var(--_primitives---colors--neutral-lighter, #F6F5F1);
+  --fly-neutral-lightest: var(--_primitives---colors--neutral-lightest, #FFFEFA);
+
+  /* Semantic roles, light */
+  --fly-ink: var(--fly-neutral-darkest);
+  --fly-ink-soft: var(--fly-neutral-dark);
+  --fly-surface: var(--fly-neutral-lightest);
+  --fly-surface-2: var(--fly-neutral-lighter);
+  --fly-border: var(--fly-neutral);
+  --fly-accent: var(--fly-malibu);
+  --fly-accent-ink: var(--fly-malibu-darkest);
+
+  /* Type */
+  --fly-font-display: var(--_typography---font-styles--neo-heading, "Marjorie", Georgia, serif); /* Display 1/2, H1, H2, large body */
+  --fly-font-body: "Inter", system-ui, sans-serif;                                              /* H3 to H6, body, UI */
+  --fly-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;                     /* taglines, uppercase eyebrows only */
+  --fly-heading-tracking: -1px;
+  --fly-heading-leading: 1.2;
+  --fly-eyebrow-tracking: 0.08em;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fly-ink: var(--fly-neutral-lightest);
+    --fly-ink-soft: #B9B8B3;
+    --fly-surface: var(--fly-neutral-darker);
+    --fly-surface-2: var(--fly-neutral-darkest);
+    --fly-border: rgb(255 255 255 / 0.15);
+    --fly-accent-ink: var(--fly-malibu);
+  }
+}
+:root[data-theme="dark"] {
+  --fly-ink: var(--fly-neutral-lightest);
+  --fly-ink-soft: #B9B8B3;
+  --fly-surface: var(--fly-neutral-darker);
+  --fly-surface-2: var(--fly-neutral-darkest);
+  --fly-border: rgb(255 255 255 / 0.15);
+  --fly-accent-ink: var(--fly-malibu);
+}
+
+.fly-eyebrow { font-family: var(--fly-font-mono); text-transform: uppercase; letter-spacing: var(--fly-eyebrow-tracking); }

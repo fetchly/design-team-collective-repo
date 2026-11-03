@@ -1,0 +1,4 @@
+caveman@caveman JuliusBrussee/caveman
+token-optimizer@alexgreensh-token-optimizer alexgreensh/token-optimizer
+claude-mem@thedotmack thedotmack/claude-mem
+cloudflare@cloudflare cloudflare/skills

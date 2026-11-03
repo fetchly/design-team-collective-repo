@@ -1,0 +1,3 @@
+interfaces@interfaces jakubkrehel/skills
+figma@claude-plugins-official anthropics/claude-plugins-official
+webflow-skills@webflow-skills webflow/webflow-skills
