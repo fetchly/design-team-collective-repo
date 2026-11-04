@@ -1,0 +1,1089 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8"><title>Armada Motion Studies</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one row per screen, Option A and Option B phones side by side with their motion spec. Single dark theme matching the Armada app. */
+:root{color-scheme:dark;--page:#05080e;--panel:#0d1524;--line:#1e3352;--fg:#f7f9fc;--dim:#8ea3c2;--blue:#6aa2ff;--green:#4cc979;
+ --sans:"Inter",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.22,1,.36,1)}
+body{background:var(--page);color:var(--fg);font-family:var(--sans);margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:28px;margin:4px 0 8px;text-wrap:balance} .lede{color:var(--dim);max-width:64ch;line-height:1.5;margin:0 0 40px}
+.eb{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.screen{border-top:1px solid var(--line);padding-block:28px 44px}
+.screen h2{font-size:19px;margin:6px 0 2px} .src{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.opts{display:flex;flex-wrap:wrap;gap:40px;margin-top:22px}
+.opt{display:flex;flex-direction:column;gap:12px;width:min(100%,520px);min-width:0}
+.opt .row{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.optname{font-weight:600;font-size:14px} .optname span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);margin-left:8px}
+.device{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0a111d;flex:none;position:relative}
+.cam{transform-origin:0 0;will-change:transform}
+.frame{width:375px;position:relative;overflow:hidden}
+.frame *{font-family:Inter,system-ui,sans-serif!important}
+.notes{list-style:none;margin:0;padding:0;display:grid;gap:7px;flex:1;min-width:200px;font-size:12.5px;line-height:1.45;color:var(--dim)}
+.notes b{color:var(--fg);font-weight:600}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-right:6px}
+.ma{background:#6aa2ff26;color:var(--blue)} .mi{background:#4cc97922;color:var(--green)}
+button.replay{align-self:flex-start;font:500 12px var(--sans);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+button.replay:hover{background:#15233a} button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.wrap>.eb,.wrap>h1,.lede,.screen>.eb,.screen>h2,.screen>.src{text-align:center;margin-inline:auto}
+.opts{justify-content:center;gap:56px}
+.opt{align-items:center;width:auto}
+.opt .row{flex-direction:column;align-items:center}
+.notes{max-width:320px;flex:none}
+button.replay{align-self:center}
+.touch{position:absolute;left:0;top:0;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#f7f9fc2e;border:1.5px solid #f7f9fcb3;box-shadow:0 4px 14px #0008;opacity:0;pointer-events:none;z-index:5}
+</style>
+<template id="t-dash">    <div class="relative size-full" data-node-id="10121:4626" style="background-image:linear-gradient(90deg, rgb(10, 17, 29) 0%, rgb(10, 17, 29) 100%), linear-gradient(90deg, rgb(247, 249, 252) 0%, rgb(247, 249, 252) 100%)" data-name="Dashboard - Home - Multi Family Geolocation Off">
+      <div class="absolute flex inset-[73.58%_0.27%_6.2%_0] items-center justify-center" data-node-id="10121:4627" style="container-type:size">
+        <div class="flex-none h-[100cqh] rotate-180 w-[100cqw]">
+          <div class="relative size-full" data-name="Group">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM3NCIgaGVpZ2h0PSIyNDQuMDU1IiB2aWV3Qm94PSIwIDAgMzc0IDI0NC4wNTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCIgb3BhY2l0eT0iMC4yIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTM1My4yMDggNjEuMDE0MkwzNjMuNTc4IDQ1LjczODVMMzc0IDMwLjUwNzNMMzUzLjIwOCAzMC41MDczTDMzMi40MTYgMzAuNTA3M0wzNDIuODM4IDQ1LjczODVMMzUzLjIwOCA2MS4wMTQyWiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik02Mi4zMjQ4IDYxLjAxNEw3Mi42OTQ5IDc2LjI0NTJMODMuMTE3IDkxLjUyMDlMOTMuNDg3MSA3Ni4yNDUyTDEwMy45MDkgNjEuMDE0TDgzLjExNyA2MS4wMTRMNjIuMzI0OCA2MS4wMTRaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTEwMy45MDkgMTgzLjA0MkwxMTQuMjc5IDE2Ny43NjZMMTI0LjY1IDE1Mi41MzVMMTAzLjkwOSAxNTIuNTM1TDgzLjExNyAxNTIuNTM1TDkzLjQ4NzIgMTY3Ljc2NkwxMDMuOTA5IDE4My4wNDJaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTIwNy43NjYgMzAuNTA3M0wyMTguMTg4IDQ1LjczODVMMjI4LjU1OSA2MS4wMTQyTDIzOC45MjkgNDUuNzM4NUwyNDkuMzUxIDMwLjUwNzNMMjI4LjU1OSAzMC41MDczTDIwNy43NjYgMzAuNTA3M1oiIGZpbGw9IiMxOTI5NDciLz4KPHBhdGggaWQ9IlZlY3Rvcl81IiBkPSJNMjI4LjU1OSAwLjAwMDEzNzMyOUwyMzguOTI5IDE1LjIzMTRMMjQ5LjM1MSAzMC41MDdMMjU5LjcyMSAxNS4yMzE0TDI3MC4wOTEgMC4wMDAxMzc5NThMMjQ5LjM1MSAwLjAwMDEzNzY0NEwyMjguNTU5IDAuMDAwMTM3MzI5WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzYiIGQ9Ik0xMDMuOTA5IDAuMDAwMTM3MzI5TDExNC4yNzkgMTUuMjMxNEwxMjQuNjQ5IDMwLjUwN0wxMzUuMDcxIDE1LjIzMTRMMTQ1LjQ0MiAwLjAwMDEzNzk1OEwxMjQuNjQ5IDAuMDAwMTM3NjQzTDEwMy45MDkgMC4wMDAxMzczMjlaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfNyIgZD0iTTMxMS42NzUgNjEuMDE0TDMyMi4wNDYgNzYuMjQ1MkwzMzIuNDE2IDkxLjUyMDlMMzQyLjgzOCA3Ni4yNDUyTDM1My4yMDggNjEuMDE0TDMzMi40MTYgNjEuMDE0TDMxMS42NzUgNjEuMDE0WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzgiIGQ9Ik0xNDUuNDQyIDE4My4wNDJMMTU1LjgxMiAxNjcuNzY2TDE2Ni4yMzQgMTUyLjUzNUwxNDUuNDQyIDE1Mi41MzVMMTI0LjY0OSAxNTIuNTM1TDEzNS4wNzIgMTY3Ljc2NkwxNDUuNDQyIDE4My4wNDJaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfOSIgZD0iTTE0NS40NDIgNjEuMDE0TDE1NS44MTIgNzYuMjQ1MkwxNjYuMjM0IDkxLjUyMDlMMTc2LjYwNCA3Ni4yNDUyTDE4Ni45NzQgNjEuMDE0TDE2Ni4yMzQgNjEuMDE0TDE0NS40NDIgNjEuMDE0WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8xMCIgZD0iTTE4Ni45NzQgMTIyLjAyOEwxNjYuMjM0IDEyMi4wMjhMMTQ1LjQ0MiAxMjIuMDI4TDE1NS44MTIgMTM3LjI1OUwxNjYuMjM0IDE1Mi41MzVMMTc2LjYwNCAxMzcuMjU5TDE4Ni45NzQgMTIyLjAyOFoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xMSIgZD0iTTIwLjc5MjMgMC4wMDAxOTg2NzlMMC4wMDAxMTA1NDUgMC4wMDAxOTgzNjRMMC4wMDAxMTEwNjkgMzAuNTA3MUwxMC4zNzAzIDE1LjIzMTRMMjAuNzkyMyAwLjAwMDE5ODY3OVoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xMiIgZD0iTTIwLjc5MjMgMTgzLjA0MkwzMS4xNjI1IDE2Ny43NjZMNDEuNTMyNiAxNTIuNTM1TDIwLjc5MjMgMTUyLjUzNUwwLjAwMDExMzE2NCAxNTIuNTM1TDEwLjM3MDMgMTY3Ljc2NkwyMC43OTIzIDE4My4wNDJaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMTMiIGQ9Ik00MS41MzI2IDkxLjUyMTFMNTEuOTU0NiAxMDYuNzUyTDYyLjMyNDggMTIyLjAyOEw3Mi42OTQ5IDEwNi43NTJMODMuMTE3IDkxLjUyMTFMNjIuMzI0OCA5MS41MjExTDQxLjUzMjYgOTEuNTIxMVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNCIgZD0iTTQxLjUzMjcgMjEzLjU0OEw1MS45NTQ3IDE5OC4yNzJMNjIuMzI0OCAxODMuMDQxTDQxLjUzMjcgMTgzLjA0MUwyMC43OTIzIDE4My4wNDFMMzEuMTYyNSAxOTguMjcyTDQxLjUzMjcgMjEzLjU0OFoiIGZpbGw9IiMxOTI5NDciLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNSIgZD0iTTYyLjMyNDggMjQ0LjA1NUw3Mi42OTQ5IDIyOC43OEw4My4xMTcgMjEzLjU0OEw2Mi4zMjQ4IDIxMy41NDhMNDEuNTMyNiAyMTMuNTQ4TDUxLjk1NDYgMjI4Ljc4TDYyLjMyNDggMjQ0LjA1NVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNiIgZD0iTTYyLjMyNDggMC4wMDAxMzc5NThMNDEuNTMyNyAwLjAwMDEzNzY0M0wyMC43OTIzIDAuMDAwMTM3MzI5TDMxLjE2MjUgMTUuMjMxNEw0MS41MzI3IDMwLjUwN0w1MS45NTQ3IDE1LjIzMTRMNjIuMzI0OCAwLjAwMDEzNzk1OFoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNyIgZD0iTTYyLjMyNDggNjEuMDE0TDQxLjUzMjcgNjEuMDE0TDIwLjc5MjMgNjEuMDE0TDMxLjE2MjUgNzYuMjQ1Mkw0MS41MzI3IDkxLjUyMDlMNTEuOTU0NyA3Ni4yNDUyTDYyLjMyNDggNjEuMDE0WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8xOCIgZD0iTTQxLjUzMjYgMzAuNTA3MUwzMS4xNjI1IDE1LjIzMTRMMjAuNzkyMyAwLjAwMDE5ODY3OUwxMC4zNzAzIDE1LjIzMTRMMC4wMDAxMTEwNjkgMzAuNTA3MUwyMC43OTIzIDMwLjUwNzFMNDEuNTMyNiAzMC41MDcxWiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzE5IiBkPSJNNjIuMzI0OCAwLjAwMDEzNzY0NEw1MS45NTQ2IDE1LjIzMTRMNDEuNTMyNiAzMC41MDdMNjIuMzI0OCAzMC41MDdMODMuMTE3IDMwLjUwN0w3Mi42OTQ5IDE1LjIzMTRMNjIuMzI0OCAwLjAwMDEzNzY0NFoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yMCIgZD0iTTEwMy45MDkgMC4wMDAxMzc2NDRMOTMuNDg3MiAxNS4yMzE0TDgzLjExNyAzMC41MDdMMTAzLjkwOSAzMC41MDdMMTI0LjY1IDMwLjUwN0wxMTQuMjc5IDE1LjIzMTRMMTAzLjkwOSAwLjAwMDEzNzY0NFoiIGZpbGw9IiMwQTFBMkUiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yMSIgZD0iTTEyNC42NDkgMzAuNTA3TDE0NS40NDIgMzAuNTA3TDE2Ni4yMzQgMzAuNTA3TDE1NS44MTIgMTUuMjMxNEwxNDUuNDQyIDAuMDAwMTM3NjQ0TDEzNS4wNzIgMTUuMjMxNEwxMjQuNjQ5IDMwLjUwN1oiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjIiIGQ9Ik0yMjguNTU5IDAuMDAwMTUyOTAzTDIxOC4xODggMTUuMjMxNEwyMDcuNzY2IDMwLjUwN0wyMjguNTU5IDMwLjUwN0wyNDkuMzUxIDMwLjUwN0wyMzguOTI5IDE1LjIzMTRMMjI4LjU1OSAwLjAwMDE1MjkwM1oiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yMyIgZD0iTTI0OS4zNTEgMzAuNTA3TDI3MC4wOTEgMzAuNTA3TDI5MC44ODMgMzAuNTA3TDI4MC41MTMgMTUuMjMxNEwyNzAuMDkxIDAuMDAwMTM3NjQzTDI1OS43MjEgMTUuMjMxNEwyNDkuMzUxIDMwLjUwN1oiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjQiIGQ9Ik0zMzIuNDE2IDMwLjUwN0wzMjIuMDQ2IDE1LjIzMTRMMzExLjY3NSAwLjAwMDEzNzY0NEwzMDEuMjUzIDE1LjIzMTRMMjkwLjg4MyAzMC41MDdMMzExLjY3NSAzMC41MDdMMzMyLjQxNiAzMC41MDdaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjUiIGQ9Ik02Mi4zMjQ4IDYxLjAxNDJMNTEuOTU0NyA0NS43Mzg1TDQxLjUzMjYgMzAuNTA3M0wzMS4xNjI1IDQ1LjczODVMMjAuNzkyMyA2MS4wMTQyTDQxLjUzMjcgNjEuMDE0Mkw2Mi4zMjQ4IDYxLjAxNDJaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjYiIGQ9Ik02Mi4zMjQ4IDYxLjAxNDJMODMuMTE3IDYxLjAxNDJMMTAzLjkwOSA2MS4wMTQyTDkzLjQ4NzEgNDUuNzM4NUw4My4xMTcgMzAuNTA3M0w3Mi42OTQ5IDQ1LjczODVMNjIuMzI0OCA2MS4wMTQyWiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8yNyIgZD0iTTIwNy43NjYgMzAuNTA3M0wxOTcuMzk2IDQ1LjczODVMMTg2Ljk3NCA2MS4wMTQyTDIwNy43NjYgNjEuMDE0MkwyMjguNTU5IDYxLjAxNDJMMjE4LjE4OCA0NS43Mzg1TDIwNy43NjYgMzAuNTA3M1oiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjgiIGQ9Ik0yMjguNTU5IDYxLjAxNDJMMjQ5LjM1MSA2MS4wMTQyTDI3MC4wOTEgNjEuMDE0MkwyNTkuNzIxIDQ1LjczODVMMjQ5LjM1MSAzMC41MDczTDIzOC45MjkgNDUuNzM4NUwyMjguNTU5IDYxLjAxNDJaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjkiIGQ9Ik00MS41MzI2IDkxLjUyMDlMMzEuMTYyNSA3Ni4yNDUyTDIwLjc5MjMgNjEuMDE0TDEwLjM3MDMgNzYuMjQ1MkwwLjAwMDExMjA0MyA5MS41MjA5TDIwLjc5MjMgOTEuNTIwOUw0MS41MzI2IDkxLjUyMDlaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMzAiIGQ9Ik02Mi4zMjQ4IDYxLjAxNEw1MS45NTQ2IDc2LjI0NTJMNDEuNTMyNiA5MS41MjA5TDYyLjMyNDggOTEuNTIwOUw4My4xMTcgOTEuNTIwOUw3Mi42OTQ5IDc2LjI0NTJMNjIuMzI0OCA2MS4wMTRaIiBmaWxsPSIjMEExQTJFIi8+CjxwYXRoIGlkPSJWZWN0b3JfMzEiIGQ9Ik04My4xMTcgOTEuNTIwOUwxMDMuOTA5IDkxLjUyMDlMMTI0LjY1IDkxLjUyMDlMMTE0LjI3OSA3Ni4yNDUyTDEwMy45MDkgNjEuMDE0TDkzLjQ4NzIgNzYuMjQ1Mkw4My4xMTcgOTEuNTIwOVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zMiIgZD0iTTI0OS4zNTEgOTEuNTIwOUwyNzAuMDkxIDkxLjUyMDlMMjkwLjg4MyA5MS41MjA5TDI4MC41MTMgNzYuMjQ1MkwyNzAuMDkxIDYxLjAxNEwyNTkuNzIxIDc2LjI0NTJMMjQ5LjM1MSA5MS41MjA5WiIgZmlsbD0iIzE5Mjk0NyIvPgo8cGF0aCBpZD0iVmVjdG9yXzMzIiBkPSJNNDEuNTMyNyA5MS41MjExTDMxLjE2MjUgMTA2Ljc1MkwyMC43OTIzIDEyMi4wMjhMNDEuNTMyNyAxMjIuMDI4TDYyLjMyNDggMTIyLjAyOEw1MS45NTQ3IDEwNi43NTJMNDEuNTMyNyA5MS41MjExWiIgZmlsbD0iIzFFMjkzQiIvPgo8cGF0aCBpZD0iVmVjdG9yXzM0IiBkPSJNNjIuMzI0OCAxMjIuMDI4TDgzLjExNyAxMjIuMDI4TDEwMy45MDkgMTIyLjAyOEw5My40ODcxIDEwNi43NTJMODMuMTE3IDkxLjUyMTFMNzIuNjk0OSAxMDYuNzUyTDYyLjMyNDggMTIyLjAyOFoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zNSIgZD0iTTIyOC41NTkgMTIyLjAyOEwyMTguMTg4IDEwNi43NTJMMjA3Ljc2NiA5MS41MjExTDE5Ny4zOTYgMTA2Ljc1MkwxODYuOTc0IDEyMi4wMjhMMjA3Ljc2NiAxMjIuMDI4TDIyOC41NTkgMTIyLjAyOFoiIGZpbGw9IiMxOTI5NDciLz4KPHBhdGggaWQ9IlZlY3Rvcl8zNiIgZD0iTTQxLjUzMjYgMTUyLjUzNUw2Mi4zMjQ4IDE1Mi41MzVMODMuMTE3IDE1Mi41MzVMNzIuNjk0OSAxMzcuMjU5TDYyLjMyNDggMTIyLjAyOEw1MS45NTQ2IDEzNy4yNTlMNDEuNTMyNiAxNTIuNTM1WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzM3IiBkPSJNMjA3Ljc2NiAxNTIuNTM1TDE5Ny4zOTYgMTM3LjI1OUwxODYuOTc0IDEyMi4wMjhMMTc2LjYwNCAxMzcuMjU5TDE2Ni4yMzQgMTUyLjUzNUwxODYuOTc0IDE1Mi41MzVMMjA3Ljc2NiAxNTIuNTM1WiIgZmlsbD0iIzE5Mjk0NyIvPgo8cGF0aCBpZD0iVmVjdG9yXzM4IiBkPSJNMTAuMzcwMyA0NS43Mzg1TDAuMDAwMTExMDY5IDMwLjUwNzNMMC4wMDAxMTE1MTkgNjEuMDE0MkwyMC43OTIzIDYxLjAxNDJMMTAuMzcwMyA0NS43Mzg1WiIgZmlsbD0iIzBBMUEyRSIvPgo8cGF0aCBpZD0iVmVjdG9yXzM5IiBkPSJNMTAuMzcwMyAxMDYuNzUyTDAuMDAwMTEyMTE2IDkxLjUyMTFMMC4wMDAxMTI1NjYgMTIyLjAyOEwyMC43OTIzIDEyMi4wMjhMMTAuMzcwMyAxMDYuNzUyWiIgZmlsbD0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-[0_0.27%_79.43%_0]" data-node-id="10121:4667" data-name="Group">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM3NCIgaGVpZ2h0PSIyNDguMjQ0IiB2aWV3Qm94PSIwIDAgMzc0IDI0OC4yNDQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCIgb3BhY2l0eT0iMC4yIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTM1My4yMDggNjIuMDYxM0wzNjMuNTc4IDQ2LjUyMzVMMzc0IDMxLjAzMDhIMzUzLjIwOEgzMzIuNDE2TDM0Mi44MzggNDYuNTIzNUwzNTMuMjA4IDYyLjA2MTNaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTYyLjMyNDcgNjIuMDYxTDcyLjY5NDggNzcuNTUzN0w4My4xMTY4IDkzLjA5MTVMOTMuNDg3IDc3LjU1MzdMMTAzLjkwOSA2Mi4wNjFIODMuMTE2OEg2Mi4zMjQ3WiIgZmlsbD0iIzFFMjkzQiIvPgo8cGF0aCBpZD0iVmVjdG9yXzMiIGQ9Ik0xMDMuOTA5IDE4Ni4xODNMMTE0LjI3OSAxNzAuNjQ1TDEyNC42NDkgMTU1LjE1M0gxMDMuOTA5SDgzLjExNjlMOTMuNDg3MSAxNzAuNjQ1TDEwMy45MDkgMTg2LjE4M1oiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl80IiBkPSJNMjA3Ljc2NiAzMS4wMzA4TDIxOC4xODggNDYuNTIzNUwyMjguNTU4IDYyLjA2MTNMMjM4LjkyOSA0Ni41MjM1TDI0OS4zNTEgMzEuMDMwOEgyMjguNTU4SDIwNy43NjZaIiBmaWxsPSIjMTkyOTQ3Ii8+CjxwYXRoIGlkPSJWZWN0b3JfNSIgZD0iTTIyOC41NTggOS4zODU1ZS0wNUwyMzguOTI5IDE1LjQ5MjdMMjQ5LjM1MSAzMS4wMzA2TDI1OS43MjEgMTUuNDkyN0wyNzAuMDkxIDkuMzg1NWUtMDVIMjQ5LjM1MUgyMjguNTU4WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzYiIGQ9Ik0xMDMuOTA5IDkuMzg1NWUtMDVMMTE0LjI3OSAxNS40OTI3TDEyNC42NDkgMzEuMDMwNkwxMzUuMDcxIDE1LjQ5MjdMMTQ1LjQ0MiA5LjM4NTVlLTA1SDEyNC42NDlIMTAzLjkwOVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl83IiBkPSJNMzExLjY3NSA2Mi4wNjFMMzIyLjA0NSA3Ny41NTM3TDMzMi40MTYgOTMuMDkxNUwzNDIuODM4IDc3LjU1MzdMMzUzLjIwOCA2Mi4wNjFIMzMyLjQxNkgzMTEuNjc1WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzgiIGQ9Ik0xNDUuNDQyIDE4Ni4xODNMMTU1LjgxMiAxNzAuNjQ1TDE2Ni4yMzQgMTU1LjE1M0gxNDUuNDQySDEyNC42NDlMMTM1LjA3MSAxNzAuNjQ1TDE0NS40NDIgMTg2LjE4M1oiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl85IiBkPSJNMTQ1LjQ0MiA2Mi4wNjFMMTU1LjgxMiA3Ny41NTM3TDE2Ni4yMzQgOTMuMDkxNUwxNzYuNjA0IDc3LjU1MzdMMTg2Ljk3NCA2Mi4wNjFIMTY2LjIzNEgxNDUuNDQyWiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8xMCIgZD0iTTE4Ni45NzQgMTI0LjEyMkgxNjYuMjM0SDE0NS40NDJMMTU1LjgxMiAxMzkuNjE1TDE2Ni4yMzQgMTU1LjE1MkwxNzYuNjA0IDEzOS42MTVMMTg2Ljk3NCAxMjQuMTIyWiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzExIiBkPSJNMjAuNzkyMiA5LjM4NTVlLTA1SDBWMzEuMDMwNkwxMC4zNzAyIDE1LjQ5MjdMMjAuNzkyMiA5LjM4NTVlLTA1WiIgZmlsbD0iIzFFMjkzQiIvPgo8cGF0aCBpZD0iVmVjdG9yXzEyIiBkPSJNMjAuNzkyMiAxODYuMTgzTDMxLjE2MjMgMTcwLjY0NUw0MS41MzI1IDE1NS4xNTNIMjAuNzkyMkgwTDEwLjM3MDIgMTcwLjY0NUwyMC43OTIyIDE4Ni4xODNaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMTMiIGQ9Ik00MS41MzI1IDkzLjA5MThMNTEuOTU0NSAxMDguNTg0TDYyLjMyNDcgMTI0LjEyMkw3Mi42OTQ4IDEwOC41ODRMODMuMTE2OCA5My4wOTE4SDYyLjMyNDdINDEuNTMyNVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNCIgZD0iTTQxLjUzMjUgMjE3LjIxM0w1MS45NTQ2IDIwMS42NzVMNjIuMzI0NyAxODYuMTgzSDQxLjUzMjVIMjAuNzkyMkwzMS4xNjI0IDIwMS42NzVMNDEuNTMyNSAyMTcuMjEzWiIgZmlsbD0iIzE5Mjk0NyIvPgo8cGF0aCBpZD0iVmVjdG9yXzE1IiBkPSJNNjIuMzI0NyAyNDguMjQ0TDcyLjY5NDggMjMyLjcwNkw4My4xMTY4IDIxNy4yMTNINjIuMzI0N0g0MS41MzI1TDUxLjk1NDUgMjMyLjcwNkw2Mi4zMjQ3IDI0OC4yNDRaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMTYiIGQ9Ik02Mi4zMjQ3IDkuMzg1NWUtMDVINDEuNTMyNUgyMC43OTIyTDMxLjE2MjQgMTUuNDkyN0w0MS41MzI1IDMxLjAzMDZMNTEuOTU0NiAxNS40OTI3TDYyLjMyNDcgOS4zODU1ZS0wNVoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xNyIgZD0iTTYyLjMyNDcgNjIuMDYxSDQxLjUzMjVIMjAuNzkyMkwzMS4xNjI0IDc3LjU1MzdMNDEuNTMyNSA5My4wOTE1TDUxLjk1NDYgNzcuNTUzN0w2Mi4zMjQ3IDYyLjA2MVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMTgiIGQ9Ik00MS41MzI1IDMxLjAzMDZMMzEuMTYyMyAxNS40OTI3TDIwLjc5MjIgOS4zODU1ZS0wNUwxMC4zNzAyIDE1LjQ5MjdMMCAzMS4wMzA2SDIwLjc5MjJINDEuNTMyNVoiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8xOSIgZD0iTTYyLjMyNDcgOS4zODU1ZS0wNUw1MS45NTQ1IDE1LjQ5MjdMNDEuNTMyNSAzMS4wMzA2SDYyLjMyNDdIODMuMTE2OEw3Mi42OTQ4IDE1LjQ5MjdMNjIuMzI0NyA5LjM4NTVlLTA1WiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIwIiBkPSJNMTAzLjkwOSA5LjM4NTVlLTA1TDkzLjQ4NzEgMTUuNDkyN0w4My4xMTY5IDMxLjAzMDZIMTAzLjkwOUgxMjQuNjQ5TDExNC4yNzkgMTUuNDkyN0wxMDMuOTA5IDkuMzg1NWUtMDVaIiBmaWxsPSIjMEExQTJFIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjEiIGQ9Ik0xMjQuNjQ5IDMxLjAzMDZIMTQ1LjQ0MkgxNjYuMjM0TDE1NS44MTIgMTUuNDkyN0wxNDUuNDQyIDkuMzg1NWUtMDVMMTM1LjA3MSAxNS40OTI3TDEyNC42NDkgMzEuMDMwNloiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjIiIGQ9Ik0yMjguNTU4IDkuMzg1NWUtMDVMMjE4LjE4OCAxNS40OTI3TDIwNy43NjYgMzEuMDMwNkgyMjguNTU4SDI0OS4zNTFMMjM4LjkyOSAxNS40OTI3TDIyOC41NTggOS4zODU1ZS0wNVoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yMyIgZD0iTTI0OS4zNTEgMzEuMDMwNkgyNzAuMDkxSDI5MC44ODNMMjgwLjUxMyAxNS40OTI3TDI3MC4wOTEgOS4zODU1ZS0wNUwyNTkuNzIxIDE1LjQ5MjdMMjQ5LjM1MSAzMS4wMzA2WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8yNCIgZD0iTTMzMi40MTYgMzEuMDMwNkwzMjIuMDQ1IDE1LjQ5MjdMMzExLjY3NSA5LjM4NTVlLTA1TDMwMS4yNTMgMTUuNDkyN0wyOTAuODgzIDMxLjAzMDZIMzExLjY3NUgzMzIuNDE2WiIgZmlsbD0iIzFFMjkzQiIvPgo8cGF0aCBpZD0iVmVjdG9yXzI1IiBkPSJNNjIuMzI0NyA2Mi4wNjEzTDUxLjk1NDYgNDYuNTIzNUw0MS41MzI1IDMxLjAzMDhMMzEuMTYyNCA0Ni41MjM1TDIwLjc5MjIgNjIuMDYxM0g0MS41MzI1SDYyLjMyNDdaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMjYiIGQ9Ik02Mi4zMjQ3IDYyLjA2MTNIODMuMTE2OEgxMDMuOTA5TDkzLjQ4NyA0Ni41MjM1TDgzLjExNjggMzEuMDMwOEw3Mi42OTQ4IDQ2LjUyMzVMNjIuMzI0NyA2Mi4wNjEzWiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8yNyIgZD0iTTIwNy43NjYgMzEuMDMwOEwxOTcuMzk2IDQ2LjUyMzVMMTg2Ljk3NCA2Mi4wNjEzSDIwNy43NjZIMjI4LjU1OEwyMTguMTg4IDQ2LjUyMzVMMjA3Ljc2NiAzMS4wMzA4WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8yOCIgZD0iTTIyOC41NTggNjIuMDYxM0gyNDkuMzUxSDI3MC4wOTFMMjU5LjcyMSA0Ni41MjM1TDI0OS4zNTEgMzEuMDMwOEwyMzguOTI5IDQ2LjUyMzVMMjI4LjU1OCA2Mi4wNjEzWiIgZmlsbD0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzI5IiBkPSJNNDEuNTMyNSA5My4wOTE1TDMxLjE2MjMgNzcuNTUzN0wyMC43OTIyIDYyLjA2MUwxMC4zNzAyIDc3LjU1MzdMMCA5My4wOTE1SDIwLjc5MjJINDEuNTMyNVoiIGZpbGw9IiMxRTI5M0IiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zMCIgZD0iTTYyLjMyNDcgNjIuMDYxTDUxLjk1NDUgNzcuNTUzN0w0MS41MzI1IDkzLjA5MTVINjIuMzI0N0g4My4xMTY4TDcyLjY5NDggNzcuNTUzN0w2Mi4zMjQ3IDYyLjA2MVoiIGZpbGw9IiMwQTFBMkUiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zMSIgZD0iTTgzLjExNjkgOTMuMDkxNUgxMDMuOTA5SDEyNC42NDlMMTE0LjI3OSA3Ny41NTM3TDEwMy45MDkgNjIuMDYxTDkzLjQ4NzEgNzcuNTUzN0w4My4xMTY5IDkzLjA5MTVaIiBmaWxsPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMzIiIGQ9Ik0yNDkuMzUxIDkzLjA5MTVIMjcwLjA5MUgyOTAuODgzTDI4MC41MTMgNzcuNTUzN0wyNzAuMDkxIDYyLjA2MUwyNTkuNzIxIDc3LjU1MzdMMjQ5LjM1MSA5My4wOTE1WiIgZmlsbD0iIzE5Mjk0NyIvPgo8cGF0aCBpZD0iVmVjdG9yXzMzIiBkPSJNNDEuNTMyNSA5My4wOTE4TDMxLjE2MjQgMTA4LjU4NEwyMC43OTIyIDEyNC4xMjJINDEuNTMyNUg2Mi4zMjQ3TDUxLjk1NDYgMTA4LjU4NEw0MS41MzI1IDkzLjA5MThaIiBmaWxsPSIjMUUyOTNCIi8+CjxwYXRoIGlkPSJWZWN0b3JfMzQiIGQ9Ik02Mi4zMjQ3IDEyNC4xMjJIODMuMTE2OEgxMDMuOTA5TDkzLjQ4NyAxMDguNTg0TDgzLjExNjggOTMuMDkxOEw3Mi42OTQ4IDEwOC41ODRMNjIuMzI0NyAxMjQuMTIyWiIgZmlsbD0iIzFFMjkzQiIvPgo8cGF0aCBpZD0iVmVjdG9yXzM1IiBkPSJNMjI4LjU1OCAxMjQuMTIyTDIxOC4xODggMTA4LjU4NEwyMDcuNzY2IDkzLjA5MThMMTk3LjM5NiAxMDguNTg0TDE4Ni45NzQgMTI0LjEyMkgyMDcuNzY2SDIyOC41NThaIiBmaWxsPSIjMTkyOTQ3Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMzYiIGQ9Ik00MS41MzI1IDE1NS4xNTJINjIuMzI0N0g4My4xMTY4TDcyLjY5NDggMTM5LjYxNUw2Mi4zMjQ3IDEyNC4xMjJMNTEuOTU0NSAxMzkuNjE1TDQxLjUzMjUgMTU1LjE1MloiIGZpbGw9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zNyIgZD0iTTIwNy43NjYgMTU1LjE1MkwxOTcuMzk2IDEzOS42MTVMMTg2Ljk3NCAxMjQuMTIyTDE3Ni42MDQgMTM5LjYxNUwxNjYuMjM0IDE1NS4xNTJIMTg2Ljk3NEgyMDcuNzY2WiIgZmlsbD0iIzE5Mjk0NyIvPgo8cGF0aCBpZD0iVmVjdG9yXzM4IiBkPSJNMTAuMzcwMiA0Ni41MjM1TDAgMzEuMDMwOFY2Mi4wNjEzSDIwLjc5MjJMMTAuMzcwMiA0Ni41MjM1WiIgZmlsbD0iIzBBMUEyRSIvPgo8cGF0aCBpZD0iVmVjdG9yXzM5IiBkPSJNMTAuMzcwMiAxMDguNTg0TDAgOTMuMDkxOFYxMjQuMTIySDIwLjc5MjJMMTAuMzcwMiAxMDguNTg0WiIgZmlsbD0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+      </div>
+      <div class="absolute content-stretch flex flex-col gap-[var(--m-4,16px)] items-start left-0 overflow-x-clip overflow-y-auto pb-[var(--p-6,24px)] pt-[var(--p-4,16px)] px-[var(--p-6,24px)] right-0 top-[73px]" data-node-id="10121:4707" data-name="Main">
+        <div class="bg-[var(--background\/card,#111f33)] border-[var(--status\/amber,#e3b341)] border-l-3 border-solid content-stretch flex flex-col gap-[4px] h-[86px] items-start pl-[17px] pr-[14px] py-[14px] relative rounded-[10px] shrink-0 w-[325px]" data-node-id="10121:4708" data-name="Energy Saving Event Banner">
+          <div class="relative shrink-0 w-full" data-node-id="10121:4709" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[6px] items-center relative size-full">
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4710" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[16px]" data-node-id="10121:4711" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMi42NjY2NyA5LjMzMzMzQzIuNDA5MTcgOS4zMzQyMSAyLjE3NDE4IDkuMTg2NzIgMi4wNjMwMyA4Ljk1NDQ0QzEuOTUxODggOC43MjIxNiAxLjk4NDQ0IDguNDQ2NjQgMi4xNDY2NyA4LjI0NjY3TDguNzQ2NjcgMS40NDY2N0M4Ljg0ODYzIDEuMzI4OTcgOS4wMTg1MSAxLjI5NzU2IDkuMTU1ODIgMS4zNzFDOS4yOTMxNCAxLjQ0NDQ1IDkuMzYxMyAxLjYwMzE5IDkuMzIgMS43NTMzM0w4LjA0IDUuNzY2NjdDNy45NjMzOSA1Ljk3MTcyIDcuOTkyMzEgNi4yMDEzMSA4LjExNzM5IDYuMzgwOTVDOC4yNDI0OCA2LjU2MDU5IDguNDQ3NzcgNi42NjczOCA4LjY2NjY3IDYuNjY2NjdIMTMuMzMzM0MxMy41OTA4IDYuNjY1NzkgMTMuODI1OCA2LjgxMzI5IDEzLjkzNyA3LjA0NTU2QzE0LjA0ODEgNy4yNzc4NCAxNC4wMTU2IDcuNTUzMzYgMTMuODUzMyA3Ljc1MzMzTDcuMjUzMzMgMTQuNTUzM0M3LjE1MTM3IDE0LjY3MSA2Ljk4MTUgMTQuNzAyNCA2Ljg0NDE4IDE0LjYyOUM2LjcwNjg2IDE0LjU1NTUgNi42Mzg3IDE0LjM5NjggNi42OCAxNC4yNDY3TDcuOTYgMTAuMjMzM0M4LjAzNjYxIDEwLjAyODMgOC4wMDc2OSA5Ljc5ODY5IDcuODgyNjEgOS42MTkwNUM3Ljc1NzUyIDkuNDM5NDEgNy41NTIyMyA5LjMzMjYyIDcuMzMzMzMgOS4zMzMzM0gyLjY2NjY3IiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjRTNCMzQxIi8+CjwvZz4KPC9zdmc+Cg==" />
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4713" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4714">
+                  <p class="leading-[20px]">Energy Saving Event Active</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative shrink-0 w-full" data-node-id="10121:4715" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pb-[0.8px] pt-px relative size-full">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#cad6ec)] w-full" data-node-id="10121:4716">
+                <p class="leading-[18px]">Heating temporarily limited by your utility provider.</p>
+              </div>
+            </div>
+          </div>
+          <div class="relative shrink-0 w-full" data-node-id="10121:4717" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--status\/amber,#e3b341)] w-full" data-node-id="10121:4718">
+                <p class="leading-[18px]">Ends in: 48 minutes</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute right-[14px] top-[14px]" data-node-id="10121:4719" data-name="iconify-icon">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
+              <div class="relative shrink-0 size-[14px]" data-node-id="10121:4720" data-name="SVG">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMTAuNSAzLjVMMy41IDEwLjVNMy41IDMuNUwxMC41IDEwLjUiIHN0cm9rZS13aWR0aD0iMS4xNjY2NyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPC9nPgo8L3N2Zz4K" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid content-stretch flex flex-col gap-[10px] items-start overflow-clip px-[16px] py-[14px] relative rounded-[10px] shrink-0 w-[327px]" data-node-id="10121:4731" data-name="Comfort Profile Card · A · Following schedule">
+          <div class="content-stretch flex gap-[12px] items-center overflow-clip relative shrink-0 w-full" data-node-id="10121:4732" data-name="Container">
+            <div class="bg-[#192947] content-stretch flex items-center justify-center overflow-clip relative rounded-[8px] shrink-0 size-[40px]" data-node-id="10121:4733" data-name="Background">
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4734" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[18px]" data-node-id="10121:4735" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMTggMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMTUuNzM4NyA5LjM2NDVDMTUuNTQyOSAxMi45OTI2IDEyLjUxMDMgMTUuODE0NyA4Ljg3NzQ3IDE1Ljc0OTZDNS4yNDQ2NSAxNS42ODQ0IDIuMzE1MjMgMTIuNzU1MyAyLjI0OTY2IDkuMTIyNDZDMi4xODQwOSA1LjQ4OTY1IDUuMDA1OSAyLjQ1Njc0IDguNjM0IDIuMjYwNUM4LjkzNzc1IDIuMjQ0IDkuMDk2NzUgMi42MDU1IDguOTM1NSAyLjg2Mjc1QzcuODI0ODkgNC42Mzk2OSA4LjA4Nzc3IDYuOTQ4MDQgOS41Njk0OSA4LjQyOTc2QzExLjA1MTIgOS45MTE0OCAxMy4zNTk2IDEwLjE3NDQgMTUuMTM2NSA5LjA2Mzc1QzE1LjM5NDUgOC45MDI1IDE1Ljc1NTIgOS4wNjA3NSAxNS43Mzg3IDkuMzY0NSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjNEI3NUMwIi8+CjwvZz4KPC9zdmc+Cg==" />
+                </div>
+              </div>
+            </div>
+            <div class="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col gap-[3px] items-start min-w-px overflow-clip relative tracking-[var(--tracking-normal,0px)]" data-node-id="10121:4737" data-name="Container">
+              <p class="font-[family-name:var(--font-sans,'Roboto:SemiBold')] font-[var(--font-semibold,600)] h-[13px] leading-[var(--leading-tight,16px)] relative shrink-0 text-[#7695cf] text-[length:var(--text-xs,10.24px)] uppercase w-full" data-node-id="10121:4738" style="font-variation-settings:'wdth' 100">
+                COMFORT PROFILE
+              </p>
+              <p class="font-[family-name:var(--font-sans,'Roboto:SemiBold')] font-[var(--font-semibold,600)] leading-[var(--line-height\/leading-5,20px)] relative shrink-0 text-[#f7f9fc] text-[length:var(--text-base,16px)] w-full" data-node-id="10121:4739" style="font-variation-settings:'wdth' 100">
+                Sleep
+              </p>
+              <p class="font-[family-name:var(--font-sans,'Roboto:Regular')] font-[var(--font-normal,400)] leading-[var(--leading-snug,20px)] relative shrink-0 text-[#cad6ec] text-[length:var(--text-sm,12.8px)] w-full" data-node-id="10121:4740" style="font-variation-settings:'wdth' 100">
+                Following your schedule
+              </p>
+            </div>
+            <div class="content-stretch flex items-center justify-center overflow-clip relative shrink-0 size-[20px]" data-node-id="10121:4741" data-name="Container">
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4742" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[14px]" data-node-id="10121:4743" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNS4yNSAxMC41TDguNzUgN0w1LjI1IDMuNSIgc3Ryb2tlLXdpZHRoPSIxLjE2NjY3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-[var(--border\/default,#1e3352)] border-solid border-t content-stretch flex gap-[4px] items-center overflow-clip pt-[8px] relative shrink-0 w-full" data-node-id="10121:4745" data-name="Bottom row">
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4746" data-name="iconify-icon">
+              <div class="overflow-clip relative shrink-0 size-[11px]" data-node-id="10121:4747" data-name="SVG">
+                <div class="absolute inset-[8.33%_8.33%_8.33%_8.34%]" data-node-id="10121:4748" data-name="Group">
+                  <div class="absolute inset-[-5%]">
+                    <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEwLjA4MzMiIGhlaWdodD0iMTAuMDgzMyIgdmlld0JveD0iMCAwIDEwLjA4MzMgMTAuMDgzMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTAuNDU4MzMzIDUuMDQxNjdDMC40NTgzMzMgNy41NzEyOCAyLjUxMjA2IDkuNjI1IDUuMDQxNjcgOS42MjVDNy41NzEyOCA5LjYyNSA5LjYyNSA3LjU3MTI4IDkuNjI1IDUuMDQxNjdDOS42MjUgMi41MTIwNiA3LjU3MTI4IDAuNDU4MzMzIDUuMDQxNjcgMC40NTgzMzNDMi41MTIwNiAwLjQ1ODMzMyAwLjQ1ODMzMyAyLjUxMjA2IDAuNDU4MzMzIDUuMDQxNjdWNS4wNDE2NyIgc3Ryb2tlLXdpZHRoPSIwLjkxNjY2NyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNNS4wNDE2NyAyLjI5MTY3VjUuMDQxNjdMNi44NzUgNS45NTgzMyIgc3Ryb2tlLXdpZHRoPSIwLjkxNjY2NyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPC9nPgo8L3N2Zz4K" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="[word-break:break-word] flex-[1_0_0] font-['Inter:Regular'] font-normal leading-[normal] min-w-px not-italic relative text-[#7695cf] text-[11px]" data-node-id="10121:4751">
+              Home at 6:30 AM
+            </p>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid h-[203px] relative rounded-[10px] shrink-0 w-[325px]" data-node-id="10121:4752" data-name="Thermostat Card">
+          <div class="absolute content-stretch flex items-center justify-between left-[20px] right-[20px] top-[20px]" data-node-id="10121:4753" data-name="Container">
+            <div class="content-stretch flex gap-[5px] items-center relative shrink-0" data-node-id="10121:4754" data-name="Container">
+              <div class="relative shrink-0 size-[16px]" data-node-id="10121:4755" data-name="Lucide Icons">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJMdWNpZGUgSWNvbnMiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNOS4zMzMzMyAyLjY2NjY3VjkuNjkzMzNDOS44NDE3MSA5Ljk4Njg1IDEwLjIzOSAxMC40Mzk5IDEwLjQ2MzcgMTAuOTgyMkMxMC42ODgzIDExLjUyNDYgMTAuNzI3NyAxMi4xMjU5IDEwLjU3NTggMTIuNjkyOUMxMC40MjM5IDEzLjI1OTkgMTAuMDg5MSAxMy43NjEgOS42MjMzNiAxNC4xMTgzQzkuMTU3NjUgMTQuNDc1NyA4LjU4NzAyIDE0LjY2OTQgOCAxNC42Njk0QzcuNDEyOTggMTQuNjY5NCA2Ljg0MjM1IDE0LjQ3NTcgNi4zNzY2NCAxNC4xMTgzQzUuOTEwOTIgMTMuNzYxIDUuNTc2MTMgMTMuMjU5OSA1LjQyNDIgMTIuNjkyOUM1LjI3MjI2IDEyLjEyNTkgNS4zMTE2OCAxMS41MjQ2IDUuNTM2MzIgMTAuOTgyMkM1Ljc2MDk3IDEwLjQzOTkgNi4xNTgyOSA5Ljk4Njg1IDYuNjY2NjcgOS42OTMzM1YyLjY2NjY3QzYuNjY2NjcgMi4zMTMwNCA2LjgwNzE0IDEuOTczOTEgNy4wNTcxOSAxLjcyMzg2QzcuMzA3MjQgMS40NzM4MSA3LjY0NjM4IDEuMzMzMzMgOCAxLjMzMzMzQzguMzUzNjIgMS4zMzMzMyA4LjY5Mjc2IDEuNDczODEgOC45NDI4MSAxLjcyMzg2QzkuMTkyODYgMS45NzM5MSA5LjMzMzMzIDIuMzEzMDQgOS4zMzMzMyAyLjY2NjY3WiIgc3Ryb2tlLXdpZHRoPSIxLjE3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iI0NBRDZFQyIvPgo8L2c+Cjwvc3ZnPgo=" />
+              </div>
+              <div class="[word-break:break-word] flex flex-col font-[family-name:var(--font-sans,'Roboto:SemiBold')] font-[var(--font-semibold,600)] justify-center leading-[0] relative shrink-0 text-[color:var(--text\/secondary,#cad6ec)] text-[length:var(--text-base,16px)] tracking-[var(--tracking-normal,0px)] whitespace-nowrap" data-node-id="10121:4756" style="font-variation-settings:'wdth' 100">
+                <p class="leading-[var(--line-height\/leading-5,20px)]">Thermostat</p>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4760" data-name="iconify-icon">
+              <div class="relative shrink-0 size-[14px]" data-node-id="10121:4761" data-name="SVG">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNS4yNSAxMC41TDguNzUgN0w1LjI1IDMuNSIgc3Ryb2tlLXdpZHRoPSIxLjE2NjY3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+              </div>
+            </div>
+          </div>
+          <div class="absolute content-stretch flex flex-col items-start left-[20px] top-[59px] w-[283px]" data-node-id="10121:5015">
+            <div class="content-stretch flex flex-col items-center relative shrink-0 w-full" data-node-id="10121:4774" data-name="Container">
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4775" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Bold'] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[52px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4776">
+                  <p class="leading-[62px]">72°</p>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start pt-[8px] relative shrink-0" data-node-id="10121:4777" data-name="Margin">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4778">
+                  <p class="leading-[20px]">Cooling to 70°</p>
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex items-center justify-center relative shrink-0 w-full" data-node-id="10121:4763" data-name="Container">
+              <div class="border-[var(--border\/default,#1e3352)] border-r border-solid content-stretch flex flex-col items-center pr-px relative shrink-0 w-[147px]" data-node-id="10121:4764" data-name="VerticalBorder">
+                <div class="relative shrink-0" data-node-id="10121:4765" data-name="Container">
+                  <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
+                    <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[10px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4766">
+                      <p class="leading-[14px]">Indoor Humidity</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="relative shrink-0" data-node-id="10121:4767" data-name="Margin">
+                  <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pt-[4px] relative size-full">
+                    <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4768">
+                      <p class="leading-[20px]">45%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-center relative shrink-0 w-[146px]" data-node-id="10121:4769" data-name="Container">
+                <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4770" data-name="Container">
+                  <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[10px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4771">
+                    <p class="leading-[14px]">Outdoor</p>
+                  </div>
+                </div>
+                <div class="content-stretch flex flex-col items-start pt-[4px] relative shrink-0" data-node-id="10121:4772" data-name="Margin">
+                  <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4773">
+                    <p class="leading-[20px]">85°</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid content-stretch flex flex-col gap-[16px] h-[220px] items-start p-[21px] relative rounded-[10px] shrink-0 w-[325px]" data-node-id="10121:4779" data-name="Water Heater Card">
+          <div class="relative shrink-0 w-full" data-node-id="10121:4780" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-between relative size-full">
+              <div class="content-stretch flex gap-[5px] items-center relative shrink-0" data-node-id="10121:4781" data-name="Container">
+                <div class="relative shrink-0 size-[20px]" data-node-id="10121:4782" data-name="Lucide Icons">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJMdWNpZGUgSWNvbnMiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNy4wODMzMyAxLjY2NjY3SDEyLjkxNjdDMTQuMDY3MyAxLjY2NjY3IDE1IDIuNTk5NDEgMTUgMy43NVYxMi45MTY3QzE1IDE0LjA2NzMgMTQuMDY3MyAxNSAxMi45MTY3IDE1SDcuMDgzMzNDNS45MzI3NCAxNSA1IDE0LjA2NzMgNSAxMi45MTY3VjMuNzVDNSAyLjU5OTQxIDUuOTMyNzQgMS42NjY2NyA3LjA4MzMzIDEuNjY2NjdaIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik0xMi4wODMzIDEwLjgzMzNDMTIuMDgzMyAxMS45ODM5IDExLjE1MDYgMTIuOTE2NyAxMCAxMi45MTY3QzguODQ5NDEgMTIuOTE2NyA3LjkxNjY3IDExLjk4MzkgNy45MTY2NyAxMC44MzMzQzcuOTE2NjcgOS42ODI3NCA4Ljg0OTQxIDguNzUgMTAgOC43NUMxMS4xNTA2IDguNzUgMTIuMDgzMyA5LjY4Mjc0IDEyLjA4MzMgMTAuODMzM1oiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTEwIDEwLjgzMzNMMTEuMTY2NyA5LjY2NjY3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzQiIGQ9Ik01LjgzMzMzIDE1VjE2LjI1QzUuODMzMzMgMTYuNDcxIDUuOTIxMTMgMTYuNjgzIDYuMDc3NDEgMTYuODM5M0M2LjIzMzY5IDE2Ljk5NTUgNi40NDU2NSAxNy4wODMzIDYuNjY2NjcgMTcuMDgzM0gxMy4zMzMzQzEzLjU1NDMgMTcuMDgzMyAxMy43NjYzIDE2Ljk5NTUgMTMuOTIyNiAxNi44MzkzQzE0LjA3ODkgMTYuNjgzIDE0LjE2NjcgMTYuNDcxIDE0LjE2NjcgMTYuMjVWMTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfNSIgZD0iTTguMzMzMzMgMTcuMDgzM1YxOC4zMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzYiIGQ9Ik0xMS42NjY3IDE3LjA4MzNWMTguMzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPC9nPgo8L3N2Zz4K" />
+                </div>
+                <div class="[word-break:break-word] flex flex-col font-[family-name:var(--font-sans,'Roboto:SemiBold')] font-[var(--font-semibold,600)] justify-center leading-[0] relative shrink-0 text-[color:var(--text\/primary,#f7f9fc)] text-[length:var(--text-base,16px)] tracking-[var(--tracking-normal,0px)] whitespace-nowrap" data-node-id="10121:4783" style="font-variation-settings:'wdth' 100">
+                  <p class="leading-[var(--line-height\/leading-5,20px)]">Water Heater</p>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4787" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[14px]" data-node-id="10121:4788" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNS4yNSAxMC41TDguNzUgN0w1LjI1IDMuNSIgc3Ryb2tlLXdpZHRoPSIxLjE2NjY3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative shrink-0 w-full" data-node-id="10121:4790" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col isolate items-center relative size-full">
+              <div class="content-stretch flex flex-col items-center justify-center relative shrink-0 size-[120px] z-[2]" data-node-id="10121:4791" data-name="Container">
+                <div class="absolute flex inset-[-0.27px] items-center justify-center" data-node-id="10121:4792" style="container-type:size">
+                  <div class="flex-none h-[hypot(-99.556cqw,0.444006cqh)] rotate-[89.74deg] w-[hypot(0.444006cqw,99.556cqh)]">
+                    <div class="relative size-full" data-name="SVG">
+                      <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iU1ZHIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8xOTEpIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTQgNjBDNCA5MC45MDcyIDI5LjA5MjggMTE2IDYwIDExNkM5MC45MDcyIDExNiAxMTYgOTAuOTA3MiAxMTYgNjBDMTE2IDI5LjA5MjggOTAuOTA3MiA0IDYwIDRDMjkuMDkyOCA0IDQgMjkuMDkyOCA0IDYwVjYwIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZT0iIzFFMzM1MiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik00IDYwQzQgOTAuOTA3MiAyOS4wOTI4IDExNiA2MCAxMTZDOTAuOTA3MiAxMTYgMTE2IDkwLjkwNzIgMTE2IDYwQzExNiAyOS4wOTI4IDkwLjkwNzIgNCA2MCA0QzI5LjA5MjggNCA0IDI5LjA5MjggNCA2MFY2MCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0idXJsKCNwYWludDBfbGluZWFyXzBfMTkxKSIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMF8xOTEiIHgxPSI0IiB5MT0iMTE2IiB4Mj0iMTE2IiB5Mj0iNCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNEI3NUMwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJEQTQ0RSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzBfMTkxIj4KPHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==" />
+                    </div>
+                  </div>
+                </div>
+                <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4795" data-name="Container">
+                  <div class="[word-break:break-word] flex flex-col font-['Inter:Bold'] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[32px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4796">
+                    <p class="leading-[38px]">128°F</p>
+                  </div>
+                </div>
+                <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4797" data-name="Margin">
+                  <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4798">
+                    <p class="leading-[18px]">On</p>
+                  </div>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start pt-[12px] relative shrink-0 z-[1]" data-node-id="10121:4799" data-name="Margin">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Medium'] font-medium justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4800">
+                  <p class="leading-[18px]">86% Hot Water Available</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid content-stretch flex gap-[14px] items-start overflow-clip p-[16px] relative rounded-[14px] shrink-0 w-[325px]" data-node-id="10121:4801" data-name="Smart Valve Row · Open (clickable)">
+          <div class="content-stretch flex flex-[1_0_0] flex-col gap-[3px] items-start min-w-px overflow-clip relative" data-node-id="10121:4804" data-name="Text">
+            <div class="content-stretch flex items-center justify-between relative shrink-0 w-full" data-node-id="10121:4805">
+              <div class="content-stretch flex gap-[8px] items-start relative shrink-0 w-[221px]" data-node-id="10121:4806">
+                <div class="content-stretch flex flex-col h-[20px] items-center justify-center overflow-clip py-[2px] relative shrink-0 w-[24px]" data-node-id="10121:4807" data-name="Lucide Icons">
+                  <div class="flex-[1_0_0] min-h-px overflow-clip relative w-full" data-node-id="I10121:4807;8744:7970" data-name="Smart_Valve 1">
+                    <div class="absolute inset-[4.2%_25.58%]" data-node-id="I10121:4807;8744:7971" data-name="Vector">
+                      <div class="absolute inset-[-5.7%_-7.12%]">
+                        <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEzLjM5MjIiIGhlaWdodD0iMTYuMzI2NyIgdmlld0JveD0iMCAwIDEzLjM5MjIgMTYuMzI2NyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEuMDcxNjIgMC44MzVIMTIuMzIwNUMxMi40NTEyIDAuODM1IDEyLjU1NzIgMC45NDIwNTIgMTIuNTU3MiAxLjA3NDExVjE1LjI1MjZDMTIuNTU3MiAxNS4zODQ3IDEyLjQ1MTIgMTUuNDkxNyAxMi4zMjA1IDE1LjQ5MTdIMS4wNzE2MkMwLjk0MDk0IDE1LjQ5MTcgMC44MzUgMTUuMzg0NyAwLjgzNSAxNS4yNTI2VjEuMDc0MTFDMC44MzUgMC45NDIwNTIgMC45NDA5NCAwLjgzNSAxLjA3MTYyIDAuODM1WiIgc3Ryb2tlLXdpZHRoPSIxLjY3IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L3N2Zz4K" />
+                      </div>
+                    </div>
+                    <div class="absolute inset-[43%_42.84%_24.91%_42.83%]" data-node-id="I10121:4807;8744:7972" data-name="Vector">
+                      <div class="absolute inset-[-16.26%_-24.28%]">
+                        <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjUuMTA5MjgiIGhlaWdodD0iNi44MDM5NiIgdmlld0JveD0iMCAwIDUuMTA5MjggNi44MDM5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTQuMTE3NDIgMy41MDQxM0M0LjA3MzU1IDMuNDA3NDEgMi42MTEyNyAwLjg2NzIzOSAyLjYxMTI3IDAuODY3MjM5QzIuNTg3MzQgMC44MjQyNTQgMi41MjYxOSAwLjgyNDI1NCAyLjUwMjI3IDAuODY3MjM5QzIuNTAyMjcgMC44NjcyMzkgMS4yNjQ2NCAzLjAxNzg2IDEuMTYyMjggMy4yMTEyOUMxLjA1OTkzIDMuNDA0NzMgMC44MjU5NiAzLjg3NDg4IDAuODM1MjY2IDQuMjcxMTVDMC44NTY1MzUgNS4xODMyNSAxLjU4NzY3IDUuOTMyODEgMi40ODg5NyA1Ljk2Nzc0QzMuNDY4NyA2LjAwNCA0LjI3NDI4IDUuMjEyOCA0LjI3NDI4IDQuMjMwODVDNC4yNzQyOCAzLjk3Mjk0IDQuMjQ1MDQgMy43NTI2NCA0LjExODc1IDMuNTA4MTZMNC4xMTc0MiAzLjUwNDEzWiIgc3Ryb2tlLXdpZHRoPSIxLjY3IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L3N2Zz4K" />
+                      </div>
+                    </div>
+                    <div class="absolute contents inset-[46%_2.77%_22.07%_2.77%]" data-node-id="I10121:4807;8744:7973" data-name="Group">
+                      <div class="absolute inset-[46%_2.77%_54%_2.77%]" data-node-id="I10121:4807;8744:7974" data-name="Group">
+                        <div class="absolute inset-[-0.84px_-3.68%]">
+                          <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0LjM0MDciIGhlaWdodD0iMS42NyIgdmlld0JveD0iMCAwIDI0LjM0MDcgMS42NyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTAuODM1IDAuODM1SDYuMDE5NDUiIHN0cm9rZS13aWR0aD0iMS42NyIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik0xOC4zMjEyIDAuODM1SDIzLjUwNTciIHN0cm9rZS13aWR0aD0iMS42NyIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                        </div>
+                      </div>
+                      <div class="absolute inset-[77.93%_2.77%_22.07%_2.77%]" data-node-id="I10121:4807;8744:7977" data-name="Group">
+                        <div class="absolute inset-[-0.83px_-3.68%]">
+                          <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0LjM0MDciIGhlaWdodD0iMS42NyIgdmlld0JveD0iMCAwIDI0LjM0MDcgMS42NyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTAuODM1IDAuODM1SDYuMDE5NDUiIHN0cm9rZS13aWR0aD0iMS42NyIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik0xOC4zMjEyIDAuODM1SDIzLjUwNTciIHN0cm9rZS13aWR0aD0iMS42NyIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="content-stretch flex flex-[1_0_0] items-center justify-center min-w-px relative" data-node-id="10121:4808">
+                  <p class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--font-sans,'Roboto:SemiBold')] font-[var(--font-semibold,600)] leading-[var(--line-height\/leading-5,20px)] min-w-px relative text-[color:var(--text\/primary,#f7f9fc)] text-[length:var(--text-base,16px)] tracking-[var(--tracking-normal,0px)]" data-node-id="10121:4809" style="font-variation-settings:'wdth' 100">
+                    Smart Valve
+                  </p>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4810" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[14px]" data-node-id="10121:4811" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNS4yNSAxMC41TDguNzUgN0w1LjI1IDMuNSIgc3Ryb2tlLXdpZHRoPSIxLjE2NjY3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                </div>
+              </div>
+            </div>
+            <div class="[word-break:break-word] content-stretch flex gap-[8px] items-center justify-center not-italic relative shrink-0 text-[11px] w-full" data-node-id="10121:4813">
+              <div class="flex flex-[1_0_0] flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[color:var(--text\/muted,#7695cf)]" data-node-id="10121:4814">
+                <p class="leading-[16px]">Utility Closet</p>
+              </div>
+              <p class="font-['Inter:Semi_Bold'] font-semibold leading-[16px] relative shrink-0 text-[color:var(--status\/green,#2da44e)] whitespace-nowrap" data-node-id="10121:4815">
+                Open
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid content-stretch flex h-[66px] items-center px-[17px] py-[15px] relative rounded-[10px] shrink-0 w-[325px]" data-node-id="10121:4822" data-name="Water Leak Sensor Card">
+          <div class="h-[36px] relative shrink-0 w-[48px]" data-node-id="10121:4823" data-name="Margin">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pr-[12px] relative size-full">
+              <div class="bg-[var(--background\/inner-card,#192947)] content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[36px]" data-node-id="10121:4824" data-name="Background">
+                <div class="relative shrink-0 size-[18px]" data-node-id="10121:4825" data-name="Lucide Icons">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMTggMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJMdWNpZGUgSWNvbnMiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNOS40MjAwNyA0Ljk1MDAxQzkuOTM1ODkgNC4xMjU4NiAxMC4zMDE1IDMuMjE2OCAxMC41MDAxIDIuMjY1MDFDMTAuODc1MSA0LjE0MDAxIDEyLjAwMDEgNS45NDAwMSAxMy41MDAxIDcuMTQwMDJDMTUuMDAwMSA4LjM0MDAyIDE1Ljc1MDEgOS43NjUwMSAxNS43NTAxIDExLjI2NUMxNS43NTQ0IDEyLjMwMTcgMTUuNDUwNyAxMy4zMTY0IDE0Ljg3NzcgMTQuMTgwM0MxNC4zMDQ2IDE1LjA0NDMgMTMuNDg3OSAxNS43MTg2IDEyLjUzMTIgMTYuMTE3OUMxMS41NzQ0IDE2LjUxNzEgMTAuNTIwNiAxNi42MjMzIDkuNTAzNDUgMTYuNDIzQzguNDg2MjYgMTYuMjIyNiA3LjU1MTQ3IDE1LjcyNDggNi44MTc1NyAxNC45OTI1TTUuMjUgMTIuMjI1QzYuOSAxMi4yMjUgOC4yNSAxMC44NTI1IDguMjUgOS4xODc1NEM4LjI1IDguMzE3NTQgNy44MjI1IDcuNDkyNTQgNi45Njc1IDYuNzk1MDRDNi4xMTI1IDYuMDk3NTQgNS40Njc1IDUuMDYyNTQgNS4yNSAzLjk3NTA0QzUuMDMyNSA1LjA2MjU0IDQuMzk1IDYuMTA1MDQgMy41MzI1IDYuNzk1MDRDMi42NyA3LjQ4NTA0IDIuMjUgOC4zMjUwNCAyLjI1IDkuMTg3NTRDMi4yNSAxMC44NTI1IDMuNiAxMi4yMjUgNS4yNSAxMi4yMjVaIiBzdHJva2Utd2lkdGg9IjEuMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPC9nPgo8L3N2Zz4K" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-[1_0_0] min-w-px relative" data-node-id="10121:4826" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[3px] items-start relative size-full">
+              <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="10121:4827" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/primary,#f7f9fc)] w-full" data-node-id="10121:4828">
+                  <p class="leading-[20px]">Leak Sensor</p>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="10121:4829" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/muted,#7695cf)] w-full" data-node-id="10121:4830">
+                  <p class="leading-[16px]">Basement</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative rounded-[20px] shrink-0" data-node-id="10121:4831" data-name="Background+Border">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center py-[4px] relative size-full">
+              <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[16px] not-italic relative shrink-0 text-[11px] text-[color:var(--status\/green,#2da44e)] whitespace-nowrap" data-node-id="10121:4832">
+                Not Wet
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-[var(--background\/card,#111f33)] border border-[var(--border\/default,#1e3352)] border-solid content-stretch flex items-center px-[17px] py-[9px] relative rounded-[10px] shrink-0 w-[325px]" data-node-id="10121:4833" data-name="Water Leak Sensor Card">
+          <div class="h-[36px] relative shrink-0 w-[48px]" data-node-id="10121:4834" data-name="Margin">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pr-[12px] relative size-full">
+              <div class="bg-[var(--background\/inner-card,#192947)] content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[36px]" data-node-id="10121:4835" data-name="Background">
+                <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4836" data-name="iconify-icon">
+                  <div class="overflow-clip relative shrink-0 size-[18px]" data-node-id="10121:4837" data-name="SVG">
+                    <div class="absolute inset-[20.55%_8.33%]" data-node-id="10121:4838" data-name="Group">
+                      <div class="absolute inset-[-7.07%_-5%_-7.08%_-5%]">
+                        <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2LjQ5OTgiIGhlaWdodD0iMTIuMTAwNSIgdmlld0JveD0iMCAwIDE2LjQ5OTggMTIuMTAwNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTExLjQzNTIgMi44NzFDMTMuMTg4OSA0LjYyNzczIDEzLjE4ODkgNy40NzI3NyAxMS40MzUyIDkuMjI5NU0xMy41NTYyIDAuNzVDMTYuNDgxIDMuNjc4MjMgMTYuNDgxIDguNDIyMjcgMTMuNTU2MiAxMS4zNTA1TTIuOTQzNjUgMTEuMzUwNUMwLjAxODc4MzMgOC40MjIyNyAwLjAxODc4MzMgMy42NzgyMyAyLjk0MzY1IDAuNzVNNS4wNjQ2NSA5LjIyOTVDMy4zMTA5MyA3LjQ3Mjc3IDMuMzEwOTMgNC42Mjc3MyA1LjA2NDY1IDIuODcxIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNNi43NDk5IDYuMDUwMjVDNi43NDk5IDYuODc4MTIgNy40MjIwMyA3LjU1MDI1IDguMjQ5OSA3LjU1MDI1QzkuMDc3NzcgNy41NTAyNSA5Ljc0OTkgNi44NzgxMiA5Ljc0OTkgNi4wNTAyNUM5Ljc0OTkgNS4yMjIzOCA5LjA3Nzc3IDQuNTUwMjUgOC4yNDk5IDQuNTUwMjVDNy40MjIwMyA0LjU1MDI1IDYuNzQ5OSA1LjIyMjM4IDYuNzQ5OSA2LjA1MDI1VjYuMDUwMjUiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-[1_0_0] min-w-px relative" data-node-id="10121:4841" data-name="Container">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[3px] items-start relative size-full">
+              <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="10121:4842" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[13px] text-[color:var(--text\/primary,#f7f9fc)] w-full" data-node-id="10121:4843">
+                  <p class="leading-[20px]">Temperature/Humidity Sensor</p>
+                </div>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="10121:4844" data-name="Container">
+                <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/muted,#7695cf)] w-full" data-node-id="10121:4845">
+                  <p class="leading-[16px]">Utility Room</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative rounded-[20px] shrink-0" data-node-id="10121:4846" data-name="Background+Border">
+            <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center px-[5px] py-[4px] relative size-full">
+              <div class="[word-break:break-word] font-[family-name:var(--font-sans,'Roboto:Bold')] font-[var(--font-weight\/font-bold,700)] leading-[0] relative shrink-0 text-[color:var(--text\/link,#4b75c0)] text-[length:var(--text-sm,12.8px)] tracking-[var(--tracking-normal,0px)] whitespace-nowrap" data-node-id="10121:4847" style="font-variation-settings:'wdth' 100">
+                <p class="leading-[var(--leading-snug,20px)] mb-0">78F</p>
+                <p class="leading-[var(--leading-snug,20px)]">42%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bg-[var(--background\/inner-card,#192947)] border-[var(--border\/default,#1e3352)] border-b border-solid content-stretch flex h-[73px] items-center justify-between left-0 pb-[var(--p-4,17px)] pt-[var(--p-4,16px)] px-[var(--p-5,20px)] right-0 top-0" data-node-id="10121:4848" data-name="Header">
+        <div class="relative shrink-0" data-node-id="10121:4849" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[2px] items-start relative size-full">
+            <div class="content-stretch flex gap-[4px] items-center relative shrink-0 w-full" data-node-id="10121:4850" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Semi_Bold'] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[18px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4851">
+                <p class="leading-[24px]">Unit 4B</p>
+              </div>
+              <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4852" data-name="iconify-icon">
+                <div class="relative shrink-0 size-[16px]" data-node-id="10121:4853" data-name="SVG">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJTVkciPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNCA2TDggMTBMMTIgNiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="10121:4855" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4856">
+                <p class="leading-[18px]">Oakwood Residences</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative shrink-0" data-node-id="10121:4857" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[var(--m-4,16px)] items-center p-[var(--p-0,0px)] relative size-full">
+            <div class="relative shrink-0 size-[24px]" data-node-id="10121:4858" data-name="Lucide Icons">
+              <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJMdWNpZGUgSWNvbnMiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMTAuMyAyMUMxMC40Njc0IDIxLjMwNDQgMTAuNzEzNSAyMS41NTgzIDExLjAxMjUgMjEuNzM1MkMxMS4zMTE2IDIxLjkxMiAxMS42NTI2IDIyLjAwNTMgMTIgMjIuMDA1M0MxMi4zNDc1IDIyLjAwNTMgMTIuNjg4NSAyMS45MTIgMTIuOTg3NiAyMS43MzUyQzEzLjI4NjYgMjEuNTU4MyAxMy41MzI3IDIxLjMwNDQgMTMuNyAyMU02IDhDNiA2LjQwODcgNi42MzIxNCA0Ljg4MjU4IDcuNzU3MzYgMy43NTczNkM4Ljg4MjU4IDIuNjMyMTQgMTAuNDA4NyAyIDEyIDJDMTMuNTkxMyAyIDE1LjExNzQgMi42MzIxNCAxNi4yNDI2IDMuNzU3MzZDMTcuMzY3OSA0Ljg4MjU4IDE4IDYuNDA4NyAxOCA4QzE4IDE1IDIxIDE3IDIxIDE3SDNDMyAxNyA2IDE1IDYgOFoiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNDQUQ2RUMiLz4KPC9nPgo8L3N2Zz4K" />
+            </div>
+            <div class="content-stretch flex flex-col gap-[var(--m-2.5,10px)] items-center justify-center p-[var(--p-0,0px)] relative shrink-0 size-[32px]" data-node-id="10121:4859" data-name="avatar">
+              <div class="absolute bg-[var(--brand\/blue-200,#cad6ec)] border border-[var(--brand\/blue-200,#cad6ec)] border-solid inset-0 rounded-[var(--border-radius\/rounded-full,9999px)]" data-node-id="I10121:4859;4130:2786" data-name="image 1" ></div>
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Medium'] font-[var(--font-weight\/font-medium,500)] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--text\/secondary,#cad6ec)] text-[length:var(--font-size\/text-sm,14px)] text-center w-[21px]" data-node-id="I10121:4859;4130:2787">
+                <p class="leading-[var(--line-height\/leading-6,24px)]">LS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="-translate-x-1/2 absolute bg-[var(--background\/card,#111f33)] border-[var(--border\/default,#1e3352)] border-solid border-t content-stretch flex h-[82px] items-start justify-center left-1/2 pb-[12px] pt-px top-[1124px] w-[375px]" data-node-id="10121:4860" data-name="Bottom Navigation">
+        <div class="flex-[1_0_0] h-full min-w-px relative" data-node-id="10121:4861" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-center justify-center relative size-full">
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4862" data-name="iconify-icon">
+              <div class="overflow-clip relative shrink-0 size-[22px]" data-node-id="10121:4863" data-name="SVG">
+                <div class="absolute inset-[8.33%_12.5%_12.5%_12.5%]" data-node-id="10121:4864" data-name="Group">
+                  <div class="absolute inset-[-5.26%_-5.56%]">
+                    <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE4LjMzMzMiIGhlaWdodD0iMTkuMjUwNCIgdmlld0JveD0iMCAwIDE4LjMzMzMgMTkuMjUwNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTExLjkxNjcgMTguMzMzOFYxMS4wMDA0QzExLjkxNjcgMTAuNDk0NSAxMS41MDU5IDEwLjA4MzggMTEgMTAuMDgzOEg3LjMzMzMzQzYuODI3NDEgMTAuMDgzOCA2LjQxNjY3IDEwLjQ5NDUgNi40MTY2NyAxMS4wMDA0VjE4LjMzMzgiIHN0cm9rZS13aWR0aD0iMS44MzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNGN0Y5RkMiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNMC45MTY2NjcgOC4yNTA0NEMwLjkxNjUzNyA3LjcxMDY0IDEuMTU0MyA3LjE5ODIxIDEuNTY2NTggNi44NDk3N0w3Ljk4MzI1IDEuMzQ5NzdDOC42NjY1MiAwLjc3MjI5OCA5LjY2NjgxIDAuNzcyMjk4IDEwLjM1MDEgMS4zNDk3N0wxNi43NjY4IDYuODQ5NzdDMTcuMTc5IDcuMTk4MjEgMTcuNDE2OCA3LjcxMDY0IDE3LjQxNjcgOC4yNTA0NFYxNi41MDA0QzE3LjQxNjcgMTcuNTEzIDE2LjU5NTkgMTguMzMzOCAxNS41ODMzIDE4LjMzMzhIMi43NUMxLjczODE2IDE4LjMzMzggMC45MTY2NjcgMTcuNTEyMyAwLjkxNjY2NyAxNi41MDA0VjguMjUwNDQiIHN0cm9rZS13aWR0aD0iMS44MzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNGN0Y5RkMiLz4KPC9nPgo8L3N2Zz4K" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4867" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/primary,#f7f9fc)] whitespace-nowrap" data-node-id="10121:4868">
+                <p class="leading-[16px]">Home</p>
+              </div>
+            </div>
+            <div class="absolute bg-[var(--text\/primary,#f7f9fc)] bottom-0 h-[3px] left-[34.88px] rounded-[2px] w-[24px]" data-node-id="10121:4869" data-name="Background" ></div>
+          </div>
+        </div>
+        <div class="flex-[1_0_0] h-full min-w-px opacity-60 relative" data-node-id="10121:4870" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-center justify-center relative size-full">
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4871" data-name="iconify-icon">
+              <div class="overflow-clip relative shrink-0 size-[22px]" data-node-id="10121:4872" data-name="SVG">
+                <div class="absolute inset-[12.5%]" data-node-id="10121:4873" data-name="Group">
+                  <div class="absolute inset-[-5.56%_-5.55%_-5.56%_-5.56%]">
+                    <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE4LjMzMzMiIGhlaWdodD0iMTguMzMzMyIgdmlld0JveD0iMCAwIDE4LjMzMzMgMTguMzMzMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEuODMzMzMgMC45MTY2NjdINi40MTY2N0M2LjkyMjU5IDAuOTE2NjY3IDcuMzMzMzMgMS4zMjc0MSA3LjMzMzMzIDEuODMzMzNWNi40MTY2N0M3LjMzMzMzIDYuOTIyNTkgNi45MjI1OSA3LjMzMzMzIDYuNDE2NjcgNy4zMzMzM0gxLjgzMzMzQzEuMzI3NDEgNy4zMzMzMyAwLjkxNjY2NyA2LjkyMjU5IDAuOTE2NjY3IDYuNDE2NjdWMS44MzMzM0MwLjkxNjY2NyAxLjMyNzQxIDEuMzI3NDEgMC45MTY2NjcgMS44MzMzMyAwLjkxNjY2N1YwLjkxNjY2NyIgc3Ryb2tlLXdpZHRoPSIxLjgzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik0xMS45MTY3IDAuOTE2NjY3SDE2LjVDMTcuMDA1OSAwLjkxNjY2NyAxNy40MTY3IDEuMzI3NDEgMTcuNDE2NyAxLjgzMzMzVjYuNDE2NjdDMTcuNDE2NyA2LjkyMjU5IDE3LjAwNTkgNy4zMzMzMyAxNi41IDcuMzMzMzNIMTEuOTE2N0MxMS40MTA3IDcuMzMzMzMgMTEgNi45MjI1OSAxMSA2LjQxNjY3VjEuODMzMzNDMTEgMS4zMjc0MSAxMS40MTA3IDAuOTE2NjY3IDExLjkxNjcgMC45MTY2NjdWMC45MTY2NjciIHN0cm9rZS13aWR0aD0iMS44MzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zIiBkPSJNMTEuOTE2NyAxMUgxNi41QzE3LjAwNTkgMTEgMTcuNDE2NyAxMS40MTA3IDE3LjQxNjcgMTEuOTE2N1YxNi41QzE3LjQxNjcgMTcuMDA1OSAxNy4wMDU5IDE3LjQxNjcgMTYuNSAxNy40MTY3SDExLjkxNjdDMTEuNDEwNyAxNy40MTY3IDExIDE3LjAwNTkgMTEgMTYuNVYxMS45MTY3QzExIDExLjQxMDcgMTEuNDEwNyAxMSAxMS45MTY3IDExVjExIiBzdHJva2Utd2lkdGg9IjEuODMzMzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTEuODMzMzMgMTFINi40MTY2N0M2LjkyMjU5IDExIDcuMzMzMzMgMTEuNDEwNyA3LjMzMzMzIDExLjkxNjdWMTYuNUM3LjMzMzMzIDE3LjAwNTkgNi45MjI1OSAxNy40MTY3IDYuNDE2NjcgMTcuNDE2N0gxLjgzMzMzQzEuMzI3NDEgMTcuNDE2NyAwLjkxNjY2NyAxNy4wMDU5IDAuOTE2NjY3IDE2LjVWMTEuOTE2N0MwLjkxNjY2NyAxMS40MTA3IDEuMzI3NDEgMTEgMS44MzMzMyAxMVYxMSIgc3Ryb2tlLXdpZHRoPSIxLjgzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4878" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4879">
+                <p class="leading-[16px]">Devices</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-[1_0_0] h-full min-w-px opacity-60 relative" data-node-id="10121:4880" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-center justify-center relative size-full">
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4881" data-name="iconify-icon">
+              <div class="overflow-clip relative shrink-0 size-[22px]" data-node-id="10121:4882" data-name="SVG">
+                <div class="absolute inset-[8.33%_8.26%_8.34%_8.33%]" data-node-id="10121:4883" data-name="Group">
+                  <div class="absolute inset-[-5%_-4.99%_-5%_-5%]">
+                    <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIwLjE4MTgiIGhlaWdodD0iMjAuMTY1MiIgdmlld0JveD0iMCAwIDIwLjE4MTggMjAuMTY1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEwLjg0NDIgMS4wODE5OUMxMC4zNjA5IDAuODYxNTU4IDkuODA1NzcgMC44NjE1NTggOS4zMjI1IDEuMDgxOTlMMS40NjY2NyA0LjY1Njk5QzEuMTM0MzEgNC44MDM1NCAwLjkxOTgzNiA1LjEzMjUxIDAuOTE5ODM2IDUuNDk1NzRDMC45MTk4MzYgNS44NTg5OCAxLjEzNDMxIDYuMTg3OTUgMS40NjY2NyA2LjMzNDQ5TDkuMzMxNjcgOS45MTg2NkM5LjgxNDk0IDEwLjEzOTEgMTAuMzcwMSAxMC4xMzkxIDEwLjg1MzMgOS45MTg2NkwxOC43MTgzIDYuMzQzNjZDMTkuMDUwNyA2LjE5NzExIDE5LjI2NTIgNS44NjgxNCAxOS4yNjUyIDUuNTA0OTFDMTkuMjY1MiA1LjE0MTY4IDE5LjA1MDcgNC44MTI3MSAxOC43MTgzIDQuNjY2MTZMMTAuODQ0MiAxLjA4MTk5IiBzdHJva2Utd2lkdGg9IjEuODMzMzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSIjNzY5NUNGIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTAuOTE2NjcgMTAuMDgzN0MwLjkxNTc4NCAxMC40NDE3IDEuMTIzNDIgMTAuNzY3NSAxLjQ0ODM0IDEwLjkxNzhMOS4zMzE2NyAxNC41MDJDOS44MTIzNCAxNC43MTk3IDEwLjM2MzUgMTQuNzE5NyAxMC44NDQyIDE0LjUwMkwxOC43MDkyIDEwLjkyN0MxOS4wNDA3IDEwLjc3OCAxOS4yNTI5IDEwLjQ0NzEgMTkuMjUgMTAuMDgzNyIgc3Ryb2tlLXdpZHRoPSIxLjgzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8cGF0aCBpZD0iVmVjdG9yXzMiIGQ9Ik0wLjkxNjY3IDE0LjY2N0MwLjkxNTc4NCAxNS4wMjUgMS4xMjM0MiAxNS4zNTA4IDEuNDQ4MzQgMTUuNTAxMkw5LjMzMTY3IDE5LjA4NTNDOS44MTIzNCAxOS4zMDMgMTAuMzYzNSAxOS4zMDMgMTAuODQ0MiAxOS4wODUzTDE4LjcwOTIgMTUuNTEwM0MxOS4wNDA3IDE1LjM2MTMgMTkuMjUyOSAxNS4wMzA1IDE5LjI1IDE0LjY2NyIgc3Ryb2tlLXdpZHRoPSIxLjgzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0iIzc2OTVDRiIvPgo8L2c+Cjwvc3ZnPgo=" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4887" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4888">
+                <p class="leading-[16px]">Comfort Profiles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-[1_0_0] h-full min-w-px opacity-60 relative" data-node-id="10121:4889" data-name="Container">
+          <div class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-center justify-center relative size-full">
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4890" data-name="iconify-icon">
+              <div class="overflow-clip relative shrink-0 size-[22px]" data-node-id="10121:4891" data-name="SVG">
+                <div class="absolute inset-[8.41%_12.68%]" data-node-id="10121:4892" data-name="Group">
+                  <div class="absolute inset-[-5.01%_-5.58%]">
+                    <img alt="" class="block max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE4LjI1MzkiIGhlaWdodD0iMjAuMTMzOCIgdmlld0JveD0iMCAwIDE4LjI1MzkgMjAuMTMzOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTYuOTkyMDIgMi44NTg2OUM3LjA5NjY4IDEuNzU3NjMgOC4wMjEzNyAwLjkxNjY2NyA5LjEyNzM5IDAuOTE2NjY3QzEwLjIzMzQgMC45MTY2NjcgMTEuMTU4MSAxLjc1NzYzIDExLjI2MjggMi44NTg2OUMxMS4zMjQ0IDMuNTU1MyAxMS43MjE3IDQuMTc4MTUgMTIuMzI3NCA0LjUyNzY1QzEyLjkzMzIgNC44NzcxNCAxMy42NzEzIDQuOTA5NDEgMTQuMzA1MiA0LjYxNDExQzE1LjMxMDEgNC4xNTc4OCAxNi40OTcyIDQuNTM4NjEgMTcuMDQ5MiA1LjQ5NDJDMTcuNjAxMyA2LjQ0OTggMTcuMzM4MiA3LjY2ODM2IDE2LjQ0MSA4LjMxMTAzQzE1Ljg2ODcgOC43MTI1NyAxNS41MjgxIDkuMzY3ODEgMTUuNTI4MSAxMC4wNjY5QzE1LjUyODEgMTAuNzY2IDE1Ljg2ODcgMTEuNDIxMiAxNi40NDEgMTEuODIyOEMxNy4zMzgyIDEyLjQ2NTQgMTcuNjAxMyAxMy42ODQgMTcuMDQ5MiAxNC42Mzk2QzE2LjQ5NzIgMTUuNTk1MiAxNS4zMTAxIDE1Ljk3NTkgMTQuMzA1MiAxNS41MTk3QzEzLjY3MTMgMTUuMjI0NCAxMi45MzMyIDE1LjI1NjcgMTIuMzI3NCAxNS42MDYyQzExLjcyMTcgMTUuOTU1NyAxMS4zMjQ0IDE2LjU3ODUgMTEuMjYyOCAxNy4yNzUxQzExLjE1ODEgMTguMzc2MiAxMC4yMzM0IDE5LjIxNzEgOS4xMjczOSAxOS4yMTcxQzguMDIxMzcgMTkuMjE3MSA3LjA5NjY4IDE4LjM3NjIgNi45OTIwMiAxNy4yNzUxQzYuOTMwNTIgMTYuNTc4MiA2LjUzMzA2IDE1Ljk1NTEgNS45MjcwNyAxNS42MDU2QzUuMzIxMDcgMTUuMjU2MSA0LjU4MjcgMTUuMjI0IDMuOTQ4NjggMTUuNTE5N0MyLjk0Mzc5IDE1Ljk3NTkgMS43NTY3MSAxNS41OTUyIDEuMjA0NjMgMTQuNjM5NkMwLjY1MjU0NyAxMy42ODQgMC45MTU2NjYgMTIuNDY1NCAxLjgxMjg1IDExLjgyMjhDMi4zODUxMiAxMS40MjEyIDIuNzI1ODEgMTAuNzY2IDIuNzI1ODEgMTAuMDY2OUMyLjcyNTgxIDkuMzY3ODEgMi4zODUxMiA4LjcxMjU3IDEuODEyODUgOC4zMTEwM0MwLjkxNjk3NCA3LjY2ODA3IDAuNjU0NTQ4IDYuNDUwNiAxLjIwNiA1LjQ5NTY4QzEuNzU3NDYgNC41NDA3NSAyLjk0MzExIDQuMTU5NTMgMy45NDc3NyA0LjYxNDExQzQuNTgxNjkgNC45MDk0MSA1LjMxOTc3IDQuODc3MTQgNS45MjU1MSA0LjUyNzY1QzYuNTMxMjUgNC4xNzgxNSA2LjkyODU4IDMuNTU1MyA2Ljk5MDE4IDIuODU4NjkiIHN0cm9rZS13aWR0aD0iMS44MzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNNi4zNzY5MyAxMC4wNjc0QzYuMzc2OTMgMTEuNTg1MSA3LjYwOTE3IDEyLjgxNzQgOS4xMjY5MyAxMi44MTc0QzEwLjY0NDcgMTIuODE3NCAxMS44NzY5IDExLjU4NTEgMTEuODc2OSAxMC4wNjc0QzExLjg3NjkgOC41NDk1OSAxMC42NDQ3IDcuMzE3MzYgOS4xMjY5MyA3LjMxNzM2QzcuNjA5MTcgNy4zMTczNiA2LjM3NjkzIDguNTQ5NTkgNi4zNzY5MyAxMC4wNjc0VjEwLjA2NzQiIHN0cm9rZS13aWR0aD0iMS44MzMzMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiM3Njk1Q0YiLz4KPC9nPgo8L3N2Zz4K" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-stretch flex flex-col items-start relative shrink-0" data-node-id="10121:4895" data-name="Container">
+              <div class="[word-break:break-word] flex flex-col font-['Inter:Regular'] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[color:var(--text\/muted,#7695cf)] whitespace-nowrap" data-node-id="10121:4896">
+                <p class="leading-[16px]">Settings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></template>
+<template id="t-runtime">    <div class="bg-[#0a111d] content-stretch flex flex-col items-start relative size-full" data-node-id="9410:1369" data-name="DEV-RUNTIME-01 · Thermostat Runtime">
+      <div class="bg-[#192947] border border-[#1e3352] border-solid content-stretch flex h-[99px] items-center justify-between overflow-clip px-[20px] py-[16px] relative shrink-0 w-full" data-node-id="9410:1370" data-name="Header">
+        <div class="content-stretch flex flex-col gap-[2px] items-start overflow-clip relative shrink-0" data-node-id="9410:1371" data-name="Container">
+          <div class="[word-break:break-word] content-stretch flex gap-[6px] items-center leading-[normal] not-italic overflow-clip relative shrink-0 text-[#f7f9fc] whitespace-nowrap" data-node-id="9410:1372" data-name="Heading 1">
+            <p class="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[20px]" data-node-id="9410:1373">
+              Thermostat
+            </p>
+            <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[14px]" data-node-id="9410:1374">
+              ⌄
+            </p>
+          </div>
+          <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[12.8px] whitespace-nowrap" data-node-id="9410:1375">
+            Oakwood Residences • Unit 4B
+          </p>
+          <div class="content-stretch flex gap-[6px] items-center overflow-clip pt-[4px] relative shrink-0" data-node-id="9410:1376" data-name="Margin">
+            <div class="relative shrink-0 size-[8px]" data-node-id="9410:1377" data-name="d">
+              <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjgiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDggOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZCIgY3g9IjQiIGN5PSI0IiByPSI0IiBmaWxsPSIjMkZDOTU1Ii8+Cjwvc3ZnPgo=" />
+            </div>
+            <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#2fc955] text-[12.8px] whitespace-nowrap" data-node-id="9410:1378">
+              Connected
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="content-stretch flex flex-col items-start overflow-clip pt-[8px] px-[16px] relative shrink-0 w-full" data-node-id="9410:1379" data-name="Margin">
+        <div class="content-stretch flex h-[49px] items-start justify-center overflow-clip relative shrink-0 w-full" data-node-id="9410:1380" data-name="HorizontalBorder">
+          <div class="content-stretch flex flex-[1_0_0] flex-col h-[48px] items-center min-w-px overflow-clip py-[14px] relative" data-node-id="9410:1381" data-name="Container">
+            <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[16px] whitespace-nowrap" data-node-id="9410:1382">
+              Overview
+            </p>
+          </div>
+          <div class="content-stretch flex flex-[1_0_0] flex-col h-[48px] items-center min-w-px overflow-clip py-[14px] relative" data-node-id="9410:1383" data-name="Container">
+            <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#f7f9fc] text-[16px] whitespace-nowrap" data-node-id="9410:1384">
+              Runtime
+            </p>
+            <div class="bg-[#cad6ec] h-[2px] relative shrink-0 w-full" data-node-id="9410:1385" data-name="Horizontal Divider" ></div>
+          </div>
+        </div>
+      </div>
+      <div class="content-stretch flex flex-col gap-[16px] items-start overflow-clip pb-[32px] pt-[20px] px-[20px] relative shrink-0 w-full" data-node-id="9410:1386" data-name="Main">
+        <div class="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start leading-[normal] not-italic overflow-clip py-[4px] relative shrink-0 w-full" data-node-id="9410:1387" data-name="Hero">
+          <div class="content-stretch flex gap-[8px] items-baseline overflow-clip relative shrink-0 whitespace-nowrap" data-node-id="9410:1388" data-name="Big">
+            <p class="font-['Inter:Bold'] font-bold relative shrink-0 text-[#f7f9fc] text-[40px]" data-node-id="9410:1389">
+              68%
+            </p>
+            <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[#7695cf] text-[15px]" data-node-id="9410:1390">
+              avg runtime today
+            </p>
+          </div>
+          <p class="font-['Inter:Medium'] font-medium min-w-full relative shrink-0 text-[#cad6ec] text-[13px] w-[min-content]" data-node-id="9410:1391">
+            Mostly cooling · some fan
+          </p>
+          <div class="content-stretch flex gap-[6px] items-center overflow-clip pt-[2px] relative shrink-0 text-[#e3b341] text-[12px] whitespace-nowrap" data-node-id="9410:1392" data-name="Compare">
+            <p class="font-['Inter:Semi_Bold'] font-semibold relative shrink-0" data-node-id="9410:1393">
+              ↑
+            </p>
+            <p class="font-['Inter:Regular'] font-normal relative shrink-0" data-node-id="9410:1394">
+              Ran more than yesterday
+            </p>
+          </div>
+        </div>
+        <div class="content-stretch flex gap-[8px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9413:1369" data-name="Granularity">
+          <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-[1_0_0] flex-col h-[44px] items-center justify-center min-w-px overflow-clip relative rounded-[10px]" data-node-id="9413:1370" data-name="Chip">
+            <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[14px] whitespace-nowrap" data-node-id="9413:1371">
+              Year
+            </p>
+          </div>
+          <div class="bg-[#4b75c0] content-stretch flex flex-[1_0_0] flex-col h-[44px] items-center justify-center min-w-px overflow-clip relative rounded-[10px]" data-node-id="9413:1372" data-name="Chip">
+            <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap" data-node-id="9413:1373">
+              Month
+            </p>
+          </div>
+          <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-[1_0_0] flex-col h-[44px] items-center justify-center min-w-px overflow-clip relative rounded-[10px]" data-node-id="9413:1374" data-name="Chip">
+            <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[14px] whitespace-nowrap" data-node-id="9413:1375">
+              Week
+            </p>
+          </div>
+          <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-[1_0_0] flex-col h-[44px] items-center justify-center min-w-px overflow-clip relative rounded-[10px]" data-node-id="9413:1376" data-name="Chip">
+            <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[14px] whitespace-nowrap" data-node-id="9413:1377">
+              Day
+            </p>
+          </div>
+        </div>
+        <div class="[word-break:break-word] bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex h-[52px] items-center justify-between leading-[normal] not-italic overflow-clip px-[20px] relative rounded-[10px] shrink-0 text-[17px] w-full whitespace-nowrap" data-node-id="9413:1378" data-name="Stepper">
+          <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[#cad6ec]" data-node-id="9413:1379">
+            ←
+          </p>
+          <p class="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#f7f9fc]" data-node-id="9413:1380">
+            2025
+          </p>
+          <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[#cad6ec]" data-node-id="9413:1381">
+            →
+          </p>
+        </div>
+        <div class="content-stretch flex items-center overflow-clip relative shrink-0 w-full" data-node-id="9413:1382" data-name="TodayRow">
+          <div class="[word-break:break-word] bg-[#1e3352] content-stretch flex font-['Inter:Semi_Bold'] font-semibold gap-[7px] h-[38px] items-center justify-center leading-[normal] not-italic overflow-clip px-[16px] relative rounded-[9px] shrink-0 text-white whitespace-nowrap" data-node-id="9413:1383" data-name="Today">
+            <p class="relative shrink-0 text-[13px]" data-node-id="9413:1384">
+              ↻
+            </p>
+            <p class="relative shrink-0 text-[14px]" data-node-id="9413:1385">
+              Today
+            </p>
+          </div>
+        </div>
+        <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-col gap-[12px] items-start pb-[12px] pt-[16px] px-[14px] relative rounded-[10px] shrink-0 w-full" data-node-id="9678:1383" data-name="Runtime Chart">
+          <div class="content-stretch flex flex-col gap-[10px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9678:1384" data-name="Head">
+            <div class="[word-break:break-word] content-stretch flex items-center justify-between leading-[normal] not-italic overflow-clip relative shrink-0 w-full whitespace-nowrap" data-node-id="9678:1385" data-name="TitleRow">
+              <p class="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#f7f9fc] text-[15px]" data-node-id="9678:1386">
+                Runtime %
+              </p>
+              <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[#7695cf] text-[11px]" data-node-id="9678:1387">
+                % of each hour
+              </p>
+            </div>
+            <div class="content-stretch flex gap-[14px] items-center overflow-clip relative shrink-0 w-full" data-node-id="9678:1388" data-name="Legend">
+              <div class="content-stretch flex gap-[5px] items-center overflow-clip relative shrink-0" data-node-id="9678:1389" data-name="L">
+                <div class="bg-[#6096e8] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1390" data-name="sw" ></div>
+                <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[11px] whitespace-nowrap" data-node-id="9678:1391">
+                  Cool
+                </p>
+              </div>
+              <div class="content-stretch flex gap-[5px] items-center overflow-clip relative shrink-0" data-node-id="9678:1392" data-name="L">
+                <div class="bg-[#e2785a] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1393" data-name="sw" ></div>
+                <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[11px] whitespace-nowrap" data-node-id="9678:1394">
+                  Heat
+                </p>
+              </div>
+              <div class="content-stretch flex gap-[5px] items-center overflow-clip relative shrink-0" data-node-id="9678:1395" data-name="L">
+                <div class="bg-[#e6be5a] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1396" data-name="sw" ></div>
+                <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[11px] whitespace-nowrap" data-node-id="9678:1397">
+                  Aux
+                </p>
+              </div>
+              <div class="content-stretch flex gap-[5px] items-center overflow-clip relative shrink-0" data-node-id="9678:1398" data-name="L">
+                <div class="bg-[#96c882] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1399" data-name="sw" ></div>
+                <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[11px] whitespace-nowrap" data-node-id="9678:1400">
+                  Fan
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="content-stretch flex flex-col h-[200px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9678:1401" data-name="Plot">
+            <div class="absolute bg-[#1a2b44] h-px left-[28px] top-[178px] w-[295px]" data-node-id="9678:1402" data-name="grid0" ></div>
+            <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-0 not-italic text-[#5a6e8c] text-[9px] top-[172px] whitespace-nowrap" data-node-id="9678:1403">
+              0%
+            </p>
+            <div class="absolute bg-[#1a2b44] h-px left-[28px] top-[93px] w-[295px]" data-node-id="9678:1404" data-name="grid50" ></div>
+            <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-0 not-italic text-[#5a6e8c] text-[9px] top-[87px] whitespace-nowrap" data-node-id="9678:1405">
+              50%
+            </p>
+            <div class="absolute bg-[#1a2b44] h-px left-[28px] top-[8px] w-[295px]" data-node-id="9678:1406" data-name="grid100" ></div>
+            <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-0 not-italic text-[#5a6e8c] text-[9px] top-[2px] whitespace-nowrap" data-node-id="9678:1407">
+              100%
+            </p>
+            <div class="absolute bg-[#96c882] h-[19.337px] left-[30.09px] opacity-85 top-[158.66px] w-[8.113px]" data-node-id="9678:1408" data-name="bar0_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[17.85px] left-[30.09px] opacity-85 top-[140.81px] w-[8.113px]" data-node-id="9678:1409" data-name="bar0_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[17px] left-[42.38px] opacity-85 top-[161px] w-[8.113px]" data-node-id="9678:1410" data-name="bar1_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[23.858px] left-[42.38px] opacity-85 top-[137.14px] w-[8.113px]" data-node-id="9678:1411" data-name="bar1_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[17px] left-[54.67px] opacity-85 top-[161px] w-[8.113px]" data-node-id="9678:1412" data-name="bar2_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[24.342px] left-[54.67px] opacity-85 top-[136.66px] w-[8.113px]" data-node-id="9678:1413" data-name="bar2_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[18.75px] left-[66.96px] opacity-85 top-[159.25px] w-[8.113px]" data-node-id="9678:1414" data-name="bar3_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[18.858px] left-[66.96px] opacity-85 top-[140.39px] w-[8.113px]" data-node-id="9678:1415" data-name="bar3_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[22.49px] left-[79.26px] opacity-85 top-[155.51px] w-[8.113px]" data-node-id="9678:1416" data-name="bar4_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[12.446px] left-[79.26px] opacity-85 top-[143.06px] w-[8.113px]" data-node-id="9678:1417" data-name="bar4_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[23.331px] left-[91.55px] opacity-85 top-[154.67px] w-[8.113px]" data-node-id="9678:1418" data-name="bar5_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[11.003px] left-[91.55px] opacity-85 top-[143.67px] w-[8.113px]" data-node-id="9678:1419" data-name="bar5_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[35.145px] left-[103.84px] opacity-85 top-[142.85px] w-[8.113px]" data-node-id="9678:1420" data-name="bar6_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[27.18px] left-[103.84px] opacity-85 top-[115.68px] w-[8.113px]" data-node-id="9678:1421" data-name="bar6_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[28.459px] left-[116.13px] opacity-85 top-[149.54px] w-[8.113px]" data-node-id="9678:1422" data-name="bar7_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[38.642px] left-[116.13px] opacity-85 top-[110.9px] w-[8.113px]" data-node-id="9678:1423" data-name="bar7_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[26.086px] left-[128.42px] opacity-85 top-[151.91px] w-[8.113px]" data-node-id="9678:1424" data-name="bar8_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[42.71px] left-[128.42px] opacity-85 top-[109.2px] w-[8.113px]" data-node-id="9678:1425" data-name="bar8_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[42.794px] left-[140.71px] opacity-85 top-[135.21px] w-[8.113px]" data-node-id="9678:1426" data-name="bar9_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[50.496px] left-[140.71px] opacity-85 top-[84.71px] w-[8.113px]" data-node-id="9678:1427" data-name="bar9_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[52.465px] left-[153.01px] opacity-85 top-[125.53px] w-[8.113px]" data-node-id="9678:1428" data-name="bar10_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[33.917px] left-[153.01px] opacity-85 top-[91.62px] w-[8.113px]" data-node-id="9678:1429" data-name="bar10_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[57.077px] left-[165.3px] opacity-85 top-[120.92px] w-[8.113px]" data-node-id="9678:1430" data-name="bar11_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[26.01px] left-[165.3px] opacity-85 top-[94.91px] w-[8.113px]" data-node-id="9678:1431" data-name="bar11_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[52.39px] left-[177.59px] opacity-85 top-[125.61px] w-[8.113px]" data-node-id="9678:1432" data-name="bar12_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[34.046px] left-[177.59px] opacity-85 top-[91.56px] w-[8.113px]" data-node-id="9678:1433" data-name="bar12_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[42.713px] left-[189.88px] opacity-85 top-[135.29px] w-[8.113px]" data-node-id="9678:1434" data-name="bar13_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[50.636px] left-[189.88px] opacity-85 top-[84.65px] w-[8.113px]" data-node-id="9678:1435" data-name="bar13_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[36.943px] left-[202.17px] top-[141.06px] w-[8.113px]" data-node-id="9678:1436" data-name="bar14_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[60.527px] left-[202.17px] top-[80.53px] w-[8.113px]" data-node-id="9678:1437" data-name="bar14_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[40.385px] left-[214.46px] opacity-85 top-[137.62px] w-[8.113px]" data-node-id="9678:1438" data-name="bar15_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[54.626px] left-[214.46px] opacity-85 top-[82.99px] w-[8.113px]" data-node-id="9678:1439" data-name="bar15_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[49.875px] left-[226.76px] opacity-85 top-[128.13px] w-[8.113px]" data-node-id="9678:1440" data-name="bar16_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[38.358px] left-[226.76px] opacity-85 top-[89.77px] w-[8.113px]" data-node-id="9678:1441" data-name="bar16_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[46.683px] left-[239.05px] opacity-85 top-[131.32px] w-[8.113px]" data-node-id="9678:1442" data-name="bar17_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[21.971px] left-[239.05px] opacity-85 top-[109.35px] w-[8.113px]" data-node-id="9678:1443" data-name="bar17_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[44.931px] left-[251.34px] opacity-85 top-[133.07px] w-[8.113px]" data-node-id="9678:1444" data-name="bar18_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[24.976px] left-[251.34px] opacity-85 top-[108.09px] w-[8.113px]" data-node-id="9678:1445" data-name="bar18_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[37.427px] left-[263.63px] opacity-85 top-[140.57px] w-[8.113px]" data-node-id="9678:1446" data-name="bar19_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[37.84px] left-[263.63px] opacity-85 top-[102.73px] w-[8.113px]" data-node-id="9678:1447" data-name="bar19_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[31.07px] left-[275.92px] opacity-85 top-[146.93px] w-[8.113px]" data-node-id="9678:1448" data-name="bar20_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[48.737px] left-[275.92px] opacity-85 top-[98.19px] w-[8.113px]" data-node-id="9678:1449" data-name="bar20_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[22.647px] left-[288.21px] opacity-85 top-[155.35px] w-[8.113px]" data-node-id="9678:1450" data-name="bar21_fan" ></div>
+            <div class="absolute bg-[#6096e8] h-[34.034px] left-[288.21px] opacity-85 top-[121.32px] w-[8.113px]" data-node-id="9678:1451" data-name="bar21_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[27.678px] left-[300.51px] opacity-85 top-[150.32px] w-[8.113px]" data-node-id="9678:1452" data-name="bar22_fan" ></div>
+            <div class="absolute bg-[#e2785a] h-[8.5px] left-[300.51px] opacity-85 top-[141.82px] w-[8.113px]" data-node-id="9678:1453" data-name="bar22_heat" ></div>
+            <div class="absolute bg-[#6096e8] h-[25.41px] left-[300.51px] opacity-85 top-[116.41px] w-[8.113px]" data-node-id="9678:1454" data-name="bar22_cool" ></div>
+            <div class="absolute bg-[#96c882] h-[32.66px] left-[312.8px] opacity-85 top-[145.34px] w-[8.113px]" data-node-id="9678:1455" data-name="bar23_fan" ></div>
+            <div class="absolute bg-[#e2785a] h-[8.5px] left-[312.8px] opacity-85 top-[136.84px] w-[8.113px]" data-node-id="9678:1456" data-name="bar23_heat" ></div>
+            <div class="absolute bg-[#6096e8] h-[16.869px] left-[312.8px] opacity-85 top-[119.97px] w-[8.113px]" data-node-id="9678:1457" data-name="bar23_cool" ></div>
+            <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[34.15px] not-italic text-[#5a6e8c] text-[9px] text-center top-[186px] w-[24px]" data-node-id="9678:1458">
+              12a
+            </p>
+            <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[107.9px] not-italic text-[#5a6e8c] text-[9px] text-center top-[186px] w-[24px]" data-node-id="9678:1459">
+              6a
+            </p>
+            <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[181.65px] not-italic text-[#5a6e8c] text-[9px] text-center top-[186px] w-[24px]" data-node-id="9678:1460">
+              12p
+            </p>
+            <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[255.4px] not-italic text-[#5a6e8c] text-[9px] text-center top-[186px] w-[24px]" data-node-id="9678:1461">
+              6p
+            </p>
+            <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[316.85px] not-italic text-[#5a6e8c] text-[9px] text-center top-[186px] w-[24px]" data-node-id="9678:1462">
+              11p
+            </p>
+          </div>
+          <div class="bg-[#0b1423] border border-[#1e3352] border-solid content-stretch flex flex-col gap-[6px] items-start overflow-clip px-[14px] py-[12px] relative rounded-[10px] shrink-0 w-full" data-node-id="9678:1463" data-name="Tooltip">
+            <div class="[word-break:break-word] content-stretch flex items-center justify-between leading-[normal] not-italic overflow-clip relative shrink-0 w-full whitespace-nowrap" data-node-id="9678:1464" data-name="TH">
+              <p class="font-['Inter:Semi_Bold'] font-semibold relative shrink-0 text-[#f7f9fc] text-[13px]" data-node-id="9678:1465">
+                2:00 PM
+              </p>
+              <p class="font-['Inter:Regular'] font-normal relative shrink-0 text-[#7695cf] text-[11px]" data-node-id="9678:1466">
+                54 min active
+              </p>
+            </div>
+            <div class="content-stretch flex flex-col gap-[4px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9678:1467" data-name="TR">
+              <div class="content-stretch flex items-center justify-between overflow-clip relative shrink-0 w-full" data-node-id="9678:1468" data-name="r">
+                <div class="content-stretch flex gap-[6px] items-center overflow-clip relative shrink-0" data-node-id="9678:1469" data-name="l">
+                  <div class="bg-[#6096e8] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1470" data-name="sw" ></div>
+                  <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[12px] whitespace-nowrap" data-node-id="9678:1471">
+                    Cool
+                  </p>
+                </div>
+                <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#7695cf] text-[12px] whitespace-nowrap" data-node-id="9678:1472">
+                  33% · 20m
+                </p>
+              </div>
+              <div class="content-stretch flex items-center justify-between overflow-clip relative shrink-0 w-full" data-node-id="9678:1473" data-name="r">
+                <div class="content-stretch flex gap-[6px] items-center overflow-clip relative shrink-0" data-node-id="9678:1474" data-name="l">
+                  <div class="bg-[#96c882] relative rounded-[2px] shrink-0 size-[9px]" data-node-id="9678:1475" data-name="sw" ></div>
+                  <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#cad6ec] text-[12px] whitespace-nowrap" data-node-id="9678:1476">
+                    Fan
+                  </p>
+                </div>
+                <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#7695cf] text-[12px] whitespace-nowrap" data-node-id="9678:1477">
+                  67% · 40m
+                </p>
+              </div>
+            </div>
+            <div class="content-stretch flex items-center overflow-clip pt-[6px] relative shrink-0 w-full" data-node-id="9678:1478" data-name="TF">
+              <p class="[word-break:break-word] flex-[1_0_0] font-['Inter:Regular'] font-normal leading-[normal] min-w-px not-italic relative text-[#4a6080] text-[11px]" data-node-id="9678:1479">
+                Avg setpoint 70°F
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content-stretch flex gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9410:1459" data-name="Pair">
+          <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-[1_0_0] flex-col gap-[8px] items-start min-w-px overflow-clip p-[16px] relative rounded-[10px]" data-node-id="9410:1460" data-name="Background+Border">
+            <div class="content-stretch flex h-[32px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9410:1461" data-name="T">
+              <div class="bg-[#1e3352] relative rounded-[8px] shrink-0 size-[32px]" data-node-id="9410:1462" data-name="Icon" ></div>
+            </div>
+            <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#7695cf] text-[13px] w-full" data-node-id="9410:1463">
+              Most active
+            </p>
+            <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#f7f9fc] text-[20px] w-full" data-node-id="9410:1464">
+              2–3 PM
+            </p>
+            <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#5a6e8c] text-[11px] w-full" data-node-id="9410:1465">
+              54 min running
+            </p>
+          </div>
+          <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex flex-[1_0_0] flex-col gap-[8px] items-start min-w-px overflow-clip p-[16px] relative rounded-[10px]" data-node-id="9410:1466" data-name="Background+Border">
+            <div class="content-stretch flex h-[32px] items-start overflow-clip relative shrink-0 w-full" data-node-id="9410:1467" data-name="T">
+              <div class="bg-[#1e3352] relative rounded-[8px] shrink-0 size-[32px]" data-node-id="9410:1468" data-name="Icon" ></div>
+            </div>
+            <p class="[word-break:break-word] font-['Inter:Medium'] font-medium leading-[normal] not-italic relative shrink-0 text-[#7695cf] text-[13px] w-full" data-node-id="9410:1469">
+              Mostly
+            </p>
+            <p class="[word-break:break-word] font-['Inter:Semi_Bold'] font-semibold leading-[normal] not-italic relative shrink-0 text-[#f7f9fc] text-[20px] w-full" data-node-id="9410:1470">
+              Cooling
+            </p>
+            <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#5a6e8c] text-[11px] w-full" data-node-id="9410:1471">
+              61% of runtime
+            </p>
+          </div>
+        </div>
+        <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex gap-[10px] items-center overflow-clip px-[16px] py-[14px] relative rounded-[10px] shrink-0 w-full" data-node-id="9410:1472" data-name="Note">
+          <div class="relative shrink-0 size-[16px]" data-node-id="9410:1473" data-name="i">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9ImkiIGN4PSI4IiBjeT0iOCIgcj0iOCIgZmlsbD0iIzFFMzM1MiIvPgo8L3N2Zz4K" />
+          </div>
+          <p class="[word-break:break-word] flex-[1_0_0] font-['Inter:Regular'] font-normal leading-[16px] min-w-px not-italic relative text-[#cad6ec] text-[11.5px]" data-node-id="9410:1474">
+            Runtime shows how long your system ran each hour, split by what it was doing. Thermostats don’t report energy use directly.
+          </p>
+        </div>
+      </div>
+      <div class="bg-[#111f33] border border-[#1e3352] border-solid content-stretch flex h-[82px] items-start justify-center overflow-clip pb-[12px] relative shrink-0 w-full" data-node-id="9410:1475" data-name="Bottom Navigation">
+        <div class="content-stretch flex flex-[1_0_0] flex-col gap-[4px] h-[69px] items-center justify-center min-w-px overflow-clip relative" data-node-id="9410:1476" data-name="C">
+          <div class="relative shrink-0 size-[22px]" data-node-id="9410:1477" data-name="i">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB2aWV3Qm94PSIwIDAgMjIgMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9ImkiIGN4PSIxMSIgY3k9IjExIiByPSIxMSIgZmlsbD0iIzRFNjY5MSIvPgo8L3N2Zz4K" />
+          </div>
+          <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#4e6691] text-[11px] whitespace-nowrap" data-node-id="9410:1478">
+            Home
+          </p>
+        </div>
+        <div class="content-stretch flex flex-[1_0_0] flex-col gap-[4px] h-[69px] items-center justify-center min-w-px overflow-clip relative" data-node-id="9410:1479" data-name="C">
+          <div class="relative shrink-0 size-[22px]" data-node-id="9410:1480" data-name="i">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB2aWV3Qm94PSIwIDAgMjIgMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9ImkiIGN4PSIxMSIgY3k9IjExIiByPSIxMSIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==" />
+          </div>
+          <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[11px] text-white whitespace-nowrap" data-node-id="9410:1481">
+            Devices
+          </p>
+          <div class="bg-white h-[3px] relative rounded-[2px] shrink-0 w-[24px]" data-node-id="9410:1482" data-name="ind" ></div>
+        </div>
+        <div class="content-stretch flex flex-[1_0_0] flex-col gap-[4px] h-[69px] items-center justify-center min-w-px overflow-clip relative" data-node-id="9410:1483" data-name="C">
+          <div class="relative shrink-0 size-[22px]" data-node-id="9410:1484" data-name="i">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB2aWV3Qm94PSIwIDAgMjIgMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9ImkiIGN4PSIxMSIgY3k9IjExIiByPSIxMSIgZmlsbD0iIzRFNjY5MSIvPgo8L3N2Zz4K" />
+          </div>
+          <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#4e6691] text-[11px] whitespace-nowrap" data-node-id="9410:1485">
+            Schedule
+          </p>
+        </div>
+        <div class="content-stretch flex flex-[1_0_0] flex-col gap-[4px] h-[69px] items-center justify-center min-w-px overflow-clip relative" data-node-id="9410:1486" data-name="C">
+          <div class="relative shrink-0 size-[22px]" data-node-id="9410:1487" data-name="i">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB2aWV3Qm94PSIwIDAgMjIgMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9ImkiIGN4PSIxMSIgY3k9IjExIiByPSIxMSIgZmlsbD0iIzRFNjY5MSIvPgo8L3N2Zz4K" />
+          </div>
+          <p class="[word-break:break-word] font-['Inter:Regular'] font-normal leading-[normal] not-italic relative shrink-0 text-[#4e6691] text-[11px] whitespace-nowrap" data-node-id="9410:1488">
+            Settings
+          </p>
+        </div>
+      </div>
+    </div></template>
+<template id="t-valve">    <div class="bg-[#0a111d] relative size-full" data-node-id="9387:1369" data-name="DEV-VALVE-01 · Smart Valve Detail">
+      <div class="absolute bg-[#294266] h-[219px] left-[44px] rounded-[1px] top-[437px] w-[2px]" data-node-id="9387:1414" data-name="rail" ></div>
+      <div class="absolute bg-[#192947] h-[64px] left-0 top-0 w-[375px]" data-node-id="9387:1370" data-name="hdr" ></div>
+      <div class="absolute bg-[#2e4d74] h-px left-0 top-[64px] w-[375px]" data-node-id="9387:1371" data-name="hdrhair" ></div>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[20px] not-italic text-[#f7f9fc] text-[20px] top-[22px] w-[20px]" data-node-id="9387:1372">
+        ←
+      </p>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[187.5px] not-italic text-[#f7f9fc] text-[15px] text-center top-[15px] w-[375px]" data-node-id="9387:1373">
+        Smart Valve
+      </p>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[187.5px] not-italic text-[#cad7ed] text-[11px] text-center top-[36px] w-[375px]" data-node-id="9387:1374">
+        Unit 4B · Utility closet
+      </p>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[85px] not-italic text-[#f7f9fc] text-[13px] text-center top-[81px] w-[90px]" data-node-id="9387:1375">
+        Overview
+      </p>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Medium'] font-medium leading-[normal] left-[260px] not-italic text-[#7695cf] text-[13px] text-center top-[81px] w-[120px]" data-node-id="9387:1376">
+        Status History
+      </p>
+      <div class="absolute bg-[#4b75c0] h-[2px] left-[44px] rounded-[1px] top-[105px] w-[82px]" data-node-id="9387:1377" data-name="tabind" ></div>
+      <div class="absolute bg-[#2e4d74] h-px left-0 top-[107px] w-[375px]" data-node-id="9387:1378" data-name="tabhair" ></div>
+      <div class="absolute bg-[#183250] h-[150px] left-[20px] rounded-[14px] top-[135px] w-[335px]" data-node-id="9387:1379" data-name="statecard" ></div>
+      <div class="absolute left-[44px] size-[14px] top-[165px]" data-node-id="9387:1380" data-name="statedot">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMTQgMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgaWQ9InN0YXRlZG90IiBjeD0iNyIgY3k9IjciIHI9IjciIGZpbGw9IiM1Q0M3ODUiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Bold'] font-bold leading-[normal] left-[68px] not-italic text-[#f7f9fc] text-[30px] top-[157px] w-[180px]" data-node-id="9387:1381">
+        Open
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[44px] not-italic text-[#cad7ed] text-[12.5px] top-[197px] w-[280px]" data-node-id="9387:1382">
+        Water is flowing normally
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[44px] not-italic text-[#7695cf] text-[11.5px] top-[219px] w-[280px]" data-node-id="9387:1383">
+        Since May 12, 2:48 PM
+      </p>
+      <div class="absolute bg-[#1a3d2e] h-[22px] left-[260px] rounded-[11px] top-[157px] w-[75px]" data-node-id="9387:1384" data-name="onlchip" ></div>
+      <div class="absolute left-[270px] size-[8px] top-[164px]" data-node-id="9387:1385" data-name="onldot">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjgiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDggOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0ib25sZG90IiBjeD0iNCIgY3k9IjQiIHI9IjQiIGZpbGw9IiM1Q0M3ODUiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[282px] not-italic text-[#5cc785] text-[11px] top-[161px] w-[50px]" data-node-id="9387:1386">
+        Online
+      </p>
+      <div class="absolute bg-[#294266] h-px left-[44px] top-[245px] w-[287px]" data-node-id="9387:1387" data-name="ctrl" ></div>
+      <div class="absolute border-[#e5ad52] border-[1.5px] border-solid h-[50px] left-[20px] rounded-[12px] top-[303px] w-[335px]" data-node-id="9387:1388" data-name="closebtn" ></div>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[187.5px] not-italic text-[#e5ad52] text-[14px] text-center top-[319px] w-[375px]" data-node-id="9387:1389">
+        Close valve
+      </p>
+      <p class="-translate-x-1/2 [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[187.5px] not-italic text-[#7695cf] text-[11px] text-center top-[361px] w-[375px]" data-node-id="9387:1390">
+        Shuts off water to this unit. You’ll be asked to confirm.
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[24px] not-italic text-[#7695cf] text-[10px] top-[387px] w-[200px]" data-node-id="9387:1391">
+        RECENT ACTIVITY
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Medium'] font-medium leading-[normal] left-[351px] not-italic text-[#6090cd] text-[11.5px] text-right top-[386px] w-[76px]" data-node-id="9387:1392">
+        See all
+      </p>
+      <div class="absolute bg-[#183250] h-[300px] left-[20px] rounded-[14px] top-[409px] w-[335px]" data-node-id="9387:1393" data-name="histcard" ></div>
+      <div class="absolute left-[40px] size-[9px] top-[436px]" data-node-id="9387:1394" data-name="evdot0">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDkgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZXZkb3QwIiBjeD0iNC41IiBjeT0iNC41IiByPSI0LjUiIGZpbGw9IiM1Q0M3ODUiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[66px] not-italic text-[#f7f9fc] text-[13px] top-[431px] w-[140px]" data-node-id="9387:1395">
+        Opened
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[66px] not-italic text-[#cad7ed] text-[11px] top-[449px] w-[200px]" data-node-id="9387:1396">
+        Manually, by you
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[339px] not-italic text-[#7695cf] text-[10.5px] text-right top-[433px] w-[145px]" data-node-id="9387:1397">
+        May 12 · 2:48 PM
+      </p>
+      <div class="absolute left-[40px] size-[9px] top-[490px]" data-node-id="9387:1398" data-name="evdot1">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDkgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZXZkb3QxIiBjeD0iNC41IiBjeT0iNC41IiByPSI0LjUiIGZpbGw9IiNFNkFENTIiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[66px] not-italic text-[#f7f9fc] text-[13px] top-[485px] w-[140px]" data-node-id="9387:1399">
+        Closed
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[66px] not-italic text-[#cad7ed] text-[11px] top-[503px] w-[200px]" data-node-id="9387:1400">
+        Away profile started
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[339px] not-italic text-[#7695cf] text-[10.5px] text-right top-[487px] w-[145px]" data-node-id="9387:1401">
+        May 12 · 8:15 AM
+      </p>
+      <div class="absolute left-[40px] size-[9px] top-[544px]" data-node-id="9387:1402" data-name="evdot2">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDkgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZXZkb3QwIiBjeD0iNC41IiBjeT0iNC41IiByPSI0LjUiIGZpbGw9IiM1Q0M3ODUiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[66px] not-italic text-[#f7f9fc] text-[13px] top-[539px] w-[140px]" data-node-id="9387:1403">
+        Opened
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[66px] not-italic text-[#cad7ed] text-[11px] top-[557px] w-[200px]" data-node-id="9387:1404">
+        Home profile started
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[339px] not-italic text-[#7695cf] text-[10.5px] text-right top-[541px] w-[145px]" data-node-id="9387:1405">
+        May 11 · 6:02 PM
+      </p>
+      <div class="absolute left-[40px] size-[9px] top-[598px]" data-node-id="9387:1406" data-name="evdot3">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDkgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZXZkb3QxIiBjeD0iNC41IiBjeT0iNC41IiByPSI0LjUiIGZpbGw9IiNFNkFENTIiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[66px] not-italic text-[#f7f9fc] text-[13px] top-[593px] w-[140px]" data-node-id="9387:1407">
+        Closed
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[66px] not-italic text-[#cad7ed] text-[11px] top-[611px] w-[200px]" data-node-id="9387:1408">
+        Manually, by you
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[339px] not-italic text-[#7695cf] text-[10.5px] text-right top-[595px] w-[145px]" data-node-id="9387:1409">
+        May 11 · 7:30 AM
+      </p>
+      <div class="absolute left-[40px] size-[9px] top-[652px]" data-node-id="9387:1410" data-name="evdot4">
+        <img alt="" class="absolute block inset-0 max-w-none size-full" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDkgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBpZD0iZXZkb3QwIiBjeD0iNC41IiBjeT0iNC41IiByPSI0LjUiIGZpbGw9IiM1Q0M3ODUiLz4KPC9zdmc+Cg==" />
+      </div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[66px] not-italic text-[#f7f9fc] text-[13px] top-[647px] w-[140px]" data-node-id="9387:1411">
+        Opened
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[66px] not-italic text-[#cad7ed] text-[11px] top-[665px] w-[200px]" data-node-id="9387:1412">
+        Home profile started
+      </p>
+      <p class="-translate-x-full [word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[339px] not-italic text-[#7695cf] text-[10.5px] text-right top-[649px] w-[145px]" data-node-id="9387:1413">
+        May 10 · 5:44 PM
+      </p>
+      <div class="absolute bg-[#183250] h-[52px] left-[20px] rounded-[12px] top-[729px] w-[335px]" data-node-id="9387:1415" data-name="infocard" ></div>
+      <p class="[word-break:break-word] absolute font-['Inter:Semi_Bold'] font-semibold leading-[normal] left-[40px] not-italic text-[#f7f9fc] text-[13px] top-[747px] w-[200px]" data-node-id="9387:1416">
+        Device info
+      </p>
+      <p class="[word-break:break-word] absolute font-['Inter:Regular'] font-normal leading-[normal] left-[320px] not-italic text-[#7695cf] text-[15px] top-[745px] w-[16px]" data-node-id="9387:1417">
+        ⌄
+      </p>
+    </div></template>
+<div class="wrap"><div class="eb">Armada Power · Working App Pages 2</div><h1>Armada Motion Studies</h1><p class="lede">Three resident app screens built from the Figma frames’ own layers and assets. Option A animates the screen in place. Option B opens tight on one section, pulls back to the whole app, then brings the rest in. Option C, built with the stageshow method, has a finger use the screen: every motion has a touch as its cause. All loop; Replay restarts one.</p><section class="screen"><div class="eb">01 · Home</div><h2>Home dashboard</h2><div class="src">Figma 10121:4626 · Dashboard, Multi Family</div><div class="opts"><div class="opt"><div class="optname">Option A<span>In place</span></div><div class="row"><div class="device" data-s="dash" data-o="A" data-h="1207"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Header drops, cards cascade</b> 40ms apart, 12px rise, nav slides up last.</li><li><span class="tag mi">Micro</span><b>Bell rings</b> once the cascade lands; 72° counts up from 64°.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option B<span>Zoom reveal</span></div><div class="row"><div class="device" data-s="dash" data-o="B" data-h="1207"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Opens on the thermostat card</b>, only the 72° readout showing, scaled to fill the screen.</li><li><span class="tag ma">Macro</span><b>Pulls back</b> to the full home in 1.1s; the remaining cards enter around it, nearest first.</li><li><span class="tag mi">Micro</span>Count-up and bell ring run during the hold and after the reveal.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option C<span>Touch walkthrough</span></div><div class="row"><div class="device" data-s="dash" data-o="C" data-h="1207"></div><ul class="notes"><li><span class="tag mi">Micro</span><b>A finger dismisses the event banner;</b> the cards below close the gap in 450ms.</li><li><span class="tag ma">Macro</span><b>Drag to scroll</b> down the home and back, at the finger’s speed.</li></ul></div><button class="replay">Replay</button></div></div></section><section class="screen"><div class="eb">02 · Data</div><h2>Thermostat runtime</h2><div class="src">Figma 9410:1369 · DEV-RUNTIME-01</div><div class="opts"><div class="opt"><div class="optname">Option A<span>In place</span></div><div class="row"><div class="device" data-s="runtime" data-o="A" data-h="1236"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Sections rise in order</b>, then 24 hourly bars grow from the baseline in a 30ms wave over 500ms.</li><li><span class="tag mi">Micro</span><b>Bars breathe</b> on a scrub: one hour lit, others dim to 35%.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option B<span>Zoom reveal</span></div><div class="row"><div class="device" data-s="runtime" data-o="B" data-h="1236"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Opens on the Runtime % chart</b>, scaled to fill the screen, bars growing.</li><li><span class="tag ma">Macro</span><b>Zooms out</b>; header, tabs, hero and cards slide in above and below.</li><li><span class="tag mi">Micro</span>Scrub highlight runs after the reveal.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option C<span>Touch walkthrough</span></div><div class="row"><div class="device" data-s="runtime" data-o="C" data-h="1236"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Finger scrolls to the Runtime % chart,</b> then presses and holds.</li><li><span class="tag mi">Micro</span><b>Scrub across the bars;</b> the hour under the finger stays lit, the rest dim to 35%.</li></ul></div><button class="replay">Replay</button></div></div></section><section class="screen"><div class="eb">03 · Control</div><h2>Smart valve</h2><div class="src">Figma 9387:1369 · DEV-VALVE-01</div><div class="opts"><div class="opt"><div class="optname">Option A<span>In place</span></div><div class="row"><div class="device" data-s="valve" data-o="A" data-h="880"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Rows enter top to bottom</b>, keyed to each layer’s position.</li><li><span class="tag mi">Micro</span><b>Close valve</b> press: scale 0.97, status dot halo, word swaps Open → Closing → Closed.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option B<span>Zoom reveal</span></div><div class="row"><div class="device" data-s="valve" data-o="B" data-h="880"></div><ul class="notes"><li><span class="tag ma">Macro</span><b>Opens on the status card</b>, scaled to fill the screen.</li><li><span class="tag ma">Macro</span><b>Zooms out</b>; the button, activity log and timeline rail draw in below.</li><li><span class="tag mi">Micro</span>Same press-to-close sequence after the reveal.</li></ul></div><button class="replay">Replay</button></div><div class="opt"><div class="optname">Option C<span>Touch walkthrough</span></div><div class="row"><div class="device" data-s="valve" data-o="C" data-h="880"></div><ul class="notes"><li><span class="tag mi">Micro</span><b>Finger taps Close valve:</b> press 0.97, status dot halo, Open → Closing → Closed.</li><li><span class="tag ma">Macro</span><b>Every change has a touch as its cause;</b> nothing moves on its own.</li></ul></div><button class="replay">Replay</button></div></div></section></div><script>const EASE='cubic-bezier(.22,1,.36,1)';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const VIEW_H=640;
+
+function enter(el,delay,dy=12){if(!el)return;el.animate([{opacity:0,translate:`0 ${dy}px`,filter:'blur(3px)'},{opacity:1,translate:'0 0',filter:'blur(0)'}],{duration:reduce?0:400,delay:reduce?0:delay,easing:EASE,fill:'backwards'})}
+function hide(el){if(el)el.style.opacity=0}
+function show(el){if(el)el.style.opacity=''}
+function textNode(root,re){return [...root.querySelectorAll('p,div,span')].find(e=>e.children.length===0&&re.test(e.textContent.trim()))}
+function count(el,from,to,dur,suffix){if(!el)return;if(reduce){el.textContent=to+suffix;return}const t0=performance.now();
+  (function f(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,4)))+suffix;if(p<1)requestAnimationFrame(f)})(t0)}
+function ring(el,delay){if(!el)return;el.style.transformOrigin='50% 8%';el.animate([{rotate:'0deg'},{rotate:'16deg'},{rotate:'-12deg'},{rotate:'8deg'},{rotate:'-4deg'},{rotate:'0deg'}],{duration:500,delay,easing:'ease-out'})}
+
+/* rect of an element in unscaled frame coordinates */
+function rectIn(frame,el,s){const f=frame.getBoundingClientRect(),r=el.getBoundingClientRect();
+  return {x:(r.left-f.left)/s,y:(r.top-f.top)/s,w:r.width/s,h:r.height/s}}
+
+/* per-screen layer maps (node ids come straight from Figma) */
+const q=(root,id)=>root.querySelector(`[data-node-id="${id}"]`);
+const SCREENS={
+  dash:{
+    focus:r=>[q(r,'10121:4752')], inner:r=>textNode(r,/^72°$/), zoom:1.75,
+    groups:r=>[[q(r,'10121:4848')],...['10121:4708','10121:4731','10121:4752','10121:4779','10121:4801','10121:4822','10121:4833'].map(i=>[q(r,i)]),[q(r,'10121:4860')]],
+    micro:async(r,alive)=>{count(textNode(r,/^72°$/),64,72,1400,'°');await wait(1500);if(alive())ring(q(r,'10121:4858'),0)}
+  },
+  runtime:{
+    focus:r=>[q(r,'9678:1383')], zoom:1.9,
+    groups:r=>[[q(r,'9410:1370')],[q(r,'9410:1379')],...['9410:1387','9413:1369','9413:1378','9413:1382','9678:1383','9410:1459','9410:1472'].map(i=>[q(r,i)]),[q(r,'9410:1475')]],
+    bars:r=>[...r.querySelectorAll('[data-name^="bar"]')],
+    micro:async(r,alive)=>{const bars=[...r.querySelectorAll('[data-name^="bar"]')];const byHour={};
+      bars.forEach(b=>{const h=b.dataset.name.match(/bar(\d+)/)[1];(byHour[h]=byHour[h]||[]).push(b)});
+      for(const h of ['9','12','14','17']){if(!alive())return;bars.forEach(b=>b.style.transition='opacity 250ms cubic-bezier(.22,1,.36,1)');
+        bars.forEach(b=>b.style.opacity=byHour[h].includes(b)?1:.35);await wait(800)}
+      bars.forEach(b=>b.style.opacity='')}
+  },
+  valve:{
+    focus:r=>flat(r).filter(e=>{const t=topOf(e);return t>=135&&t<285}), zoom:2.1,
+    groups:r=>{const rows={};flat(r).forEach(e=>{const t=Math.round(topOf(e)/40);(rows[t]=rows[t]||[]).push(e)});return Object.keys(rows).sort((a,b)=>a-b).map(k=>rows[k])},
+    micro:async(r,alive)=>{const btn=q(r,'9387:1388'),dot=q(r,'9387:1380'),word=textNode(r,/^Open$/);if(!btn)return;
+      await wait(600);if(!alive())return;
+      btn.animate([{scale:1},{scale:.97},{scale:1}],{duration:150,easing:EASE});
+      dot.animate([{filter:'none'},{filter:'hue-rotate(-90deg) saturate(1.6) drop-shadow(0 0 6px #e8b13c)'}],{duration:400,fill:'forwards'});
+      const halo=dot.animate([{scale:1},{scale:1.5},{scale:1}],{duration:900,iterations:2});
+      for(const w of ['Closing','Closed']){if(!word||!alive())return;
+        await word.animate([{opacity:1,translate:'0 0'},{opacity:0,translate:'0 -4px',filter:'blur(2px)'}],{duration:150,easing:'ease-in-out',fill:'forwards'}).finished;
+        word.textContent=w;if(w==='Closed'){const l=textNode(r,/^Close valve$/);if(l)l.textContent='Open valve'}word.animate([{opacity:0,translate:'0 4px',filter:'blur(2px)'},{opacity:1,translate:'0 0',filter:'blur(0)'}],{duration:150,easing:'ease-in-out',fill:'forwards'});
+        await wait(1300)}}
+  }
+};
+/* valve is absolutely positioned; order its layers by their top offset */
+function flat(r){return [...r.children]}
+function topOf(e){return parseFloat(e.style.top)||parseFloat((e.className.match(/top-\[(\d+(?:\.\d+)?)px\]/)||[])[1])||e.offsetTop}
+
+const VW=375,VH=812,S=Math.max(.5,Math.min(.72,(innerHeight-140)/VH)); /* real iPhone viewport, one scale for every device */
+function scrollTo(sc,to,dur){const from=sc.scrollTop;if(reduce||dur===0){sc.scrollTop=to;return Promise.resolve()}
+  return new Promise(res=>{const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/dur),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+    sc.scrollTop=from+(to-from)*e;p<1?requestAnimationFrame(f):res()})(t0)})}
+
+
+/* Option C: a finger drives the screen; positions measured from the layers, never hard-coded */
+function finger(vp){const t=document.createElement('div');t.className='touch';vp.append(t);t._x=188;t._y=860;return t}
+function fmove(t,x,y,dur){const a=t.animate([{translate:`${t._x}px ${t._y}px`},{translate:`${x}px ${y}px`}],{duration:reduce?0:dur,easing:EASE,fill:'forwards'});t._x=x;t._y=y;return a.finished}
+function fshow(t,on){return t.animate([{opacity:on?0:1,scale:on?1.3:1},{opacity:on?1:0,scale:1}],{duration:reduce?0:220,fill:'forwards'}).finished}
+function fpress(t,down){return t.animate([{scale:down?1:.82},{scale:down?.82:1}],{duration:reduce?0:120,easing:'ease-out',fill:'forwards'}).finished}
+async function ftap(t){await fpress(t,1);await fpress(t,0)}
+const ctr=(vp,el)=>{const r=rectIn(vp,el,S);return [r.x+r.w/2,r.y+r.h/2]};
+async function runC(name,root,vp,sc,maxScroll,alive,cfg){
+  const t=finger(vp);
+  if(name==='dash'){
+    const x=q(root,'10121:4719'),ban=q(root,'10121:4708');
+    let [cx,cy]=ctr(vp,x);t._x=cx+40;t._y=cy+120;await fshow(t,1);await fmove(t,cx,cy,600);if(!alive())return;
+    await ftap(t);const h=ban.offsetHeight;
+    await ban.animate([{height:h+'px',opacity:1,marginBottom:'0px'},{height:'0px',opacity:0,marginBottom:'-16px',paddingTop:'0px',paddingBottom:'0px',borderWidth:'0px'}],{duration:reduce?0:450,easing:EASE,fill:'forwards'}).finished;
+    ban.style.overflow='hidden';if(!alive())return;
+    const d=Math.min(maxScroll,420);await fmove(t,188,640,500);await fpress(t,1);
+    fmove(t,188,640-d*.8,d*3.2);await scrollTo(sc,d,d*3.2);await fpress(t,0);await wait(600);if(!alive())return;
+    await fpress(t,1);fmove(t,188,640,d*2.6);await scrollTo(sc,0,d*2.6);await fpress(t,0);await fshow(t,0);
+  }else if(name==='runtime'){
+    const chart=q(root,'9678:1383'),bars=cfg.bars(root);
+    const cr=rectIn(vp,chart,S),to=Math.max(0,Math.min(maxScroll,sc.scrollTop+cr.y-240)),dy=to-sc.scrollTop;
+    await fshow(t,1);await fmove(t,188,600,400);await fpress(t,1);fmove(t,188,600-dy*.9,dy*3.4);await scrollTo(sc,to,dy*3.4);await fpress(t,0);
+    await wait(400);if(!alive())return;
+    const br=bars.map(b=>rectIn(vp,b,S)),yb=Math.min(...br.map(r=>r.y))+8,x0=Math.min(...br.map(r=>r.x))+4,x1=Math.max(...br.map(r=>r.x+r.w))-4;
+    await fmove(t,x0,yb,500);await fpress(t,1);bars.forEach(b=>b.style.transition='opacity 150ms ease-out');
+    const t0=performance.now(),D=reduce?0:3000;
+    await new Promise(res=>{(function f(n){const p=D?Math.min(1,(n-t0)/D):1,e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,x=x0+(x1-x0)*e;
+      t.style.translate=`${x}px ${yb}px`;t._x=x;let best=0;br.forEach((r,i)=>{if(Math.abs(r.x+r.w/2-x)<Math.abs(br[best].x+br[best].w/2-x))best=i});
+      const bx=br[best].x;bars.forEach((b,i)=>b.style.opacity=Math.abs(br[i].x-bx)<2?1:.35);p<1&&alive()?requestAnimationFrame(f):res()})(t0)});
+    await wait(900);await fpress(t,0);bars.forEach(b=>b.style.opacity='');await fshow(t,0);
+  }else{
+    const btn=q(root,'9387:1388');if(!btn)return;const [bx,by]=ctr(vp,btn);t._x=bx+30;t._y=by+160;
+    await fshow(t,1);await fmove(t,bx,by,650);if(!alive())return;const m=cfg.micro(root,alive);await wait(560);ftap(t);await m;await fshow(t,0);
+  }
+}
+async function run(dev){
+  const id=(dev._run=(dev._run||0)+1),alive=()=>dev._run===id;
+  const name=dev.dataset.s,opt=dev.dataset.o,H=+dev.dataset.h,cfg=SCREENS[name];
+  dev.style.width=VW*S+'px';dev.style.height=VH*S+'px';
+  dev.innerHTML=`<div class="vp" style="width:${VW}px;height:${VH}px;transform:scale(${S});transform-origin:0 0;position:relative;overflow:hidden">
+    <div class="cam" style="width:${VW}px;height:${VH}px;transform-origin:0 0"><div class="sc" style="width:${VW}px;height:${VH}px;overflow:hidden"><div class="frame" style="height:${H}px"></div></div></div>
+    <div class="navl" style="position:absolute;left:0;right:0;bottom:0"></div></div>`;
+  const vp=dev.firstChild,cam=vp.querySelector('.cam'),sc=vp.querySelector('.sc'),frame=vp.querySelector('.frame'),navl=vp.querySelector('.navl');
+  frame.append(document.getElementById('t-'+name).content.cloneNode(true));
+  const root=frame.firstElementChild;root.style.height=H+'px';
+  /* pin the bottom nav to the device, like the real app */
+  const nav=root.querySelector('[data-name="Bottom Navigation"]');
+  if(nav){navl.append(nav);nav.style.position='relative';nav.style.top='auto';nav.style.left='auto';nav.style.width='375px';nav.style.transform='none';nav.classList.remove('-translate-x-1/2','left-1/2','absolute');frame.style.height=(H-nav.offsetHeight)+'px';sc.style.paddingBottom='0'}
+  const groups=cfg.groups(root).map(g=>g.filter(Boolean)).filter(g=>g.length);
+  if(nav)groups.push([nav]);
+  const maxScroll=Math.max(0,frame.offsetHeight-(VH-(nav?nav.offsetHeight:0)));
+  const bars=cfg.bars?cfg.bars(root):[];
+  bars.forEach(b=>b.style.transformOrigin='bottom');
+  const growBars=d=>bars.forEach((b,i)=>b.animate([{scale:'1 0'},{scale:'1 1'}],{duration:reduce?0:500,delay:reduce?0:d+Math.floor(i/2)*30,easing:EASE,fill:'backwards'}));
+  const tour=async()=>{if(!maxScroll||!alive())return;await wait(500);await scrollTo(sc,maxScroll,maxScroll*4.5);await wait(900);if(alive())await scrollTo(sc,0,maxScroll*3)};
+
+  if(opt==='C'){
+    groups.forEach((g,i)=>g.forEach(e=>enter(e,150+i*40,i===0?-12:12)));growBars(150+groups.length*80);
+    await wait(150+groups.length*80+700);if(!alive())return;
+    await runC(name,root,vp,sc,maxScroll,alive,cfg);
+  }else if(opt==='A'){
+    groups.forEach((g,i)=>g.forEach(e=>enter(e,150+i*40,i===0?-12:12)));
+    growBars(150+groups.length*80);
+    await wait(150+groups.length*80+900);if(!alive())return;
+    await cfg.micro(root,alive);
+  }else{
+    const focus=cfg.focus(root).filter(Boolean),inF=e=>focus.some(f=>e===f||e.contains(f)||f.contains(e));
+    const rest=groups.map(g=>g.filter(e=>!inF(e))).filter(g=>g.length);
+    const hidden=[];groups.flat().forEach(g=>focus.forEach(f=>{if(g===f||!g.contains(f))return;
+      for(let n=f;n&&n!==g;n=n.parentElement)[...n.parentElement.children].forEach(c=>{if(c!==n&&!focus.some(x=>c===x||c.contains(x))&&!hidden.includes(c))hidden.push(c)})}));
+    if(cfg.inner){const k=cfg.inner(root);for(let n=k;n&&n!==focus[0];n=n.parentElement)[...n.parentElement.children].forEach(c=>{if(c!==n&&!hidden.includes(c))hidden.push(c)})}
+    rest.flat().forEach(hide);hidden.forEach(hide);
+    const fr=focus.map(f=>rectIn(frame,f,S)),x0=Math.min(...fr.map(r=>r.x)),y0=Math.min(...fr.map(r=>r.y)),
+      x1=Math.max(...fr.map(r=>r.x+r.w)),y1=Math.max(...fr.map(r=>r.y+r.h)),cx=(x0+x1)/2;
+    sc.scrollTop=0;
+    const cy=(y0+y1)/2-sc.scrollTop,Z=Math.min(cfg.zoom,VW*.88/(x1-x0),VH*.85/(y1-y0));
+    const T=`translate(${VW/2-Z*cx}px,${VH/2-Z*cy}px) scale(${Z})`;
+    cam.style.transform=T;
+    focus.forEach(f=>f.animate([{opacity:0,scale:.96},{opacity:1,scale:1}],{duration:reduce?0:500,easing:EASE,fill:'backwards'}));
+    growBars(400);
+    if(name==='dash'){await wait(700);if(!alive())return;cfg.micro(root,alive)}
+    await wait(2000);if(!alive())return;
+    cam.animate([{transform:T},{transform:'none'}],{duration:reduce?0:1200,easing:EASE,fill:'forwards'});
+    await wait(reduce?0:700);if(!alive())return;
+    const fy=(y0+y1)/2,order=rest.map(g=>({g,d:Math.abs(rectIn(frame,g[0],S).y-fy)})).sort((a,b)=>a.d-b.d);
+    hidden.forEach(e=>{show(e);enter(e,0,12)});
+    order.forEach(({g},i)=>g.forEach(e=>{show(e);enter(e,i*40,(e!==nav&&rectIn(frame,e,S).y<fy)?-12:12)}));
+    await wait(order.length*70+900);if(!alive())return;
+    if(name!=='dash')await cfg.micro(root,alive);
+      }
+  await wait(2200);if(!alive())return;
+  await dev.firstChild.animate([{opacity:1},{opacity:0}],{duration:reduce?0:350,fill:'forwards'}).finished;
+  if(alive())run(dev);
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{const d=e.target;if(e.isIntersecting){if(!d._on){d._on=1;run(d)}}else if(d._on){d._on=0;d._run++}}),{threshold:.2});
+addEventListener('load',()=>document.fonts.ready.then(()=>setTimeout(()=>document.querySelectorAll('.device').forEach(d=>io.observe(d)),150)));
+document.querySelectorAll('.replay').forEach(b=>b.addEventListener('click',()=>run(b.closest('.opt').querySelector('.device'))));
+</script>
+</body></html>
