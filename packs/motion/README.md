@@ -12,6 +12,7 @@ Micro interactions and motion graphics. Production CSS transitions, a motion tok
 | Skill | What it does |
 |---|---|
 | `algorithmic-art` | Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generati |
+| `fetchly-bento` | Animated 8 tile bento of an app's charts and controls for case studies, built from Figma layers or the app's code. Needs the `stageshow` skill installed (not bundled here). Includes a compare mode that builds Fable and Opus versions side by side. |
 | `libraries-dev` | Use the Libraries.dev UI effect libraries correctly and find where they fit in a project. Covers Border beam (border-beam), Thinking orbs (thinking-orbs), Gooey |
 | `screen-video` | Re-records the flow from a website screen recording by script and turns it into a professional product demo video for LinkedIn — smooth scrolling, a cursor th |
 | `slack-gif-creator` | Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request a |
