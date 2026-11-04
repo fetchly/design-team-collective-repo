@@ -40,6 +40,10 @@ The installer never overwrites a skill you already had. It only replaces copies 
 | [`webflow`](packs/webflow) | 13 | 0 | Building fetch.ly and client sites in Webflow. The full Finsweet Client-First method, the Webflow MCP knowledge base, preloaded Fetchly site, page and CMS IDs, code component research, and an API rate guard. |
 | [`writing-docs`](packs/writing-docs) | 10 | 0 | Writing that reads like a person wrote it, and the files it ships in. Humanizer and generic language killer, prompt builder, doc co-authoring, internal comms, and Word, PowerPoint, Excel and PDF skills. |
 
+## Showcase
+
+[`showcase/`](showcase) holds finished work made with these packs, one folder per client: Armada Power motion and bento studies, and the Spyderco V2 visuals bento. Open any `index.html` in a browser.
+
 ## Brand tokens
 
 `packs/fetchly-brand/tokens/` holds `fetchly-tokens.css` (custom properties with light and dark roles, falling back to the live fetch.ly Webflow variables) and `fetchly-tokens.json` (W3C design tokens). The source of truth is the Fetchly-GUIDES Figma file.
