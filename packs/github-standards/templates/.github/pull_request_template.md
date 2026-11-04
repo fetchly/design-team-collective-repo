@@ -2,8 +2,13 @@
 
 ## Why
 
-## Screenshots or video
-<!-- Visual change: before and after at 375, 768, 1440 px, light and dark -->
+## Before / After
+<!-- Required for any visual change (pr-before-after skill). Same URL, viewport and state on both sides. Write "No visual change" if none. -->
+
+| | Before | After |
+|---|---|---|
+| 1440 |  |  |
+| 390 |  |  |
 
 ## How I tested
 

@@ -1,0 +1,23 @@
+name: PR screenshots
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+jobs:
+  before-after:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Require before and after images for visual changes
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          visual=$(git diff --name-only "$BASE"...HEAD | grep -E '\.(html|css|scss|svg|png|jpe?g|webp|gif|astro|vue|svelte|jsx|tsx)$' || true)
+          [ -z "$visual" ] && { echo "No visual files changed."; exit 0; }
+          section=$(printf '%s' "$BODY" | awk '/^## Before \/ After/{f=1;next} /^## /{f=0} f')
+          if printf '%s' "$section" | grep -qi 'no visual change'; then echo "Marked as no visual change."; exit 0; fi
+          imgs=$(printf '%s' "$section" | grep -oE '!\[[^]]*\]\([^)]+\)|<img [^>]*src=' | wc -l)
+          echo "Visual files changed:"; echo "$visual"
+          if [ "$imgs" -lt 2 ]; then echo "::error::Add before and after screenshots under '## Before / After' (see the pr-before-after skill), or write 'No visual change'."; exit 1; fi
+          echo "Found $imgs images."
