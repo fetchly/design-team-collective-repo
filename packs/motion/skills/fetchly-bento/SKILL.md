@@ -58,6 +58,15 @@ Pictures
 - Scale cloned fragments to their slot at runtime (measure, then set zoom); never a fixed zoom that leaves a void or overflows.
 - Real data where it exists; flag invented sample data to Lucas.
 
+Fill and alignment (check every tile at 1440 and 390)
+- Every tile is a flex column: head at the top, picture fills the rest (`flex:1`), anchored to the bottom or bleeding off one edge. No empty band under or beside the picture larger than the 28px padding.
+- One inner padding for all tiles (28px); content never touches the edge unless it bleeds on purpose, and then it bleeds past it (no 2 to 10px slivers of gap).
+- Tiles in one row share a height; their pictures align on a common baseline or top line, never at random offsets.
+- Inner gaps step from one scale (8, 12, 16, 24); the same element kind uses the same gap in every tile.
+- Left edges line up: head, picture and labels start on the padding line unless the picture is centered.
+- Wide tiles use their width: lay the picture out horizontally (two columns, a row of items, or a chart across the full width), never a single-tile layout stretched or centered in a void.
+- Measure, don't eyeball: run a script that logs each tile's picture box vs tile box and flag empty space over 15% or overflow, and fix before reporting.
+
 Motion (stageshow motion.md)
 - Each tile plays once when it enters the viewport and replays only on re-entry; never a continuous loop.
 - Tiles arrive about 100ms apart in reading order; ease `cubic-bezier(.22,1,.36,1)`.
