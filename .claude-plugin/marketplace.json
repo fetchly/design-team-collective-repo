@@ -1,0 +1,61 @@
+{
+  "name": "design-team-collective",
+  "owner": {
+    "name": "Fetchly Design Team"
+  },
+  "metadata": {
+    "description": "Fetchly design team skills and agents, one plugin per pack."
+  },
+  "plugins": [
+    {
+      "name": "design-ui",
+      "source": "./packs/design-ui",
+      "description": "Interface craft from first sketch to finished build."
+    },
+    {
+      "name": "fetchly-brand",
+      "source": "./packs/fetchly-brand",
+      "description": "Everything that makes work look and sound like Fetchly."
+    },
+    {
+      "name": "figma",
+      "source": "./packs/figma",
+      "description": "Working in Figma through Claude."
+    },
+    {
+      "name": "github-standards",
+      "source": "./packs/github-standards",
+      "description": "Rules and test templates for design team repos."
+    },
+    {
+      "name": "google-workspace",
+      "source": "./packs/google-workspace",
+      "description": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Meet, Chat, Forms and Tasks through the gws CLI."
+    },
+    {
+      "name": "motion",
+      "source": "./packs/motion",
+      "description": "Micro interactions and motion graphics."
+    },
+    {
+      "name": "ops-automation",
+      "source": "./packs/ops-automation",
+      "description": "Running the design team."
+    },
+    {
+      "name": "research",
+      "source": "./packs/research",
+      "description": "UX research from plan to readout."
+    },
+    {
+      "name": "webflow",
+      "source": "./packs/webflow",
+      "description": "Building fetch.ly and client sites in Webflow."
+    },
+    {
+      "name": "writing-docs",
+      "source": "./packs/writing-docs",
+      "description": "Writing that reads like a person wrote it, and the files it ships in."
+    }
+  ]
+}

@@ -7,6 +7,8 @@ Building fetch.ly and client sites in Webflow. The full Finsweet Client-First me
 ./install.sh webflow --plugins   # also installs: webflow-skills@webflow-skills
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install webflow@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

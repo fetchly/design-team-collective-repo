@@ -6,6 +6,8 @@ Gmail, Calendar, Drive, Docs, Sheets, Slides, Meet, Chat, Forms and Tasks throug
 ./install.sh google-workspace
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install google-workspace@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

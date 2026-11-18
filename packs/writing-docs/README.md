@@ -6,6 +6,8 @@ Writing that reads like a person wrote it, and the files it ships in. Humanizer 
 ./install.sh writing-docs
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install writing-docs@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

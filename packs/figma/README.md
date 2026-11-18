@@ -7,6 +7,8 @@ Working in Figma through Claude. Writing to the canvas, design to code with 1:1 
 ./install.sh figma --plugins   # also installs: figma@claude-plugins-official
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install figma@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

@@ -7,6 +7,8 @@ Interface craft from first sketch to finished build. Impeccable (shape, critique
 ./install.sh design-ui --plugins   # also installs: interfaces@interfaces
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install design-ui@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

@@ -6,6 +6,8 @@ Rules and test templates for design team repos. A CLAUDE.md rule set for branche
 ./install.sh github-standards
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install github-standards@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

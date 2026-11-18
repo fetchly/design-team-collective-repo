@@ -6,6 +6,8 @@ Everything that makes work look and sound like Fetchly. Brand tokens (CSS and W3
 ./install.sh fetchly-brand
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install fetchly-brand@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

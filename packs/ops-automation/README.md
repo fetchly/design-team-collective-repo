@@ -9,6 +9,8 @@ Running the design team. Weekly design report from Pulse, morning brief, end of 
 
 Schedule the two EOD skills as one weekday task (for example 17:30) with the prompt: `Run the eod-client-leads skill, then the eod-internal-followups skill. Send me the combined summary.` Both only read email; the only write is Pulse efforts for leads.
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install ops-automation@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |
