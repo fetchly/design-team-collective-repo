@@ -17,7 +17,7 @@ description: Fetchly design team rules for GitHub repos (branches, commits, PRs,
 - Keep them small: under 400 changed lines where possible.
 - Fill in the template: what changed, why, screenshots or a short video for anything visual, and how you tested it.
 - Visual changes need before and after screenshots at 375, 768 and 1440 px, in light and dark mode when the site has both. Follow the `pr-before-after` skill to capture, upload and lay them out.
-- Link the Pulse effort in the PR body.
+- Link the Pulse effort in the PR body. The `pulse-pr-sync` skill (ops-automation pack) creates the effort if there is none and moves it to done when the PR merges.
 - The author merges after approval. Use squash merge so history stays readable.
 
 ## Reviews
