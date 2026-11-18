@@ -6,6 +6,8 @@ UX research from plan to readout. Briefs, screeners, discussion guides, transcri
 ./install.sh research
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install research@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

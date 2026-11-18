@@ -1,0 +1,8 @@
+{
+  "name": "writing-docs",
+  "description": "Writing that reads like a person wrote it, and the files it ships in. Humanizer and generic language killer, prompt builder, doc co-authoring, internal comms, and Word, PowerPoint, Excel and PDF skills.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Fetchly Design Team"
+  }
+}

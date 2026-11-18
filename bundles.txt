@@ -1,0 +1,7 @@
+# bundle         packs (fetchly-brand comes first: other packs assume its tokens)
+starter          fetchly-brand writing-docs
+ui-designer      fetchly-brand design-ui figma motion
+motion-designer  fetchly-brand motion design-ui figma
+webflow-dev      fetchly-brand webflow figma github-standards
+researcher       fetchly-brand research writing-docs
+design-lead      fetchly-brand ops-automation google-workspace writing-docs research

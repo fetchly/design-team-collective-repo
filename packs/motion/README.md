@@ -7,6 +7,8 @@ Micro interactions and motion graphics. Production CSS transitions, a motion tok
 ./install.sh motion --plugins   # also installs: interfaces@interfaces,figma@claude-plugins-official,webflow-skills@webflow-skills
 ```
 
+Or in Claude Code: `/plugin marketplace add fetchly/design-team-collective-repo` then `/plugin install motion@design-team-collective`.
+
 ## Skills
 
 | Skill | What it does |

@@ -2,28 +2,82 @@
 
 Fetchly design team's shared Claude Code setup: every skill and agent we use, sorted into packs, with Fetchly brand tokens and GitHub standards. Install only the packs you need.
 
-## Quick start
+## Install guides
+
+Pick the guide that fits. Every route installs the same skills; restart Claude Code afterwards.
+
+### 1. Inside Claude Code (easiest, auto updates)
+
+Each pack is a Claude Code plugin. Run these in Claude Code:
+
+```text
+/plugin marketplace add fetchly/design-team-collective-repo
+/plugin install motion@design-team-collective
+```
+
+Swap `motion` for any pack name below. Plugin skills are namespaced, so `stageshow` shows up as `motion:stageshow`. Get updates with `/plugin marketplace update design-team-collective`.
+
+### 2. One line in the terminal (no clone)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/fetchly/design-team-collective-repo/main/install.sh | bash -s -- ui-designer
+```
+
+This downloads the repo to `~/.design-team-collective` and installs the bundle into `~/.claude`. Leave off `-s -- ui-designer` to pick from a menu.
+
+### 3. From a clone (to contribute or pin a version)
 
 ```bash
 gh repo clone fetchly/design-team-collective-repo && cd design-team-collective-repo
-./install.sh list
-./install.sh fetchly-brand motion design-ui
+./install.sh
 ```
 
-Restart Claude Code after installing.
+With no arguments it lists bundles and packs and asks what to install.
 
-## Installer
+### Bundles by role
+
+Not sure which packs you need? Install a bundle. `fetchly-brand` is in all of them because other packs assume its tokens.
+
+| Bundle | Packs | For |
+|---|---|---|
+| `starter` | fetchly-brand, writing-docs | Anyone new to the team |
+| `ui-designer` | fetchly-brand, design-ui, figma, motion | Product and interface design |
+| `motion-designer` | fetchly-brand, motion, design-ui, figma | Case study bentos, faux UI demos, transitions |
+| `webflow-dev` | fetchly-brand, webflow, figma, github-standards | Building fetch.ly and client sites |
+| `researcher` | fetchly-brand, research, writing-docs | UX research and readouts |
+| `design-lead` | fetchly-brand, ops-automation, google-workspace, writing-docs, research | Running the team, reports, inbox |
+
+Bundles live in [`bundles.txt`](bundles.txt). Add a line there to make a new one.
+
+### Keep it current or remove it
+
+```bash
+./install.sh update             # pull the latest repo, reinstall every pack you have
+./install.sh uninstall motion   # remove only what the installer added for that pack
+```
+
+### Installer reference
 
 | Command | Does |
 |---|---|
-| `./install.sh list` | Shows every pack with its skill count |
-| `./install.sh <pack> [pack...]` | Copies the pack's skills and agents into `~/.claude` |
+| `./install.sh` | Menu: pick bundles or packs, optionally their plugins |
+| `./install.sh list` | Shows every bundle and pack with its skill count |
+| `./install.sh <bundle\|pack> [...]` | Copies the skills and agents into `~/.claude` |
 | `./install.sh all` | Installs every pack |
-| `--project <dir>` | Installs into `<dir>/.claude` so the skills live with one repo |
+| `./install.sh update` | Pulls the repo and reinstalls the packs recorded in `~/.claude/.dtc-packs` |
+| `./install.sh uninstall <pack>` | Removes that pack's installed skills and agents |
+| `--project <dir>` | Uses `<dir>/.claude` so the skills live with one repo |
 | `--plugins` | Also installs the Claude Code plugins a pack depends on (Figma, Webflow, Interfaces) |
 | `--templates <dir>` | Copies CI workflows, Playwright tests and the PR template into a repo |
 
-The installer never overwrites a skill you already had. It only replaces copies it installed earlier, which carry a `.dtc-installed` marker.
+The installer never overwrites a skill you already had. It only replaces or removes copies it installed, which carry a `.dtc-installed` marker.
+
+### Troubleshooting
+
+- **Skills don't show up:** restart Claude Code, then check `~/.claude/skills/<name>/SKILL.md` exists.
+- **"skip X: you already have your own copy":** you installed that skill another way. Delete your copy if you want the collective's version.
+- **Plugin step says `claude CLI not found`:** run the printed `/plugin` commands inside Claude Code instead.
+- **Same skill twice (plugin and copy):** pick one route. Remove the copy with `./install.sh uninstall <pack>`.
 
 ## Packs
 

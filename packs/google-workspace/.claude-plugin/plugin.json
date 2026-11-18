@@ -1,0 +1,8 @@
+{
+  "name": "google-workspace",
+  "description": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Meet, Chat, Forms and Tasks through the gws CLI. 96 skills: raw API skills, ready recipes (block focus time, share a folder, standup report) and role personas.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Fetchly Design Team"
+  }
+}
