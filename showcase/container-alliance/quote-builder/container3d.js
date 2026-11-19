@@ -3,7 +3,7 @@
 // ES module. Expects an importmap for 'three' (r160) and 'three/addons/'.
 //
 // API: createContainer3D(host) -> { update(state), setView(name), setCut(on),
-//   setFrame(px), getAddons(), moveAddon(id, {side, t}), getLength(), dispose() }
+//   setFrame(px), getAddons(), moveAddon(id, {side, t}), getLength(), validate(), dispose() }
 //
 // state.lengthFt (10..53, default 20) rebuilds the body at real length: rib
 // spacing stays constant, doors keep their size, 8ft x 8.5ft section stays.
@@ -14,6 +14,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { clearanceFor, spacingBetween, validateLayout } from './calc/clearances.js';
 
 const MODELS = new URL('./models/', import.meta.url).href;
 
@@ -331,17 +332,17 @@ export function createContainer3D(host) {
 
   // placement -> world x for an add-on (keeps the opening clear of the corner posts)
   function addonX(a) {
-    const margin = 0.36;
+    const margin = clearanceFor(a).corner;
     const span = Math.max(0, L - 2 * margin - a.w);
     return -L / 2 + margin + a.w / 2 + clamp01(a.t) * span;
   }
   const addonEnabled = (a) => !!state.mods[a.mod];
 
   // ---------- placement geometry (clamping + overlap avoidance) ----------
-  const MARGIN = 0.36; // keeps openings clear of the corner posts and door frames
-  const GAP = 0.08;    // minimum clearance between add-ons
+  // Corner margin and spacing come from each item's clearance zone (calc/clearances.js).
   function xRange(a) {
-    return [-L / 2 + MARGIN + a.w / 2, L / 2 - MARGIN - a.w / 2];
+    const m = clearanceFor(a).corner;
+    return [-L / 2 + m + a.w / 2, L / 2 - m - a.w / 2];
   }
   function xToT(a, x) {
     const [lo, hi] = xRange(a);
@@ -349,7 +350,8 @@ export function createContainer3D(host) {
   }
   function yOverlap(a, b) {
     if (a.side === 'roof') return true;
-    return a.y - a.h / 2 < b.y + b.h / 2 + GAP && b.y - b.h / 2 < a.y + a.h / 2 + GAP;
+    const gap = spacingBetween(a, b);
+    return a.y - a.h / 2 < b.y + b.h / 2 + gap && b.y - b.h / 2 < a.y + a.h / 2 + gap;
   }
   // Nearest free center x for add-on `id` on `side` near `desired`, or null if
   // nothing fits. Other enabled add-ons on that side are obstacles.
@@ -360,8 +362,10 @@ export function createContainer3D(host) {
     const blocks = [];
     for (const [k, b] of Object.entries(addons)) {
       if (k === id || b.side !== side || !addonEnabled(b) || !yOverlap({ ...a, side }, b)) continue;
+      if (clearanceFor(a).blocks === false || clearanceFor(b).blocks === false) continue;
       const bx = addonX(b);
-      blocks.push([bx - b.w / 2 - GAP - a.w / 2, bx + b.w / 2 + GAP + a.w / 2]);
+      const gap = spacingBetween({ ...a, side }, b);
+      blocks.push([bx - b.w / 2 - gap - a.w / 2, bx + b.w / 2 + gap + a.w / 2]);
     }
     const eps = 1e-6;
     const isFree = (x) => x >= lo - eps && x <= hi + eps && !blocks.some(([b0, b1]) => x > b0 + eps && x < b1 - eps);
@@ -1015,6 +1019,7 @@ export function createContainer3D(host) {
     return ok;
   }
   const getLength = () => ({ ft: L / FT, m: L });
+  const validate = () => validateLayout(getAddons(), L / FT);
 
   // ---------- direct manipulation: hover + drag add-ons on the container ----------
   const raycaster = new THREE.Raycaster();
@@ -1298,7 +1303,7 @@ export function createContainer3D(host) {
     if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
   }
 
-  return { update, setView, setCut, setFrame, getAddons, moveAddon, getLength, dispose };
+  return { update, setView, setCut, setFrame, getAddons, moveAddon, getLength, validate, dispose };
 }
 
 export default createContainer3D;

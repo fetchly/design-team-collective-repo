@@ -1,0 +1,1541 @@
+{
+ "source": {
+  "title": "Arte de projetar em arquitetura",
+  "author": "Ernst Neufert",
+  "edition": "Portuguese, translated from the 21st German edition, Editorial Gustavo Gili",
+  "pages": "book_page = printed page number; pdf_page = page in the 450-page scan (book_page + 17)",
+  "note": "Paraphrased dimensional facts for reference. No text, figures or scans from the book are reproduced. Check current local codes before building."
+ },
+ "rules": {
+  "body.reference_height_modulor": {
+   "section": "Human dimensions",
+   "value_m": 1.829,
+   "value": null,
+   "rule": "The Le Corbusier Modulor uses a 1.829 m standing figure, with navel height at 1.130 m.",
+   "book_page": 19,
+   "pdf_page": 36,
+   "confidence": "high"
+  },
+  "body.arm_outstretched_one_side": {
+   "section": "Human dimensions",
+   "value_m": 1.125,
+   "value": null,
+   "rule": "With one arm stretched out sideways, a standing person needs about 1.125 m of width.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "body.bending_forward_footprint": {
+   "section": "Human dimensions",
+   "value_m": 0.875,
+   "value": null,
+   "rule": "Bending forward from the waist takes about 0.875 m of floor depth, and the top of the bent back is about 1.375 m above the floor.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "medium"
+  },
+  "body.shoulder_width": {
+   "section": "Human dimensions",
+   "value_m": 0.5,
+   "value": null,
+   "rule": "Plan for about 0.50 m across the shoulders of a standing adult.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "body.standing_depth_profile": {
+   "section": "Human dimensions",
+   "value_m": 0.3,
+   "value": null,
+   "rule": "Seen from the side, a standing body is about 0.30 m deep.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "medium"
+  },
+  "body.standing_height_reach_horizontal": {
+   "section": "Human dimensions",
+   "value_m": 1.75,
+   "value": null,
+   "rule": "A standing adult is shown as 1.75 m tall, with the arm held level at about 1.50 m and needing 0.875 m of depth.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "lying.bed_length": {
+   "section": "Human dimensions",
+   "value_m": 2.0,
+   "value": null,
+   "rule": "A person lying flat needs 2.00 m of length; the body itself measures about 1.875 m.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "lying.sitting_up_in_bed_headroom": {
+   "section": "Human dimensions",
+   "value_m": 0.875,
+   "value": null,
+   "rule": "Sitting upright on a mattress takes about 0.875 m of headroom above the mattress and about 1.25 m of length.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "medium"
+  },
+  "sitting.armchair_depth": {
+   "section": "Human dimensions",
+   "value_m": 1.25,
+   "value": null,
+   "rule": "A lounge armchair with its user needs about 1.25 m of depth, with the seat at 0.25 to 0.35 m and a side table about 0.625 m high.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "medium"
+  },
+  "sitting.dining_table_height": {
+   "section": "Human dimensions",
+   "value_m": 0.75,
+   "value": null,
+   "rule": "A dining table stands about 0.75 m high, with the seat at 0.40 to 0.45 m and a footprint about 0.875 m deep.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "sitting.seated_head_height": {
+   "section": "Human dimensions",
+   "value_m": 1.35,
+   "value": null,
+   "rule": "A person seated at a work chair reaches about 1.35 m to the top of the head.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "medium"
+  },
+  "sitting.work_table_height": {
+   "section": "Human dimensions",
+   "value_m": 0.775,
+   "value": "0.75-0.80 m",
+   "rule": "A desk for seated work stands 0.75 to 0.80 m high, with the chair seat at 0.45 to 0.48 m and a total depth of about 0.875 m.",
+   "book_page": 20,
+   "pdf_page": 37,
+   "confidence": "high"
+  },
+  "reach.arms_spread": {
+   "section": "Human dimensions",
+   "value_m": 1.75,
+   "value": null,
+   "rule": "Arms spread fully sideways span about 1.75 m, which is less than the 2.35 m inside width of a container.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "reach.overhead_vertical": {
+   "section": "Human dimensions",
+   "value_m": 2.25,
+   "value": null,
+   "rule": "With the arm raised straight up, a standing person reaches about 2.25 m. A finished container interior is often below 2.39 m once floor and ceiling build-up is added, so overhead storage and fixtures may sit within reach or bring the ceiling close to the head.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "reach.working_at_counter": {
+   "section": "Human dimensions",
+   "value_m": 1.125,
+   "value": null,
+   "rule": "Leaning over a counter to work takes about 1.125 m of floor depth, with the outstretched hand at about 1.50 m. Reaching up over a 0.50 m deep counter reaches about 2.0 m, in a total depth of about 0.875 m.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "medium"
+  },
+  "circulation.moving_allowance": {
+   "section": "Circulation",
+   "value_m": null,
+   "value": ">=10% extra width",
+   "rule": "For people who are walking rather than standing, add at least 10% to these widths.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.single_person": {
+   "section": "Circulation",
+   "value_m": 0.625,
+   "value": null,
+   "rule": "One person standing face-on between two walls needs about 0.625 m of width.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.single_person_arms_akimbo": {
+   "section": "Circulation",
+   "value_m": 0.875,
+   "value": null,
+   "rule": "One person with elbows out or legs apart needs about 0.875 m between walls.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.single_person_sideways": {
+   "section": "Circulation",
+   "value_m": 0.375,
+   "value": null,
+   "rule": "The absolute minimum gap a person can turn sideways and squeeze through is about 0.375 m.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.step_length": {
+   "section": "Circulation",
+   "value_m": 0.75,
+   "value": null,
+   "rule": "A normal walking step is about 0.75 m long, and a marching step about 0.875 m.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.three_people": {
+   "section": "Circulation",
+   "value_m": 1.7,
+   "value": null,
+   "rule": "Three people abreast need about 1.70 m, and four need about 2.25 m.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.two_people": {
+   "section": "Circulation",
+   "value_m": 1.0,
+   "value": null,
+   "rule": "Two people side by side need about 1.00 m between walls, or about 1.15 m if one carries a bag.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "circulation.with_two_suitcases": {
+   "section": "Circulation",
+   "value_m": 1.0,
+   "value": null,
+   "rule": "A person carrying a bag in each hand needs about 1.00 m of width; with one bag, about 0.80 m.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "occupancy.max_density": {
+   "section": "Circulation",
+   "value_m": null,
+   "value": "6 persons/m2",
+   "rule": "The tightest crowding possible is about 6 standing people per square metre, as in a cable car.",
+   "book_page": 21,
+   "pdf_page": 38,
+   "confidence": "high"
+  },
+  "vehicle.aisle_width": {
+   "section": "Compact interiors (vehicles)",
+   "value_m": 0.6,
+   "value": null,
+   "rule": "Aisles in compact coach interiors are drawn about 0.60 to 0.70 m wide.",
+   "book_page": 22,
+   "pdf_page": 39,
+   "confidence": "medium"
+  },
+  "vehicle.compact_seat_area": {
+   "section": "Compact interiors (vehicles)",
+   "value_m": null,
+   "value": "0.45 m2/seat",
+   "rule": "A dense rail-bus layout gives about 0.45 m2 of floor per seat; a 2nd-class express coach gives about 1.05 m2.",
+   "book_page": 22,
+   "pdf_page": 39,
+   "confidence": "high"
+  },
+  "vehicle.door_height_width": {
+   "section": "Compact interiors (vehicles)",
+   "value_m": null,
+   "value": "1.8-2.0 m high, 0.60-0.70 m wide",
+   "rule": "Train compartment doors are 1.8 to 2.0 m high and 0.60 to 0.70 m wide, a workable minimum for tight interiors.",
+   "book_page": 22,
+   "pdf_page": 39,
+   "confidence": "high"
+  },
+  "door.clear_opening_wood_frame": {
+   "section": "Doors",
+   "value_m": 0.825,
+   "value": "575/700/825/950 × 1850/1975 mm",
+   "rule": "Inside a wood frame, the clear opening is about 50 mm less than the rough size, e.g. 825 × 1975 mm for an 875 × 2000 mm opening.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.double_leaf_widths": {
+   "section": "Doors",
+   "value_m": 1.25,
+   "value": "1250/1500/1750 mm",
+   "rule": "Double-leaf door openings are 1250, 1500 or 1750 mm wide.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.floor_gap": {
+   "section": "Doors",
+   "value_m": 0.0075,
+   "value": "7.5 mm",
+   "rule": "Leave about 7.5 mm between the floor and the bottom of the door leaf.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.handle_height": {
+   "section": "Doors",
+   "value_m": 1.05,
+   "value": "1050 mm",
+   "rule": "Put the door handle centre 1.05 m above the floor.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.hinge_positions": {
+   "section": "Doors",
+   "value_m": 0.3,
+   "value": "250 mm below head, 300 mm above floor",
+   "rule": "Centre the top hinge 250 mm below the frame head and the bottom hinge 300 mm above the floor.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.interior_single_leaf": {
+   "section": "Doors",
+   "value_m": 0.875,
+   "value": "750–1000 × 2000 mm rough",
+   "rule": "Single-leaf interior doors are drawn at 750, 875 or 1000 mm wide by 2000 mm high; cellar and secondary doors use 625–875 × 1875 mm.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.module_heights": {
+   "section": "Doors",
+   "value_m": 2.0,
+   "value": "1875 / 2000 mm (also 2125, 2250)",
+   "rule": "Doors in the main rooms take a 2000 mm high rough opening; cellar and secondary doors can use 1875 mm.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.module_widths": {
+   "section": "Doors",
+   "value_m": 0.875,
+   "value": "single-leaf rough openings 625/750/875/1000 mm",
+   "rule": "Single-leaf door rough openings come in 125 mm steps: 625, 750, 875 or 1000 mm wide.",
+   "book_page": 117,
+   "pdf_page": 134,
+   "confidence": "high"
+  },
+  "door.overhead_folding_recess": {
+   "section": "Doors",
+   "value_m": 0.3,
+   "value": "25–30 cm lintel recess; 32 cm ceiling track",
+   "rule": "In tight spots with no room to slide sideways, a door that folds up into the lintel needs about 25–30 cm of space above the opening.",
+   "book_page": 119,
+   "pdf_page": 136,
+   "confidence": "medium"
+  },
+  "window.head_to_ceiling": {
+   "section": "Windows",
+   "value_m": 0.3,
+   "value": "20–50 cm",
+   "rule": "In the sketches, the window head sits about 20 to 50 cm below the ceiling.",
+   "book_page": 110,
+   "pdf_page": 127,
+   "confidence": "medium"
+  },
+  "window.sill_height_desk": {
+   "section": "Windows",
+   "value_m": 0.78,
+   "value": "78 cm sill, top 1.57 m",
+   "rule": "In living rooms and studies, set the sill at desk height of about 78 cm.",
+   "book_page": 110,
+   "pdf_page": 127,
+   "confidence": "high"
+  },
+  "window.sill_height_kitchen": {
+   "section": "Windows",
+   "value_m": 1.25,
+   "value": "1.25 m sill, 1.25 m glazing",
+   "rule": "In kitchens, the window is drawn above the worktop backsplash with a sill of about 1.25 m.",
+   "book_page": 110,
+   "pdf_page": 127,
+   "confidence": "medium"
+  },
+  "window.sill_height_low_view": {
+   "section": "Windows",
+   "value_m": 0.5,
+   "value": "50 cm",
+   "rule": "A low sill of about 50 cm suits rooms that sit high with a good view, so seated people can see out. It is a low option, not a minimum sill height. Below standard sill height, check guarding and fall-protection rules.",
+   "book_page": 110,
+   "pdf_page": 127,
+   "confidence": "high"
+  },
+  "window.sill_height_office": {
+   "section": "Windows",
+   "value_m": 1.0,
+   "value": "1.00 m sill, 1.50 m glazing",
+   "rule": "In offices, the sketch shows a 1.00 m sill with about 1.50 m of glazing above it.",
+   "book_page": 110,
+   "pdf_page": 127,
+   "confidence": "medium"
+  },
+  "ramp.comfortable_slope": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "1:10 to 1:8",
+   "rule": "Walking ramps feel comfortable at gradients between 1:10 and 1:8.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.going_minus_rise": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.12,
+   "value": "G − R = 12 cm",
+   "rule": "The most comfortable steps have a tread about 12 cm deeper than the riser is tall.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.handrail_walkline_narrow": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.35,
+   "value": "35–40 cm",
+   "rule": "On narrow or curved stairs, put the walking line 35–40 cm in from the handrail.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.handrail_walkline_straight": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.55,
+   "value": "55 cm",
+   "rule": "On comfortable straight flights, the walking line runs about 55 cm from the handrail.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.nosing_overhang": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.02,
+   "value": "2–5 cm",
+   "rule": "Each tread's nosing should stick out 2 to 5 cm past the riser below.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "medium"
+  },
+  "stair.optimal_step": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "17 × 29 cm",
+   "rule": "The best step is a 17 cm riser with a 29 cm tread.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.rise_going_alt_formula": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.48,
+   "value": "R + G = 48 cm",
+   "rule": "A less common check is that one riser plus one tread equals about 48 cm.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.rise_going_formula": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.625,
+   "value": "2R + G = 61–64 cm (avg 62.5 cm)",
+   "rule": "Size steps so that two risers plus one tread fall between 61 and 64 cm, ideally about 62.5 cm.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.ship_ladder_max_pitch": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "21/15 without rail; 25/10 with rail",
+   "rule": "Ship-type stairs can be as steep as a 21/15 riser/tread with no rail, or 25/10 if they have a handrail.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "medium"
+  },
+  "stair.spiral_min_tread": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.1,
+   "value": "≥10 cm at 15 cm from the narrow end",
+   "rule": "On spiral stairs, measured 15 cm from the narrow end, the tread must still be at least 10 cm deep.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.step_normal_range": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "R 16–17 cm, G 29–30 cm",
+   "rule": "Standard steps for homes and offices use 16–17 cm risers and 29–30 cm treads.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.width_three_persons": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.875,
+   "value": "1.875 m",
+   "rule": "Three people walking side by side need about 1.875 m of stair width.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "high"
+  },
+  "stair.width_two_pass": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.1,
+   "value": "≥110 cm (125 cm shown)",
+   "rule": "For two people to pass each other, the stair needs at least about 1.10 m of width; the drawing shows 1.25 m.",
+   "book_page": 120,
+   "pdf_page": 137,
+   "confidence": "medium"
+  },
+  "ramp.slope_classes": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "flat ≤1:10 (≤6°); gentle 1:10–1:6; steep 1:6–1:2.5",
+   "rule": "Up to 6° (1:10) a ramp counts as flat, 1:10 to 1:6 as gentle, and 1:6 to 1:2.5 as steep.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.compact_1m_plan_area": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 4.2,
+   "value": "≈4.2–5.2 m² for 2.75 m storey, 1.0 m wide",
+   "rule": "A 1.0 m wide flight with no landing covering a 2.75 m storey (16 steps of about 17/29) takes roughly 4.2 to 5.2 m² of floor area.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "medium"
+  },
+  "stair.flight_step_count": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "≥3 and ≤18 steps",
+   "rule": "A single flight should have at least 3 and no more than 18 steps.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.headroom_attic_drawing": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.95,
+   "value": "≥1.95 m",
+   "rule": "The section drawings show at least 1.95 m of clear headroom at the base of the stair and under an attic roof.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "medium"
+  },
+  "stair.headroom_dwelling_min": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.8,
+   "value": ">1.80 m",
+   "rule": "In homes, headroom over a stair must be more than 1.80 m.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.headroom_general": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 2.1,
+   "value": "2.1 m",
+   "rule": "Headroom over a stair is usually 2.1 m.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.landing_depth": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.92,
+   "value": "n × 63 + 29 cm (e.g. 92 cm or 1.55 m)",
+   "rule": "Make a landing a whole number of 63 cm strides plus one tread deep, e.g. 92 cm, or 1.55 m for two strides.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.landing_door_swing": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "no encroachment",
+   "rule": "A door that opens onto a landing must not swing into the landing's area.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.landing_width": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "≥ stair width",
+   "rule": "A landing must be at least as wide as the stair itself.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.max_pitch_multi_family": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "20/23 max",
+   "rule": "Stairs in multi-storey housing should be no steeper than about a 20/23 riser/tread.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "medium"
+  },
+  "stair.max_pitch_single_family": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": null,
+   "value": "20/20 max",
+   "rule": "In single-family homes, a stair can be as steep as a 20 cm riser over a 20 cm tread.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "medium"
+  },
+  "stair.width_attic_cellar_rental": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.7,
+   "value": "70 cm, up to 45°",
+   "rule": "Cellar and attic stairs in rented houses can be 70 cm wide with a pitch of up to 45°.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.width_multi_family": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.0,
+   "value": "≥1.0 m",
+   "rule": "In multi-family housing, stairs are generally at least 1.0 m wide. The footnote applies this to buildings with more than two full storeys.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "stair.width_single_family": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.9,
+   "value": "≥90 cm",
+   "rule": "In single-family homes, stairs need at least 90 cm clear between the handrail and the wall.",
+   "book_page": 121,
+   "pdf_page": 138,
+   "confidence": "high"
+  },
+  "ladder.attic_folding_hatch": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.85,
+   "value": "hatch 0.85–1.45 m long; at 2.10 m ceiling needs 1.30–1.90 m swing space",
+   "rule": "With a 2.10 m ceiling, a folding attic ladder needs a hatch 0.85 to 1.45 m long and 1.30 to 1.90 m of space in the loft for the fold.",
+   "book_page": 122,
+   "pdf_page": 139,
+   "confidence": "high"
+  },
+  "ladder.fixed_rung_spacing": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.31,
+   "value": "31 cm rungs, ~1.00 m clear",
+   "rule": "The fixed ladder drawing shows rungs about 31 cm apart and about 1.00 m of clear space in front.",
+   "book_page": 122,
+   "pdf_page": 139,
+   "confidence": "medium"
+  },
+  "stair.furniture_transport": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 1.4,
+   "value": "1.40 m landing, 2.00 × 0.70 item",
+   "rule": "To carry furniture of about 2.00 × 0.70 m up a stair, the landing needs about 1.40 m.",
+   "book_page": 122,
+   "pdf_page": 139,
+   "confidence": "medium"
+  },
+  "stair.well_gap_min": {
+   "section": "Stairs, ramps and ladders",
+   "value_m": 0.12,
+   "value": "≥12 cm",
+   "rule": "Between two parallel flights, leave a gap of at least 12 cm to fix the balustrade.",
+   "book_page": 122,
+   "pdf_page": 139,
+   "confidence": "high"
+  },
+  "kitchen.width_min": {
+   "section": "Kitchen",
+   "value_m": 1.875,
+   "value": null,
+   "rule": "Plan a kitchen no narrower than 1.875 m; the Frankfurt kitchen uses this as its minimum width.",
+   "book_page": 162,
+   "pdf_page": 179,
+   "confidence": "high"
+  },
+  "kitchen.auxiliary_counter.depth": {
+   "section": "Kitchen",
+   "value_m": 0.45,
+   "value": null,
+   "rule": "Secondary or auxiliary work surfaces can be just 45 cm deep.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.counter.depth": {
+   "section": "Kitchen",
+   "value_m": 0.55,
+   "value": "0.55-0.65 m",
+   "rule": "Kitchen worktops should be 55 to 65 cm deep.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.counter.height": {
+   "section": "Kitchen",
+   "value_m": 0.85,
+   "value": null,
+   "rule": "The usual worktop height is 85 cm, which suits both kneading and dishwashing.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.counter.height_range": {
+   "section": "Kitchen",
+   "value_m": 0.75,
+   "value": "0.75-0.90 m",
+   "rule": "Section drawings show worktops from 75 cm to 90 cm high. 85 cm is the height recommended for both kneading and washing up.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.extract_duct.diameter": {
+   "section": "Kitchen",
+   "value_m": 0.275,
+   "value": "275 mm",
+   "rule": "Where there is no flue, an extractor duct of about 275 mm diameter can take fumes out.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.hood.height_above_hob": {
+   "section": "Kitchen",
+   "value_m": 0.65,
+   "value": ">=0.65 m",
+   "rule": "Mount the extractor hood at least 65 cm above the cooking surface.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.oven.clear_front": {
+   "section": "Kitchen",
+   "value_m": 1.1,
+   "value": null,
+   "rule": "An oven or pull-out grill under the range needs about 1.10 m clear in front for bending and handling.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.room_height": {
+   "section": "Kitchen",
+   "value_m": 2.1,
+   "value": null,
+   "rule": "Kitchen sections draw tall units and shelving up to about 2.10 m. This is the height of the cabinetry, not a minimum ceiling height.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.seated_work.height": {
+   "section": "Kitchen",
+   "value_m": 0.65,
+   "value": null,
+   "rule": "Provide a pull-out board at about 65 cm under the 85 cm counter for working seated.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.swing_door.width": {
+   "section": "Kitchen",
+   "value_m": 1.0,
+   "value": null,
+   "rule": "A swing door between kitchen and dining is shown about 1.00 m wide, with a kick plate up to 40 cm.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.two_line.aisle_small": {
+   "section": "Kitchen",
+   "value_m": 1.0,
+   "value": "1.00-1.10 m",
+   "rule": "In a small two-line kitchen 2.25 m wide, leave 1.00 to 1.10 m between the 75 cm and 50 cm deep runs so a second person can help.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.two_line.width_small": {
+   "section": "Kitchen",
+   "value_m": 2.25,
+   "value": null,
+   "rule": "A small kitchen with counters on both walls can work at 2.25 m wide overall.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.two_person.width": {
+   "section": "Kitchen",
+   "value_m": 2.5,
+   "value": null,
+   "rule": "A two-person kitchen section is 2.50 m wide: 45 and 45 cm units, an 85 cm aisle, and a 75 cm range on the opposite wall.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.wall_cabinet.clear_above_counter": {
+   "section": "Kitchen",
+   "value_m": 0.5,
+   "value": null,
+   "rule": "Leave about 50 cm between the 85 cm worktop and the underside of wall cabinets.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.wall_cabinet.depth": {
+   "section": "Kitchen",
+   "value_m": 0.3,
+   "value": "0.30 m",
+   "rule": "Wall cabinets over a worktop are drawn about 30 cm deep. The 45 cm unit shown is a pass-through cupboard over a serving hatch.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "kitchen.wall_cabinet.top_reach": {
+   "section": "Kitchen",
+   "value_m": 1.85,
+   "value": "<=1.85 m",
+   "rule": "Keep the top shelf of wall cabinets at or below about 1.85 m so it stays reachable.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "high"
+  },
+  "kitchen.sink.bowl_size": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "43x43x22 cm",
+   "rule": "A standard sink bowl is about 43 by 43 cm and 22 cm deep.",
+   "book_page": 164,
+   "pdf_page": 181,
+   "confidence": "high"
+  },
+  "kitchen.sink.height": {
+   "section": "Kitchen",
+   "value_m": 0.85,
+   "value": "0.85-0.90 m standing; 0.75 m seated",
+   "rule": "Set the sink at 85 to 90 cm for standing work, or 75 cm with a forward-tilted basin for seated work.",
+   "book_page": 164,
+   "pdf_page": 181,
+   "confidence": "high"
+  },
+  "kitchen.stove.footprint": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "55-60 x 55-65 cm, h 80-85",
+   "rule": "Freestanding ranges take about 55 to 65 cm depth and 55 to 110 cm width, at 80 to 85 cm high.",
+   "book_page": 164,
+   "pdf_page": 181,
+   "confidence": "medium"
+  },
+  "kitchen.frankfurt.aisle": {
+   "section": "Kitchen",
+   "value_m": 0.86,
+   "value": null,
+   "rule": "In the Frankfurt kitchen the clear aisle between the two runs is about 86 cm, and later testing found the room should have been slightly wider.",
+   "book_page": 165,
+   "pdf_page": 182,
+   "confidence": "medium"
+  },
+  "kitchen.frankfurt.length": {
+   "section": "Kitchen",
+   "value_m": 3.44,
+   "value": null,
+   "rule": "The reference Frankfurt kitchen is 1.875 m wide by about 3.44 m long, a galley with counters on both sides.",
+   "book_page": 165,
+   "pdf_page": 182,
+   "confidence": "high"
+  },
+  "kitchen.interior_kitchenette": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "1.875 x 1.25 m",
+   "rule": "An interior kitchenette with forced ventilation can fit in 1.875 m by 1.25 m.",
+   "book_page": 165,
+   "pdf_page": 182,
+   "confidence": "medium"
+  },
+  "kitchen.kitchenette.one_person": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "90 x 60 cm, h 2.00",
+   "rule": "A one-person apartment kitchenette cabinet fits in a 90 cm wide, 60 cm deep, 2.00 m tall unit.",
+   "book_page": 165,
+   "pdf_page": 182,
+   "confidence": "high"
+  },
+  "kitchen.fridge.small": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "50-100 L: 55 x 55-65 cm, h 80-90",
+   "rule": "Small refrigerators of 50 to 100 L take about 55 cm width and 55 to 65 cm depth, at 80 to 90 cm high.",
+   "book_page": 166,
+   "pdf_page": 183,
+   "confidence": "high"
+  },
+  "kitchen.base_cabinet.dims": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "H 80-90, D 45-60 cm",
+   "rule": "Base cabinets are 80 to 90 cm high (85 preferred) and 45 to 60 cm deep.",
+   "book_page": 167,
+   "pdf_page": 184,
+   "confidence": "high"
+  },
+  "kitchen.sink_top.depth": {
+   "section": "Kitchen",
+   "value_m": 0.6,
+   "value": "0.55-0.60 m",
+   "rule": "Sink tops over built-in cabinets are 55 to 60 cm deep, with 16 to 18 cm deep bowls.",
+   "book_page": 167,
+   "pdf_page": 184,
+   "confidence": "medium"
+  },
+  "kitchen.tall_cabinet.dims": {
+   "section": "Kitchen",
+   "value_m": null,
+   "value": "H 1.70-2.20, W 50-60, D 35-55 cm",
+   "rule": "Tall broom or pantry cabinets are 1.70 to 2.20 m high, 50 to 60 cm wide and 35 to 55 cm deep.",
+   "book_page": 167,
+   "pdf_page": 184,
+   "confidence": "high"
+  },
+  "kitchen.toe_kick.height": {
+   "section": "Kitchen",
+   "value_m": 0.08,
+   "value": ">=8 cm",
+   "rule": "Give base cabinets a recessed plinth at least 8 cm high, set back 6 to 10 cm, for toes and cleaning.",
+   "book_page": 167,
+   "pdf_page": 184,
+   "confidence": "high"
+  },
+  "bath.compact_wc_bath.depth": {
+   "section": "Bathroom",
+   "value_m": 1.46,
+   "value": null,
+   "rule": "A compact apartment WC with bathtub fits in about 1.46 m depth, using a 76 cm tub width and a 70 cm WC zone.",
+   "book_page": 161,
+   "pdf_page": 178,
+   "confidence": "medium"
+  },
+  "bath.tub.width": {
+   "section": "Bathroom",
+   "value_m": 0.76,
+   "value": null,
+   "rule": "Compact bathroom plans use a bathtub about 76 cm wide.",
+   "book_page": 161,
+   "pdf_page": 178,
+   "confidence": "medium"
+  },
+  "bath.wc_plus_basin.width": {
+   "section": "Bathroom",
+   "value_m": 1.0,
+   "value": null,
+   "rule": "A separate WC with basin is shown in a 1.00 by 1.25 m cell.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "low"
+  },
+  "bath.wet_core.width": {
+   "section": "Bathroom",
+   "value_m": 1.875,
+   "value": null,
+   "rule": "Bathrooms sharing a plumbing wall with the kitchen are planned at 1.875 m wide by about 2.37 to 2.75 m long.",
+   "book_page": 163,
+   "pdf_page": 180,
+   "confidence": "medium"
+  },
+  "bed.child_sizes": {
+   "section": "Sleeping",
+   "value_m": null,
+   "value": "60x125 / 70x140 cm",
+   "rule": "Children's beds come in 60x125 and 70x140 cm interior sizes.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "bed.double_mattress_std": {
+   "section": "Sleeping",
+   "value_m": 1.5,
+   "value": "150x200 cm interior",
+   "rule": "The standardized double bed is 150 cm wide and 200 cm long inside the frame.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "bed.exterior_allowance": {
+   "section": "Sleeping",
+   "value_m": null,
+   "value": "+6 cm width, +10 cm length",
+   "rule": "To get a metal bed's outer footprint, add 6 cm to the inner width and 10 cm to the inner length.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "bed.mattress_top_height": {
+   "section": "Sleeping",
+   "value_m": 0.4,
+   "value": null,
+   "rule": "The top edge of the bed's wooden mattress frame sits about 40 cm above the floor.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "bed.niche_with_overhead_storage": {
+   "section": "Sleeping",
+   "value_m": 3.26,
+   "value": "3.26 m wall; bed niche 1.50 m high; seat 30–35 cm",
+   "rule": "A small-room scheme puts the bed in a niche with cupboards above and beside it, taking up a 3.26 m wall.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "medium"
+  },
+  "bed.single_mattress_std": {
+   "section": "Sleeping",
+   "value_m": 0.9,
+   "value": "90x190 cm interior",
+   "rule": "The standard adult single bed frame is 90 by 190 cm inside; 80x180 and 100x200 are the adult alternatives.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "bunk.alcove_with_wardrobe": {
+   "section": "Sleeping",
+   "value_m": 2.0,
+   "value": "2.00 m bunk + 1.25 m wardrobe; bunk height 1.50 m; ceiling 2.60 m",
+   "rule": "A 2.00 m bunk alcove sits beside a 1.25 m wardrobe. The bunk stack is about 1.50 m high and the drawing assumes a 2.60 m ceiling, so a standard 2.39 m container interior needs a lower stack or a high-cube box.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "medium"
+  },
+  "bed.double_drawn_length": {
+   "section": "Sleeping",
+   "value_m": 2.0,
+   "value": "1.50 x 2.00 m",
+   "rule": "A double bed is drawn at 1.50 m wide by 2.00 m long overall.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "high"
+  },
+  "bed.gap_between_singles": {
+   "section": "Sleeping",
+   "value_m": 0.5,
+   "value": null,
+   "rule": "Two parallel 90 cm single beds are drawn with a 50 cm gap between them.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "medium"
+  },
+  "bed.gap_between_singles_alt": {
+   "section": "Sleeping",
+   "value_m": 0.8,
+   "value": null,
+   "rule": "A more generous layout for two single beds leaves an 80 cm walkway between them.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "medium"
+  },
+  "bed.separate_doubles_layout": {
+   "section": "Sleeping",
+   "value_m": null,
+   "value": "1.40 + 0.80 + 0.90 m",
+   "rule": "In one shown layout, two beds placed head to foot in a room fit a 1.40 m bed, an 80 cm aisle and a 90 cm bed across the width.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "low"
+  },
+  "bed.twin_pushed_together": {
+   "section": "Sleeping",
+   "value_m": 1.8,
+   "value": "1.80 x 1.90 m",
+   "rule": "Two single beds pushed together take up about 1.80 m by 1.90 m.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "medium"
+  },
+  "bunk.tier_spacing": {
+   "section": "Sleeping",
+   "value_m": 0.9,
+   "value": "~0.90 m between tiers, upper ~1.40 m",
+   "rule": "Bunks are drawn with about 90 cm between the levels and the upper bunk at roughly 1.40 m.",
+   "book_page": 178,
+   "pdf_page": 195,
+   "confidence": "low"
+  },
+  "wardrobe.depth_built_in": {
+   "section": "Storage",
+   "value_m": 0.6,
+   "value": null,
+   "rule": "Built-in bedroom wardrobes are drawn 60 cm deep.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "wardrobe.depth_shallow_corridor": {
+   "section": "Storage",
+   "value_m": 0.55,
+   "value": "55 cm",
+   "rule": "Wardrobe units that divide two rooms are drawn about 55 cm deep.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "medium"
+  },
+  "wardrobe.partition_thickness": {
+   "section": "Storage",
+   "value_m": null,
+   "value": "3–10 cm",
+   "rule": "Partitions between wardrobe compartments are 3 to 10 cm thick, depending on how they are built.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "high"
+  },
+  "wardrobe.walkin_width": {
+   "section": "Storage",
+   "value_m": 2.8,
+   "value": "2.80 x 1.80 m",
+   "rule": "A walk-in dressing room for a large house is drawn about 2.80 m by 1.80 m.",
+   "book_page": 177,
+   "pdf_page": 194,
+   "confidence": "medium"
+  },
+  "aisle.between_shelving": {
+   "section": "Storage",
+   "value_m": 0.75,
+   "value": "72–77 cm typical, 85 cm heavy use",
+   "rule": "Aisles between shelving units are usually 72 to 77 cm wide, or 85 cm where use is heavy.",
+   "book_page": 245,
+   "pdf_page": 262,
+   "confidence": "high"
+  },
+  "shelf.depth_range": {
+   "section": "Storage",
+   "value_m": 0.35,
+   "value": "20–35 cm",
+   "rule": "Standard shelf depths are 20, 25, 30 or 35 cm, with 15 and 40 cm as exceptions.",
+   "book_page": 245,
+   "pdf_page": 262,
+   "confidence": "high"
+  },
+  "shelf.top_reach": {
+   "section": "Storage",
+   "value_m": 1.9,
+   "value": "top shelf 1.90 m; unit 2.25 m",
+   "rule": "The highest shelf you can comfortably reach is at about 1.90 m, on a shelving unit 2.25 m tall.",
+   "book_page": 245,
+   "pdf_page": 262,
+   "confidence": "high"
+  },
+  "wardrobe.office_hanging": {
+   "section": "Storage",
+   "value_m": 0.5,
+   "value": "1.22 m wide, 0.47–0.50 m deep, 2.10 m tall",
+   "rule": "An office cupboard with a hanging-clothes section is 1.22 m wide, 47 to 50 cm deep and 2.10 m tall.",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "wardrobe.staff_locker": {
+   "section": "Storage",
+   "value_m": 0.5,
+   "value": "1.20 m wide, 0.42–0.50 m deep, 2.00–2.10 m tall",
+   "rule": "A clothes locker for staff is about 1.20 m wide, 42 to 50 cm deep and 2.0 to 2.1 m tall.",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "dining.table_height": {
+   "section": "Dining",
+   "value_m": 0.78,
+   "value": null,
+   "rule": "Standard dining table height is 78 cm.",
+   "book_page": 168,
+   "pdf_page": 185,
+   "confidence": "high"
+  },
+  "dining.table_min_rect": {
+   "section": "Dining",
+   "value_m": 0.7,
+   "value": "70x100 cm",
+   "rule": "The smallest standard rectangular dining top is 70 by 100 cm.",
+   "book_page": 168,
+   "pdf_page": 185,
+   "confidence": "high"
+  },
+  "dining.booth_min": {
+   "section": "Dining",
+   "value_m": 1.7,
+   "value": "1.70 x 1.27 m; table 60 cm",
+   "rule": "The tightest eating nook, a railway-carriage style booth with fold-down seats, needs about 1.70 by 1.27 m around a 60 cm table.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "dining.corner_bench": {
+   "section": "Dining",
+   "value_m": null,
+   "value": "1.85 x (1.35+0.60) m",
+   "rule": "A corner bench with side cupboards seats a small group compactly in about 1.85 m by 1.95 m.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "medium"
+  },
+  "dining.min_room_6": {
+   "section": "Dining",
+   "value_m": 3.2,
+   "value": "3.20 x 3.70 m",
+   "rule": "A minimum dining room for six around a central table is about 3.20 by 3.70 m, with no sideboards.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "dining.nook_loose_chairs": {
+   "section": "Dining",
+   "value_m": 1.8,
+   "value": "1.80 x 1.00 m",
+   "rule": "The same nook with loose chairs needs slightly more width, about 1.80 by 1.00 m.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "dining.round_table_formula": {
+   "section": "Dining",
+   "value_m": 1.04,
+   "value": "diameter = place width x seats / 3.14",
+   "rule": "To size a round table, multiply place width by number of seats and divide by pi; six 60 cm places need about 1.04 m.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "dining.seat_depth_zone": {
+   "section": "Dining",
+   "value_m": 0.5,
+   "value": "~0.50 m",
+   "rule": "When service passes behind the chairs, the seated diner takes about 50 cm from the table edge, and the passage starts after that.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "medium"
+  },
+  "dining.table_width": {
+   "section": "Dining",
+   "value_m": null,
+   "value": "55–110 cm",
+   "rule": "Dining tables run 55 to 110 cm wide, with 10 to 20 cm extra at each end seat.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "dining.wall_clearance_no_service": {
+   "section": "Dining",
+   "value_m": 0.5,
+   "value": "0.45-0.55 m",
+   "rule": "If no one serves at the table, allow 45 to 55 cm from the table edge to the wall. This covers the seated diner, not extra space behind the chair.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "medium"
+  },
+  "dining.wall_clearance_served": {
+   "section": "Dining",
+   "value_m": 1.0,
+   "value": "0.90–1.00 m",
+   "rule": "When someone serves from behind the chairs, keep 90 cm to 1.00 m clear between the seat zone and the wall.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "medium"
+  },
+  "dining.width_per_place": {
+   "section": "Dining",
+   "value_m": 0.6,
+   "value": "55–70 cm",
+   "rule": "Give each diner 55 to 70 cm of table edge.",
+   "book_page": 169,
+   "pdf_page": 186,
+   "confidence": "high"
+  },
+  "desk.study_carrel": {
+   "section": "Office",
+   "value_m": 1.0,
+   "value": "1.00 x 0.65 m",
+   "rule": "A desk built into shelving is about 1.00 m wide and 65 cm deep.",
+   "book_page": 245,
+   "pdf_page": 262,
+   "confidence": "medium"
+  },
+  "counter.service": {
+   "section": "Office",
+   "value_m": 0.625,
+   "value": "62.5 cm deep, ~90 cm high",
+   "rule": "Public service counters are about 62.5 cm deep and 90 cm high, rising to 1 m when only 30 cm deep.",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "desk.chair_zone": {
+   "section": "Office",
+   "value_m": 0.7,
+   "value": "45–70 cm (area ~1.05–1.33 m²)",
+   "rule": "Allow 45 to 70 cm behind the desk for a swivel chair, which takes up roughly 1.05 to 1.33 m².",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "desk.compact": {
+   "section": "Office",
+   "value_m": 1.4,
+   "value": "140x70 cm, 76 cm high",
+   "rule": "A compact office desk of 140 by 70 cm, 76 cm high, saves about 0.5 m² over the standard desk.",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "desk.standard": {
+   "section": "Office",
+   "value_m": 1.56,
+   "value": "156x78 cm, 78 cm high",
+   "rule": "The standard office desk measures 156 by 78 cm and stands 78 cm high.",
+   "book_page": 246,
+   "pdf_page": 263,
+   "confidence": "high"
+  },
+  "cleaning_cabinet.depth": {
+   "section": "Laundry and storage",
+   "value_m": 0.375,
+   "value": null,
+   "rule": "A broom or cleaning cupboard is about 37.5 cm deep and 1.80 m tall, from 37.5 cm wide upward.",
+   "book_page": 158,
+   "pdf_page": 175,
+   "confidence": "high"
+  },
+  "laundry.ironing.board_size": {
+   "section": "Laundry and storage",
+   "value_m": null,
+   "value": "1.70 x 0.30-0.42 m",
+   "rule": "An ironing board is about 1.70 m long, 30 to 42 cm wide, at roughly 85 cm high.",
+   "book_page": 158,
+   "pdf_page": 175,
+   "confidence": "high"
+  },
+  "laundry.foldaway_ironing.cabinet": {
+   "section": "Laundry and storage",
+   "value_m": null,
+   "value": "45 x 15 cm, h 2.25",
+   "rule": "A fold-down ironing table recessed in the wall needs a cabinet about 45 cm wide, 15 cm deep and 2.25 m tall.",
+   "book_page": 159,
+   "pdf_page": 176,
+   "confidence": "medium"
+  },
+  "laundry.ironing.height_standing": {
+   "section": "Laundry and storage",
+   "value_m": 0.9,
+   "value": null,
+   "rule": "Ironing standing needs a board about 90 cm high; seated ironing works at about 65 cm.",
+   "book_page": 159,
+   "pdf_page": 176,
+   "confidence": "high"
+  },
+  "pantry.headroom": {
+   "section": "Laundry and storage",
+   "value_m": 1.9,
+   "value": ">=1.90 m, 2.00 preferred",
+   "rule": "Pantries and storerooms may be under 2.50 m high but need at least 1.90 m standing height, ideally 2.00 m.",
+   "book_page": 161,
+   "pdf_page": 178,
+   "confidence": "high"
+  },
+  "air.co2_per_person": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "0.020 m3/h CO2 and 40 g/h water vapour",
+   "rule": "An average person gives off about 0.020 m3 of CO2 and 40 g of water vapour per hour.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "air.natural_change_rate": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "1.5-2 air changes/h",
+   "rule": "In detached buildings, natural infiltration gives roughly 1.5 to 2 air changes per hour even with the windows shut.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "air.reduced_volume_high_ventilation": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "7.5 m3/person (10 m3 in bedrooms)",
+   "rule": "With strong ventilation, such as open windows or mechanical air, the volume per person can drop to 7.5 m3, or 10 m3 in bedrooms.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "air.room_volume_per_adult": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "16-24 m3/adult (8-12 m3/child)",
+   "rule": "Natural air changes of 1.5 to 2 per hour are enough when each adult has 16 to 24 m3 of room volume, or each child 8 to 12 m3.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "air.volume_assumed_ceiling_height": {
+   "section": "Air and ventilation",
+   "value_m": 2.5,
+   "value": null,
+   "rule": "The 16 to 24 m3 per adult figure assumes a clear height of at least 2.5 m, which works out to 6.4 to 9.6 m2 of floor per adult. At 2.39 m inside, a container needs more floor per person to reach the same volume.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "air.volume_per_adult_one_change": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "32 m3/adult/h (14 m3/child)",
+   "rule": "To keep CO2 below 1 part per thousand, each adult needs 32 m3 of fresh air per hour, and each child 14 m3.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "ventilation.opening_geometry": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": null,
+   "rule": "For the same area, tall narrow openings move more air than low wide ones. An inlet near the floor paired with an outlet near the ceiling is more effective.",
+   "book_page": 77,
+   "pdf_page": 94,
+   "confidence": "high"
+  },
+  "ventilation.room_humidity_table": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": "living 20 C/65%, bedroom 18 C/55%, kitchen 20 C/75%, bath 22 C/80%",
+   "rule": "Design conditions by room: living rooms 20 C at 65% RH, bedrooms 18 C at 55%, kitchens 20 C at 75%, bathrooms 22 C at 80%.",
+   "book_page": 77,
+   "pdf_page": 94,
+   "confidence": "high"
+  },
+  "ventilation.stack_height": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": null,
+   "rule": "Stack-driven airflow depends on the height difference between the inlet and outlet openings, not on the length of the duct.",
+   "book_page": 77,
+   "pdf_page": 94,
+   "confidence": "high"
+  },
+  "ventilation.windows_sufficient_dwellings": {
+   "section": "Air and ventilation",
+   "value_m": null,
+   "value": null,
+   "rule": "Ventilating through windows is generally enough for living spaces; sash windows work best, letting air in low and out high.",
+   "book_page": 77,
+   "pdf_page": 94,
+   "confidence": "high"
+  },
+  "daylight.design_outdoor_lux": {
+   "section": "Daylight",
+   "value_m": null,
+   "value": "3000 lux (CIE 5000 lux)",
+   "rule": "Size windows against a minimum outdoor level of 3000 lux on the horizontal; the CIE suggests 5000 lux.",
+   "book_page": 103,
+   "pdf_page": 120,
+   "confidence": "high"
+  },
+  "daylight.room_efficiency": {
+   "section": "Daylight",
+   "value_m": null,
+   "value": "30-50%, typical 40%",
+   "rule": "Rooms with vertical windows deliver 30 to 50% of the entering light to the work plane; use 40% as the default.",
+   "book_page": 103,
+   "pdf_page": 120,
+   "confidence": "high"
+  },
+  "daylight.window_to_floor_basic": {
+   "section": "Daylight",
+   "value_m": null,
+   "value": "1/8 of floor area",
+   "rule": "Window area equal to 1/8 of the floor gives only about 45 lux on average, which is enough just for coarse work.",
+   "book_page": 103,
+   "pdf_page": 120,
+   "confidence": "high"
+  },
+  "daylight.window_to_floor_drawing": {
+   "section": "Daylight",
+   "value_m": null,
+   "value": "0.417 of floor area",
+   "rule": "Fine work needing 150 lux calls for window area of about 42% of the floor, assuming 3000 lux outside, a window factor of 0.3 and 40% efficiency.",
+   "book_page": 103,
+   "pdf_page": 120,
+   "confidence": "high"
+  },
+  "daylight.work_plane_height": {
+   "section": "Daylight",
+   "value_m": 1.0,
+   "value": null,
+   "rule": "Daylight calculations measure light on a horizontal work plane 1 m above the floor.",
+   "book_page": 103,
+   "pdf_page": 120,
+   "confidence": "high"
+  },
+  "lighting.cove_gap_to_ceiling": {
+   "section": "Artificial light",
+   "value_m": null,
+   "value": ">= 1/8 of room width",
+   "rule": "For indirect cove lighting, keep the gap between the cove and the ceiling at least 1/8 of the room width so the ceiling is lit evenly.",
+   "book_page": 95,
+   "pdf_page": 112,
+   "confidence": "high"
+  },
+  "lighting.wall_reflectance": {
+   "section": "Artificial light",
+   "value_m": null,
+   "value": "white plaster ~86%, white oil paint 76%, light yellow 55%",
+   "rule": "Light finishes reflect much more light than dark ones: white plaster about 86%, white oil paint 76%, light yellow 55%, against roughly 4 to 13% for black and saturated reds. Our inference: this favours light finishes in a small interior.",
+   "book_page": 95,
+   "pdf_page": 112,
+   "confidence": "high"
+  },
+  "climate.heat_per_adult": {
+   "section": "Thermal comfort",
+   "value_m": null,
+   "value": "96-140 kcal/h per adult",
+   "rule": "An adult gives off about 96 kcal/h at rest, 118 kcal/h in normal work and 140 kcal/h in heavy work, which matters for cooling a small box.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "climate.relative_humidity": {
+   "section": "Thermal comfort",
+   "value_m": null,
+   "value": "50-60% ideal, 40-70% limits",
+   "rule": "Keep indoor relative humidity near 50 to 60%, and always between 40 and 70%.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "climate.room_temperature": {
+   "section": "Thermal comfort",
+   "value_m": null,
+   "value": "18-20 C at rest, 15-18 C working",
+   "rule": "Aim for 18 to 20 C for people at rest and 15 to 18 C for active work.",
+   "book_page": 24,
+   "pdf_page": 41,
+   "confidence": "high"
+  },
+  "climate.summer_indoor_temp": {
+   "section": "Thermal comfort",
+   "value_m": null,
+   "value": "e.g. 25 C inside at 30 C outside",
+   "rule": "In summer, the most comfortable indoor temperature rises with the outdoor one, from 20 C at 20 C outside to 28 C at 36 C outside.",
+   "book_page": 76,
+   "pdf_page": 93,
+   "confidence": "high"
+  }
+ }
+}
