@@ -147,6 +147,42 @@ button.chk{cursor:pointer}
 .specs{margin-bottom:20px}
 .specs-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600;font-size:14px}
 .specs .spec{font-size:12px}
+/* blueprint mode: full-bleed dark blueprint paper behind the card (screen only; print stays white) */
+@media screen{
+  .sheet{inset:0;padding-right:calc(var(--inset,0px) + clamp(16px,4vw,64px));color:#DCE8F7;
+    background:#0B2545 linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/24px 24px,#0B2545 linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/24px 24px;
+    background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/24px 24px,#0B2545}
+  body.bp-mode .partner,body.bp-mode .partner .loc{color:#DCE8F7}
+  body.bp-mode .partner .lbl{color:#9DB4D3}
+  .sheet-head h2{color:#fff}
+  .sheet-head p{color:#9DB4D3}
+  .sheet .print{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
+  .sheet .seg{border-color:rgba(255,255,255,.3)}
+  .sheet .seg button{color:#DCE8F7}
+  .sheet .seg button[aria-pressed="true"]{background:#fff;color:#0B2545}
+  .sheet .bp{background:transparent;border-color:rgba(255,255,255,.18)}
+  .sheet .bp .body{fill:rgba(255,255,255,.04);stroke:#fff}
+  .sheet .bp .rib{stroke:rgba(255,255,255,.12)}
+  .sheet .bp .cut{fill:#0B2545;stroke:#FFB067}
+  .sheet .bp .mount{fill:rgba(255,176,103,.12);stroke:#FFB067}
+  .sheet .bp .cut.bad,.sheet .bp .mount.bad{fill:rgba(239,54,54,.25);stroke:#FF7A7A}
+  .sheet .bp .halo{stroke:#7FB2F0}
+  .sheet .bp .dim,.sheet .bp .tick{stroke:#BFD3EE}
+  .sheet .bp .ext{stroke:rgba(191,211,238,.45)}
+  .sheet .bp text{fill:#EAF2FC}
+  .sheet .bp .vt{fill:#fff}
+  .sheet .bp .end{fill:#9DB4D3}
+  .sheet .bp .tagc{fill:#fff}
+  .sheet .bp .tagt{fill:#0B2545}
+  .sheet .spec{background:transparent;color:#EAF2FC}
+  .sheet .spec th{color:#9DB4D3;border-color:rgba(255,255,255,.18)}
+  .sheet .spec td{border-color:rgba(255,255,255,.12)}
+  .sheet .spec small{color:#9DB4D3}
+  .sheet .spec .tag{background:#fff;color:#0B2545}
+  .sheet .ok{color:#7BE3A4}
+  .sheet .issues li{background:rgba(255,209,25,.14);color:#FFE38A}
+  .sheet .issues li.error{background:rgba(239,54,54,.2);color:#FFB3B3}
+}
 @media print{
   body{background:#fff}
   .wrap>section:not(.viewer),.viewer-host,.views,.viewer-tag,.loading,.sheet-tools,.viewer::after{display:none!important}
@@ -335,6 +371,7 @@ try {
       views.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', x === b));
       views.querySelectorAll('[data-view],#cut,.sep').forEach(x => { x.hidden = two; });
       document.getElementById('sheet').hidden = !two;
+      document.body.classList.toggle('bp-mode', two);
       document.querySelector('.viewer-tag').hidden = two;
       renderSpecs();
       return;
