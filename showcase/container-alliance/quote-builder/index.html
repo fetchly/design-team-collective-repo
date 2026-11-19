@@ -27,7 +27,7 @@ h1,h2,h3{font-family:var(--ca-font-title);margin:0}
 .viewer::after{content:"";position:absolute;left:0;right:0;top:64%;bottom:0;background:linear-gradient(#EAE5DC00,#E3DDD2);pointer-events:none}
 .viewer-host{position:absolute;inset:0;z-index:1}
 @media (max-width:875px){
-  .wrap{grid-template-columns:1fr;align-items:start;padding-top:62vh}
+  .wrap{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:62vh}
   .wrap>section:not(.viewer){grid-column:1}
   .viewer{position:fixed;bottom:auto;height:66vh}
 }

@@ -101,7 +101,7 @@ export function blueprintSVG(rows, L, unit) {
 
   // one view: rect of size Lm x depth, add-on boxes, dimension chains
   function view(title, depth, items, opts) {
-    const top = y0 + fs * 2.2;
+    const top = y0 + fs * 4.2;
     let s = text(0, y0 + fs, title, 'start', 'vt');
     s += text(0, top - fs * 0.3, opts.leftEnd, 'start', 'end') + text(Lm, top - fs * 0.3, opts.rightEnd, 'end', 'end');
     s += `<rect class="body" x="0" y="${top}" width="${Lm}" height="${depth}"/>`;
