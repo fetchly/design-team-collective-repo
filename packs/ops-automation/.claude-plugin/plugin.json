@@ -1,7 +1,7 @@
 {
   "name": "ops-automation",
-  "description": "Running the design team. Weekly design report from Pulse, morning brief, end of day inbox triage (client leads to Pulse, internal follow-ups), Discord reader, browser and computer use, MCP and skill builders, and memory import. Contains Lucas's personal skills too (ufabc-normalization): skip what you do not need.",
-  "version": "1.0.0",
+  "description": "Running the design team. Pulse ticket management (designer requests to efforts, PR sync, board hygiene) with the pulse-ticket-manager agent, weekly design report from Pulse, morning brief, end of day inbox triage (client leads to Pulse, internal follow-ups), Discord reader, browser and computer use, MCP and skill builders, and memory import. Contains Lucas's personal skills too (ufabc-normalization): skip what you do not need.",
+  "version": "1.1.0",
   "author": {
     "name": "Fetchly Design Team"
   }
