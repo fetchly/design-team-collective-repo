@@ -136,6 +136,13 @@ button.chk{cursor:pointer}
 .spec td{padding:8px;border-bottom:1px solid var(--ca-line);vertical-align:top;white-space:nowrap;font-variant-numeric:tabular-nums}
 .spec small{display:block;font-size:11px;color:var(--muted)}
 .spec .tag{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ca-navy);color:#fff;font-size:11px;font-weight:700}
+.bp .halo{fill:none;stroke:#7FA3D1;stroke-width:var(--sw);stroke-dasharray:calc(var(--sw)*3) calc(var(--sw)*3)}
+.bp .cut.bad,.bp .mount.bad{stroke:var(--ca-red);fill:#FDECEC}
+.issues{margin:10px 0 0;padding:0;list-style:none;font-size:12px;display:grid;gap:4px}
+.issues li{padding:6px 10px;border-radius:8px;background:#FFF6E5;color:#7A4B00}
+.issues li.error{background:#FDECEC;color:#9B1C1C}
+.ok{font-size:12px;color:#1E7A45;margin:10px 0 0}
+.interior{font-size:12px;color:var(--muted);margin:0 0 8px}
 .spec-empty{font-size:13px;color:var(--muted);margin:0}
 .specs{margin-bottom:20px}
 .specs-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600;font-size:14px}
@@ -179,6 +186,7 @@ button.chk{cursor:pointer}
       </div>
       <div id="bp"></div>
       <div class="spec-wrap" id="sheetSpecs"></div>
+      <div id="sheetIssues"></div>
     </div>
   </section>
 
@@ -230,7 +238,9 @@ button.chk{cursor:pointer}
 
       <div class="specs" id="specs" hidden>
         <div class="specs-head"><span>Placement measurements</span><div class="seg units" role="group" aria-label="Units"><button type="button" data-unit="imp" aria-pressed="true">ft-in</button><button type="button" data-unit="mm" aria-pressed="false">mm</button></div></div>
+        <p class="interior" id="interior"></p>
         <div class="spec-wrap" id="cardSpecs"></div>
+        <div id="cardIssues"></div>
       </div>
 
       <button type="button" class="cta" id="add">Add to Quote</button>
@@ -274,16 +284,22 @@ const state = {
 let viewer = null;
 let unit = 'imp';
 const BP = await import('./blueprint.js');
+const CALC = await import('./calc/clearances.js');
 function renderSpecs() {
   if (!viewer) return;
   const L = viewer.getLength().m;
   const rows = BP.measure(viewer.getAddons(), L);
+  const issues = viewer.validate();
+  const size = CALC.containerSize(L / 0.3048);
+  document.getElementById('interior').textContent = `Inside ${BP.fmt(size.inside.length, unit)} × ${BP.fmt(size.inside.width, unit)} × ${BP.fmt(size.inside.height, unit)} · ${size.floorArea.toFixed(1)} m² floor · ${size.volume.toFixed(1)} m³ · air for ${size.adultsByAirVolume} adult${size.adultsByAirVolume === 1 ? '' : 's'} · basic daylight needs ${size.daylightWindowAreaCoarse.toFixed(1)} m² of window`;
+  document.getElementById('cardIssues').innerHTML = BP.issuesHTML(issues, rows);
+  document.getElementById('sheetIssues').innerHTML = BP.issuesHTML(issues, rows);
   document.getElementById('specs').hidden = !rows.length;
   document.getElementById('cardSpecs').innerHTML = BP.tableHTML(rows, unit);
   document.querySelectorAll('[data-unit]').forEach(b => b.setAttribute('aria-pressed', b.dataset.unit === unit));
   if (document.getElementById('sheet').hidden) return;
   document.getElementById('sheetLen').textContent = `${BP.fmt(L, unit)} × ${BP.fmt(BP.W, unit)} × ${BP.fmt(BP.H, unit)}`;
-  document.getElementById('bp').innerHTML = BP.blueprintSVG(rows, L, unit);
+  document.getElementById('bp').innerHTML = BP.blueprintSVG(rows, L, unit, issues);
   document.getElementById('sheetSpecs').innerHTML = BP.tableHTML(rows, unit);
 }
 document.addEventListener('click', e => {

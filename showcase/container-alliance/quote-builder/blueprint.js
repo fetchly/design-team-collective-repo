@@ -9,6 +9,8 @@
 //          each long side edge -> opening, length x depth
 // Body section matches container3d.js: 2.44 m wide, 2.59 m tall.
 
+import { clearanceFor } from './calc/clearances.js';
+
 export const W = 2.44;
 export const H = 2.59;
 
@@ -43,7 +45,7 @@ export function measure(addons, L) {
     const r = {
       id, n, type: a.type, name: NAMES[a.type] || a.type, side: a.side, sideName: SIDES[a.side],
       cut: a.cut, w: a.w, h: a.h, fromRear, fromDoor: L - fromRear - a.w,
-      centerFromRear: fromRear + a.w / 2,
+      centerFromRear: fromRear + a.w / 2, clear: clearanceFor(a),
     };
     if (a.side === 'roof') {
       r.fromFrontEdge = r.fromBackEdge = (W - a.h) / 2;
@@ -55,6 +57,14 @@ export function measure(addons, L) {
     rows.push(r);
   }
   return rows;
+}
+
+export function issuesHTML(issues, rows = []) {
+  if (!issues.length) return '<p class="ok">✓ All add-ons meet their clearance zones.</p>';
+  const label = Object.fromEntries(rows.map((r) => [r.id, `#${r.n} ${r.name.toLowerCase()}`]));
+  const named = (m) => m.replace(/\b[a-z]+\d*\b/g, (w) => label[w] || w);
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  return `<ul class="issues">${issues.map((v) => `<li class="${v.level}">${esc(named(v.message))}</li>`).join('')}</ul>`;
 }
 
 export function tableHTML(rows, unit) {
@@ -71,7 +81,8 @@ export function tableHTML(rows, unit) {
 }
 
 // ---------- 2D drawing (SVG, units = mm) ----------
-export function blueprintSVG(rows, L, unit) {
+export function blueprintSVG(rows, L, unit, issues = []) {
+  const bad = new Set(issues.filter((v) => v.level === 'error').flatMap((v) => v.ids));
   const mm = (m) => m * 1000;
   const Lm = mm(L), Wm = mm(W), Hm = mm(H);
   const fs = Math.max(95, Lm / 62);         // text size
@@ -114,7 +125,10 @@ export function blueprintSVG(rows, L, unit) {
       // y in drawing: walls measure from base (bottom); roof from front edge (bottom of plan)
       const b = opts.roof ? mm(r.fromFrontEdge) : mm(r.fromBase);
       const yb = bottom - b, yt = yb - mm(r.h);
-      s += `<rect class="${r.cut ? 'cut' : 'mount'}" x="${x1}" y="${yt}" width="${x2 - x1}" height="${yb - yt}"/>`;
+ // clearance halo: half the spacing rule each side (two halos touching = rule met), edge rule up/down
+      const hs = mm(r.clear.spacing) / 2, he = mm(r.clear.edge);
+      s += `<rect class="halo" x="${x1 - hs}" y="${yt - he}" width="${x2 - x1 + 2 * hs}" height="${yb - yt + 2 * he}"/>`;
+      s += `<rect class="${r.cut ? 'cut' : 'mount'}${bad.has(r.id) ? ' bad' : ''}" x="${x1}" y="${yt}" width="${x2 - x1}" height="${yb - yt}"/>`;
       s += `<circle class="tagc" cx="${(x1 + x2) / 2}" cy="${(yt + yb) / 2}" r="${fs * 0.7}"/>` +
         text((x1 + x2) / 2, (yt + yb) / 2 + fs * 0.35, r.n, 'middle', 'tagt');
       // horizontal chain under the view: rear end -> edge, then width
