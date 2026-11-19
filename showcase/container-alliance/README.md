@@ -4,11 +4,12 @@ A Stageshow-style animated bento of Container Alliance's Work Hub dashboard — 
 controls, one tile each — for a case study. Built from the `CA v.2 – Master` Figma file's own
 layers (Bench/WorkHub Dashboard, Quote builder, app components).
 
-Open `index.html` in a browser, no build step.
+Open `index.html` in a browser, no build step. The [`quote-builder/`](quote-builder/) needs a local server (see its README).
 
 | Page | What it is | Source |
 |---|---|---|
 | [`index.html`](index.html) | 8-tile animated bento: pipeline trend chart, leads KPI, compare periods, quote builder, filter drawer, quotes-created chart, overdue alert, date range | Figma `CA v.2 – Master` (fileKey `8sG8o6MqZbl6Phr7xluhvk`), Work Hub + Benchmark dashboards |
+| [`quote-builder/`](quote-builder/) | Quote card with a live three.js container: sizes, modifications, paint, draggable add-ons, camera and cut views | claude.ai artifact `TC5RShzgj29rvSdWX7jpfj` |
 
 ## Notes
 
