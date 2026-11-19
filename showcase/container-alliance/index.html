@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Container Alliance — Work Hub</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#f4f5f7; --tile:#ffffff; --ink:#0f172a; --dim:#64748b; --rule:#e6e8ec;
+    --soft:#f8fafc; --blue:#2563eb; --blue-soft:#dbeafe; --green:#16a34a; --red:#dc2626;
+    --amber:#d97706; --amber-soft:#fef3c7; --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--page);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .tabular{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  .wrap{max-width:1200px;margin:0 auto;padding:56px 32px 80px}
+  .brandrow{display:flex;align-items:center;gap:12px;margin:0 0 28px}
+  .logo{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px}
+  .brandrow h1{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em}
+  .brandrow .sub{font-size:13px;color:var(--dim);margin-left:auto}
+
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .tile{background:var(--tile);border:1px solid var(--rule);border-radius:20px;padding:28px;
+    min-height:360px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;
+    opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .tile.in{opacity:1;transform:none}
+  .tile.wide{grid-column:span 2}
+  .tile.accent{background:linear-gradient(180deg,#fffdf7,#fff);border-color:var(--amber-soft)}
+
+  .head b{display:block;font-size:20px;line-height:1.35;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+  .head span{display:block;font-size:20px;line-height:1.35;font-weight:400;color:var(--dim);text-wrap:balance}
+  .pic{flex:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:0}
+
+  /* touch dot */
+  .touch{position:absolute;width:36px;height:36px;border-radius:50%;background:rgba(37,99,235,.22);
+    border:1.5px solid rgba(37,99,235,.5);pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.6);
+    transition:opacity .25s var(--ease),transform .25s var(--ease),left .55s var(--ease),top .55s var(--ease);z-index:30}
+  .touch.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .touch.press{transform:translate(-50%,-50%) scale(.72)}
+
+  /* roll slot */
+  .rv{display:inline-flex;overflow:hidden;vertical-align:bottom;height:1em;line-height:1}
+  .rv>span{display:block;transition:transform .5s var(--ease)}
+
+  /* stat */
+  .bignum{font-size:60px;font-weight:700;line-height:1;letter-spacing:-.02em}
+  .delta{display:inline-flex;align-items:center;gap:4px;font-size:15px;font-weight:600}
+  .chip{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600}
+
+  /* chart */
+  .chart{position:relative;width:100%}
+  .chart svg{display:block;width:100%;overflow:visible}
+  .axis{font-size:10px;fill:var(--dim)}
+  .gridline{stroke:var(--rule);stroke-width:1}
+  .series{fill:none;stroke:var(--blue);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  .area{fill:url(#ca-area);opacity:0;transition:opacity .8s var(--ease)}
+  .area.on{opacity:1}
+  .hair{stroke:var(--blue);stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:opacity .25s}
+  .hair.on{opacity:.5}
+  .dot{fill:#fff;stroke:var(--blue);stroke-width:2.5;opacity:0;transition:opacity .25s}
+  .dot.on{opacity:1}
+  .scrubval{font-size:12px;color:var(--dim)}
+
+  /* compare bars */
+  .cmp{display:flex;flex-direction:column;gap:14px;width:100%}
+  .cmp-row{display:grid;grid-template-columns:52px 1fr 40px;align-items:center;gap:10px;font-size:13px}
+  .cmp-track{height:12px;border-radius:999px;background:var(--soft);overflow:hidden}
+  .cmp-fill{height:100%;border-radius:999px;width:0;transition:width .7s var(--ease)}
+  .seg{display:inline-flex;background:var(--soft);border:1px solid var(--rule);border-radius:10px;padding:3px;gap:2px;font-size:12px;font-weight:500}
+  .seg button{border:0;background:transparent;color:var(--dim);padding:5px 12px;border-radius:7px;font:inherit;cursor:default}
+  .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(15,23,42,.08)}
+
+  /* graph/table toggle */
+  .vtabs{display:inline-flex;background:var(--soft);border:1px solid var(--rule);border-radius:10px;padding:3px;gap:2px;font-size:12px;font-weight:500}
+  .vtabs button{border:0;background:transparent;color:var(--dim);padding:5px 12px;border-radius:7px;font:inherit;cursor:default}
+  .vtabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(15,23,42,.08)}
+  .view{position:relative}
+  .view>div{transition:opacity .4s var(--ease)}
+  .tbl{width:100%;border-collapse:collapse;font-size:12px}
+  .tbl th{text-align:left;color:var(--dim);font-weight:500;padding:7px 8px;border-bottom:1px solid var(--rule)}
+  .tbl td{padding:8px;border-bottom:1px solid var(--rule);color:var(--ink)}
+  .tbl tr:last-child td{border-bottom:0}
+
+  /* calendar */
+  .cal{width:100%;border:1px solid var(--rule);border-radius:14px;padding:14px;background:#fff}
+  .cal-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:10px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:11px}
+  .cal-grid .dow{color:var(--dim);text-align:center;font-weight:500;padding:3px 0}
+  .cal-grid .d{text-align:center;padding:6px 0;border-radius:7px;color:var(--ink)}
+  .cal-grid .d.mut{color:#cbd5e1}
+  .cal-grid .d.inrange{background:var(--blue-soft)}
+  .cal-grid .d.edge{background:var(--blue);color:#fff;font-weight:600}
+
+  .qbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%}
+  .qbar::before{content:"";width:100%;max-width:46px;height:0;background:var(--c);border-radius:8px 8px 0 0;
+    transition:height .7s var(--ease)}
+  .qbar.on::before{height:calc(var(--bh,0%))}
+  .qbar>span{font-size:11px;color:var(--dim)}
+
+  .od-item{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;font-size:13px;
+    padding:9px 12px;background:#fff;border:1px solid var(--rule);border-radius:10px;opacity:0;transform:translateY(8px);
+    transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .od-item.on{opacity:1;transform:none}
+  .od-item>span:nth-child(2){color:var(--dim);font-size:12px}
+  .od-days{color:var(--amber);font-weight:600;font-size:12px}
+
+  /* collection (team avatars) */
+  .coll{display:flex;align-items:center;padding-left:4px}
+  .coll .av{width:56px;height:56px;border-radius:50%;flex:0 0 auto;margin-right:-14px;
+    display:grid;place-items:center;color:#fff;font-weight:600;font-size:17px;
+    border:3px solid #fff;box-shadow:0 1px 4px rgba(15,23,42,.14);
+    opacity:0;transform:translateY(10px) scale(.82);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+  .coll .av.on{opacity:1;transform:none}
+
+  /* statement */
+  .stmt-icon{width:48px;height:48px;border-radius:14px;background:var(--blue-soft);display:grid;place-items:center;
+    opacity:0;transform:scale(.7);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .stmt-icon.on{opacity:1;transform:none}
+  .stmt-big{font-size:27px;line-height:1.3;font-weight:600;letter-spacing:-.01em;text-wrap:balance;
+    opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .stmt-big.on{opacity:1;transform:none}
+
+  .dropdowns{display:flex;gap:8px;margin-left:auto}
+  .dd{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);border:1px solid var(--rule);border-radius:8px;padding:5px 10px;background:#fff}
+  .heROW{display:flex;align-items:flex-start;gap:16px}
+
+  @media(max-width:900px){
+    .grid{grid-template-columns:1fr}
+    .tile.wide{grid-column:span 1}
+    .wrap{padding:32px 18px 60px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .tile{opacity:1;transform:none;transition:none}
+    .touch{display:none}
+    .cmp-fill,.area,.rv>span{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brandrow">
+    <div class="logo">C</div>
+    <h1>Container Alliance</h1>
+    <span class="sub">Work Hub · Q2 2025</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- 1 HERO: Opportunities line chart -->
+    <section class="tile wide" data-story="opps" data-order="0">
+      <div class="heROW">
+        <div class="head"><b>Pipeline in view</b><span>127 this quarter</span></div>
+        <div class="dropdowns">
+          <span class="dd">Quarter ▾</span><span class="dd">All Reps ▾</span>
+        </div>
+      </div>
+      <div class="pic">
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:14px">
+          <span style="font-size:12px;color:var(--dim)">Total this period</span>
+          <span class="bignum tabular" style="font-size:34px" id="opps-total">0</span>
+          <span class="scrubval tabular" id="opps-scrub"></span>
+        </div>
+        <div class="chart" id="opps-chart"></div>
+      </div>
+      <div class="touch" data-touch></div>
+    </section>
+
+    <!-- 2 STAT: up 15% -->
+    <section class="tile" data-story="up" data-order="1">
+      <div class="head"><b>Opportunities rising</b><span>quarter over quarter</span></div>
+      <div class="pic" style="justify-content:flex-start;gap:14px">
+        <div class="delta" style="color:var(--green);margin-top:4px">
+          <span style="font-size:20px">▲</span>
+          <span class="bignum tabular" style="color:var(--green)" id="up-num">0</span>
+          <span style="font-size:34px;font-weight:700;color:var(--green)">%</span>
+        </div>
+        <div style="font-size:13px;color:var(--dim)">vs last quarter</div>
+        <div id="up-trend" style="display:flex;align-items:flex-end;gap:10px;flex:1;margin-top:6px">
+          <div class="qbar" data-h="46" style="--c:#cbd5e1"><span>Q4</span></div>
+          <div class="qbar" data-h="62" style="--c:#cbd5e1"><span>Q1</span></div>
+          <div class="qbar" data-h="100" style="--c:var(--green)"><span>Q2</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 STAT accent: overdue -->
+    <section class="tile accent" data-story="overdue" data-order="2">
+      <div class="head"><b>Three overdue</b><span>deals need action</span></div>
+      <div class="pic" style="justify-content:flex-start;gap:16px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div id="od-badge" style="width:58px;height:58px;border-radius:16px;background:var(--amber-soft);display:grid;place-items:center">
+            <span class="bignum tabular" style="font-size:38px;color:var(--amber)" id="od-num">3</span>
+          </div>
+          <span class="chip" style="background:var(--amber-soft);color:var(--amber)">Follow up today</span>
+        </div>
+        <div id="od-list" style="display:flex;flex-direction:column;gap:8px;margin-top:4px;flex:1;justify-content:flex-end">
+          <div class="od-item"><span class="tabular">40-CD-04</span><span>Negotiation</span><span class="od-days">12d</span></div>
+          <div class="od-item"><span class="tabular">40HC-CD-04</span><span>Proposal</span><span class="od-days">9d</span></div>
+          <div class="od-item"><span class="tabular">40-CD-CM</span><span>Quote sent</span><span class="od-days">5d</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 CONTROL: compare span -->
+    <section class="tile" data-story="compare" data-order="3">
+      <div class="head"><b>Compare the span</b><span>quarter or year</span></div>
+      <div class="pic" style="gap:18px">
+        <div class="seg" id="cmp-seg"><button data-k="q" class="on">Quarter</button><button data-k="y">Year</button></div>
+        <div class="cmp" id="cmp-bars">
+          <div class="cmp-row"><span style="color:var(--dim)">Won</span><div class="cmp-track"><div class="cmp-fill" style="background:var(--green)" data-q="68" data-y="54"></div></div><span class="tabular" data-val></span></div>
+          <div class="cmp-row"><span style="color:var(--dim)">Open</span><div class="cmp-track"><div class="cmp-fill" style="background:var(--blue)" data-q="82" data-y="71"></div></div><span class="tabular" data-val></span></div>
+          <div class="cmp-row"><span style="color:var(--dim)">Lost</span><div class="cmp-track"><div class="cmp-fill" style="background:#cbd5e1" data-q="31" data-y="44"></div></div><span class="tabular" data-val></span></div>
+        </div>
+      </div>
+      <div class="touch" data-touch></div>
+    </section>
+
+    <!-- 5 CHART: Quotes created area -->
+    <section class="tile" data-story="quotes" data-order="4">
+      <div class="head"><b>Fresh quotes</b><span>98 created</span></div>
+      <div class="pic">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px">
+          <span class="bignum tabular" style="font-size:30px" id="q-total">0</span>
+          <span class="scrubval">this quarter</span>
+        </div>
+        <div class="chart" id="q-chart"></div>
+      </div>
+    </section>
+
+    <!-- 6 COLLECTION: the team -->
+    <section class="tile" data-story="team" data-order="5">
+      <div class="head"><b>Your whole team</b><span>reps in one view</span></div>
+      <div class="pic" style="justify-content:flex-end;gap:18px">
+        <div class="coll" id="coll"></div>
+        <div style="font-size:13px;color:var(--dim)">All reps, one pipeline</div>
+      </div>
+    </section>
+
+    <!-- 7 STATEMENT: value claim -->
+    <section class="tile" data-story="stmt" data-order="6">
+      <div class="head"><b>Built to move</b><span>lead to delivery</span></div>
+      <div class="pic" style="justify-content:flex-end;gap:20px">
+        <div class="stmt-icon" id="stmt-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7h18v10H3z"/><path d="M7 7v10M11 7v10M15 7v10M19 7v10"/>
+          </svg>
+        </div>
+        <div class="stmt-big" id="stmt-big">Every container tracked across the whole pipeline.</div>
+      </div>
+    </section>
+
+    <!-- 8 CONTROL: date range -->
+    <section class="tile" data-story="date" data-order="7">
+      <div class="head"><b>Pick any window</b><span>set the date range</span></div>
+      <div class="pic">
+        <div class="cal" id="cal">
+          <div class="cal-head"><span>June 2025</span><span style="color:var(--dim)">◀ ▶</span></div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+      </div>
+      <div class="touch" data-touch></div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+const RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+
+/* ---------- chart builder (line / area) ---------- */
+function buildChart(elId, pts, {area=false, w=560, h=180}={}){
+  const el = document.getElementById(elId);
+  const padL=26, padB=22, padT=10, padR=8;
+  const iw=w-padL-padR, ih=h-padT-padB;
+  const max=Math.max(...pts), min=0;
+  const X=i=>padL + (i/(pts.length-1))*iw;
+  const Y=v=>padT + ih - ((v-min)/(max-min))*ih;
+  const line = pts.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+  const areaP = `${line} L${X(pts.length-1).toFixed(1)} ${padT+ih} L${padL} ${padT+ih} Z`;
+  const months=['Jan','Feb','Mar','Apr','May','Jun'];
+  let grid='';
+  for(let g=0;g<=4;g++){const yy=padT+ (ih/4)*g; grid+=`<line class="gridline" x1="${padL}" y1="${yy}" x2="${w-padR}" y2="${yy}"/>`;}
+  let xlab='';
+  pts.forEach((_,i)=>{ if(i<months.length) xlab+=`<text class="axis" x="${X(i)}" y="${h-6}" text-anchor="middle">${months[i]}</text>`;});
+  el.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">
+    <defs><linearGradient id="ca-area" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2563eb" stop-opacity=".22"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </linearGradient></defs>
+    ${grid}
+    ${area?`<path class="area" d="${areaP}"/>`:''}
+    <path class="series" d="${line}"/>
+    <line class="hair" y1="${padT}" y2="${padT+ih}"/>
+    <circle class="dot" r="4.5"/>
+    ${xlab}
+  </svg>`;
+  const svg=el.querySelector('svg');
+  const path=svg.querySelector('.series');
+  const len=path.getTotalLength();
+  path.style.strokeDasharray=len; path.style.strokeDashoffset=RM?0:len;
+  return {svg,path,len,X,Y,pts,area:svg.querySelector('.area'),hair:svg.querySelector('.hair'),dot:svg.querySelector('.dot')};
+}
+function drawIn(c,ms=900){ if(RM){c.path.style.strokeDashoffset=0;return Promise.resolve();}
+  return new Promise(res=>{ c.path.style.transition=`stroke-dashoffset ${ms}ms var(--ease)`; requestAnimationFrame(()=>{c.path.style.strokeDashoffset=0;}); setTimeout(res,ms); });
+}
+
+/* ---------- number roll ---------- */
+function rollTo(el, to, {ms=900, suffix=''}={}){
+  if(RM){ el.textContent=to+suffix; return Promise.resolve(); }
+  return new Promise(res=>{ const from=0,t0=performance.now();
+    (function step(t){ const p=Math.min(1,(t-t0)/ms); const e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(from+(to-from)*e)+suffix;
+      p<1?requestAnimationFrame(step):res(); })(t0);
+  });
+}
+
+/* ---------- touch dot ---------- */
+function touchAt(tile, x, y){
+  const t=tile.querySelector('[data-touch]'); if(!t) return Promise.resolve();
+  const r=tile.getBoundingClientRect();
+  t.style.left=x+'px'; t.style.top=y+'px';
+}
+async function tapEl(tile, target){
+  const t=tile.querySelector('[data-touch]'); if(!t||RM) return;
+  const tr=tile.getBoundingClientRect(), g=target.getBoundingClientRect();
+  const x=g.left-tr.left+g.width/2, y=g.top-tr.top+g.height/2;
+  t.style.left=x+'px'; t.style.top=y+'px';
+  t.classList.add('show'); await wait(550);
+  t.classList.add('press'); await wait(160); t.classList.remove('press'); await wait(120);
+}
+function hideTouch(tile){ const t=tile.querySelector('[data-touch]'); if(t) t.classList.remove('show'); }
+
+/* ---------- stories ---------- */
+const CH={};
+const stories={
+  async opps(tile){
+    CH.opps = CH.opps || buildChart('opps-chart',[14,18,16,28,22,29],{w:640,h:200});
+    const c=CH.opps;
+    await Promise.all([ drawIn(c,1000), rollTo(document.getElementById('opps-total'),127,{ms:1000}) ]);
+    // hairline scrub across points, value rolls
+    if(RM) return;
+    c.hair.classList.add('on'); c.dot.classList.add('on');
+    const vals=c.pts; // scrub reads the actual plotted monthly counts (sum=127)
+    const sc=document.getElementById('opps-scrub');
+    for(let i=0;i<c.pts.length;i++){
+      const x=c.X(i), y=c.Y(c.pts[i]);
+      c.hair.setAttribute('x1',x); c.hair.setAttribute('x2',x);
+      c.dot.setAttribute('cx',x); c.dot.setAttribute('cy',y);
+      sc.textContent='● '+['Jan','Feb','Mar','Apr','May','Jun'][i]+': '+vals[i];
+      await wait(360);
+    }
+    await wait(300); c.hair.classList.remove('on');
+    sc.textContent='';
+  },
+  async up(tile){
+    const bars=tile.querySelectorAll('.qbar');
+    bars.forEach(b=>b.style.setProperty('--bh', b.getAttribute('data-h')+'%'));
+    await rollTo(document.getElementById('up-num'),15,{ms:900});
+    for(const b of bars){ b.classList.add('on'); await wait(RM?0:120); }
+  },
+  async overdue(tile){
+    const b=document.getElementById('od-badge');
+    const items=tile.querySelectorAll('.od-item');
+    if(RM){ items.forEach(i=>i.classList.add('on')); return; }
+    b.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:700,easing:'cubic-bezier(.22,1,.36,1)'});
+    await wait(300);
+    for(const it of items){ it.classList.add('on'); await wait(120); }
+  },
+  async compare(tile){
+    const setVals=(k)=>{ tile.querySelectorAll('.cmp-fill').forEach(f=>{
+      const v=+f.getAttribute('data-'+k); f.style.width=v+'%';
+      rollTo(f.closest('.cmp-row').querySelector('[data-val]'), v, {ms:700});
+    });};
+    setVals('q'); await wait(700);
+    // touch toggles to Year
+    const seg=tile.querySelector('#cmp-seg');
+    await tapEl(tile, seg.querySelector('[data-k="y"]'));
+    seg.querySelector('[data-k="q"]').classList.remove('on');
+    seg.querySelector('[data-k="y"]').classList.add('on');
+    setVals('y'); await wait(400); hideTouch(tile);
+  },
+  async quotes(tile){
+    CH.q = CH.q || buildChart('q-chart',[14,20,12,18,16,18],{area:true,w:360,h:180});
+    const c=CH.q; c.area.classList.add('on');
+    await Promise.all([ drawIn(c,900), rollTo(document.getElementById('q-total'),98,{ms:900}) ]);
+    c.dot.classList.add('on');
+    c.dot.setAttribute('cx',c.X(5)); c.dot.setAttribute('cy',c.Y(c.pts[5]));
+  },
+  async team(tile){
+    const coll=tile.querySelector('#coll');
+    if(!coll.dataset.built){
+      const reps=[['RT','#2563eb'],['AJ','#16a34a'],['MB','#d97706'],['JW','#64748b'],
+        ['EC','#2563eb'],['DK','#16a34a'],['SP','#64748b'],['+4','#cbd5e1']];
+      coll.innerHTML=reps.map(([t,c])=>`<div class="av" style="background:${c}">${t}</div>`).join('');
+      coll.dataset.built='1';
+    }
+    const avs=coll.querySelectorAll('.av');
+    if(RM){ avs.forEach(a=>a.classList.add('on')); return; }
+    for(const a of avs){ a.classList.add('on'); await wait(90); }
+  },
+  async stmt(tile){
+    const ic=tile.querySelector('#stmt-icon'), big=tile.querySelector('#stmt-big');
+    if(RM){ ic.classList.add('on'); big.classList.add('on'); return; }
+    ic.classList.add('on'); await wait(220); big.classList.add('on');
+  },
+  async date(tile){
+    const grid=tile.querySelector('#cal-grid');
+    const dows=['S','M','T','W','T','F','S'];
+    let html=dows.map(d=>`<div class="dow">${d}</div>`).join('');
+    // June 2025 starts Sunday; 30 days
+    for(let d=1;d<=30;d++) html+=`<div class="d" data-d="${d}">${d}</div>`;
+    grid.innerHTML=html;
+    await wait(400);
+    const start=grid.querySelector('[data-d="9"]'), end=grid.querySelector('[data-d="20"]');
+    await tapEl(tile, start);
+    start.classList.add('edge');
+    await wait(150);
+    await tapEl(tile, end);
+    // fill range
+    for(let d=9;d<=20;d++){ const c=grid.querySelector('[data-d="'+d+'"]');
+      if(d===9||d===20) c.classList.add('edge'); else c.classList.add('inrange'); }
+    await wait(300); hideTouch(tile);
+  }
+};
+
+/* ---------- mount: play once on enter, replay on re-entry ---------- */
+const played=new WeakSet();
+const io=new IntersectionObserver((ents)=>{
+  ents.forEach(e=>{
+    const tile=e.target;
+    if(e.isIntersecting){
+      if(!tile.classList.contains('in')){
+        const order=+tile.getAttribute('data-order')||0;
+        setTimeout(()=>{ tile.classList.add('in');
+          const s=tile.getAttribute('data-story');
+          if(stories[s]) stories[s](tile);
+        }, order*100);
+      }
+    } else {
+      // reset so it replays on re-entry
+      tile.classList.remove('in');
+      const s=tile.getAttribute('data-story');
+      // reset simple visual state
+      if(s==='overdue'){ tile.querySelectorAll('.od-item').forEach(i=>i.classList.remove('on')); }
+      if(s==='up'){ tile.querySelectorAll('.qbar').forEach(i=>i.classList.remove('on')); }
+      if(s==='team'){ tile.querySelectorAll('.coll .av').forEach(a=>a.classList.remove('on')); }
+      if(s==='stmt'){ const ic=tile.querySelector('#stmt-icon'),bg=tile.querySelector('#stmt-big'); if(ic)ic.classList.remove('on'); if(bg)bg.classList.remove('on'); }
+    }
+  });
+},{threshold:.35});
+document.querySelectorAll('.tile').forEach(t=>io.observe(t));
+if(RM){ document.querySelectorAll('.tile').forEach(t=>{ t.classList.add('in'); const s=t.getAttribute('data-story'); if(stories[s]) stories[s](t); }); }
+</script>
+</body>
+</html>
