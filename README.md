@@ -94,6 +94,16 @@ The installer never overwrites a skill you already had. It only replaces or remo
 | [`webflow`](packs/webflow) | 13 | 0 | Building fetch.ly and client sites in Webflow. The full Finsweet Client-First method, the Webflow MCP knowledge base, preloaded Fetchly site, page and CMS IDs, code component research, and an API rate guard. |
 | [`writing-docs`](packs/writing-docs) | 10 | 0 | Writing that reads like a person wrote it, and the files it ships in. Humanizer and generic language killer, prompt builder, doc co-authoring, internal comms, and Word, PowerPoint, Excel and PDF skills. |
 
+## Laws of UX PR check
+
+A GitHub Action that scores a PR's UI changes against the 29 Laws of UX with Claude and fails when more than 75% of the applicable laws are broken. Setup in [`actions/laws-of-ux`](actions/laws-of-ux/README.md).
+
+```yaml
+- uses: fetchly/design-team-collective-repo/actions/laws-of-ux@main
+  with:
+    anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+```
+
 ## Showcase
 
 [`showcase/`](showcase) holds finished work made with these packs, one folder per client: Armada Power motion and bento studies, and the Spyderco V2 visuals bento. Open any `index.html` in a browser.

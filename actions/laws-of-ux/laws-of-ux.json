@@ -1,0 +1,437 @@
+{
+  "version": "1.0.0",
+  "source": "lawsofux.com homepage, saved copy, extracted 2026-11-19",
+  "count": 29,
+  "laws": [
+    {
+      "id": "aesthetic-usability-effect",
+      "name": "Aesthetic-Usability Effect",
+      "category": "theory",
+      "principle": "Users often perceive aesthetically pleasing design as design that’s more usable.",
+      "source": "https://lawsofux.com/aesthetic-usability-effect/",
+      "applies_when": [
+        "New visual styling, layout or component"
+      ],
+      "violation_heuristics": [
+        "Hardcoded colors, fonts or spacing that bypass design tokens or CSS variables",
+        "Misaligned or inconsistent spacing values (e.g. 13px next to 16px scale)",
+        "Screenshot: visual clutter, clashing colors, broken alignment"
+      ]
+    },
+    {
+      "id": "choice-overload",
+      "name": "Choice Overload",
+      "category": "theory",
+      "principle": "The tendency for people to get overwhelmed when they are presented with a large number of options, often used interchangeably with the term paradox of choice.",
+      "source": "https://lawsofux.com/choice-overload/",
+      "applies_when": [
+        "Menus, selects, filters, pricing tiers, product grids"
+      ],
+      "violation_heuristics": [
+        "More than ~7 equal weight options in one select, menu or filter group without grouping or search",
+        "Option lists with no default or recommended choice",
+        "Screenshot: grid of many equal choices with no hierarchy"
+      ]
+    },
+    {
+      "id": "chunking",
+      "name": "Chunking",
+      "category": "psychology",
+      "principle": "A process by which individual pieces of an information set are broken down and then grouped together in a meaningful whole.",
+      "source": "https://lawsofux.com/chunking/",
+      "applies_when": [
+        "Forms, long content, data display"
+      ],
+      "violation_heuristics": [
+        "Long forms or content blocks without fieldsets, headings or sections",
+        "Long numbers (phone, card, codes) shown or entered as one unbroken string",
+        "Walls of text over ~5 lines with no subheads or lists"
+      ]
+    },
+    {
+      "id": "cognitive-bias",
+      "name": "Cognitive Bias",
+      "category": "psychology",
+      "principle": "A systematic error of thinking or rationality in judgment that influence our perception of the world and our decision-making ability.",
+      "source": "https://lawsofux.com/cognitive-bias/",
+      "applies_when": [
+        "Consent, pricing, upsell, checkout, CTA copy"
+      ],
+      "violation_heuristics": [
+        "Pre-checked opt-in checkboxes for marketing or paid add-ons",
+        "Confirmshaming copy on decline buttons",
+        "Fake urgency or scarcity (hardcoded countdowns, static 'only 2 left')"
+      ]
+    },
+    {
+      "id": "cognitive-load",
+      "name": "Cognitive Load",
+      "category": "psychology",
+      "principle": "The amount of mental resources needed to understand and interact with an interface.",
+      "source": "https://lawsofux.com/cognitive-load/",
+      "applies_when": [
+        "Any UI change"
+      ],
+      "violation_heuristics": [
+        "Inputs without visible labels (placeholder as label)",
+        "Many competing CTAs or font sizes in one view",
+        "Unexplained icons without text or aria-label",
+        "Required info hidden behind hover only"
+      ]
+    },
+    {
+      "id": "doherty-threshold",
+      "name": "Doherty Threshold",
+      "category": "theory",
+      "principle": "Productivity soars when a computer and its users interact at a pace (<400ms) that ensures that neither has to wait on the other.",
+      "source": "https://lawsofux.com/doherty-threshold/",
+      "applies_when": [
+        "Interactive or data loading UI"
+      ],
+      "violation_heuristics": [
+        "Async action (submit, add to cart, fetch) with no loading, pending or optimistic state",
+        "Blocking synchronous scripts, large unoptimized images, missing width/height or lazy loading",
+        "Animations or transitions longer than ~400ms on core interactions"
+      ]
+    },
+    {
+      "id": "fittss-law",
+      "name": "Fitts's Law",
+      "category": "theory",
+      "principle": "The time to acquire a target is a function of the distance to and size of the target.",
+      "source": "https://lawsofux.com/fittss-law/",
+      "applies_when": [
+        "Buttons, links, controls, mobile layout"
+      ],
+      "violation_heuristics": [
+        "Tap targets under 44x44px (CSS width/height/padding)",
+        "Primary action placed far from related input or at an unexpected edge",
+        "Small inline links as the only way to perform a key action",
+        "Destructive action adjacent to primary with no spacing"
+      ]
+    },
+    {
+      "id": "flow",
+      "name": "Flow",
+      "category": "psychology",
+      "principle": "The mental state in which a person performing some activity is fully immersed in a feeling of energized focus, full involvement, and enjoyment in the process of the activity.",
+      "source": "https://lawsofux.com/flow/",
+      "applies_when": [
+        "Multi step tasks, modals, navigation"
+      ],
+      "violation_heuristics": [
+        "Unnecessary interruptions: modals or popups on load, forced signup mid task",
+        "No feedback after user action (silent success or failure)",
+        "Navigation that resets user progress or scroll position"
+      ]
+    },
+    {
+      "id": "goal-gradient-effect",
+      "name": "Goal-Gradient Effect",
+      "category": "theory",
+      "principle": "The tendency to approach a goal increases with proximity to the goal.",
+      "source": "https://lawsofux.com/goal-gradient-effect/",
+      "applies_when": [
+        "Multi step flows, loyalty, progress"
+      ],
+      "violation_heuristics": [
+        "Multi step flow (checkout, onboarding, form wizard) with no progress indicator",
+        "Progress indicator that does not reflect real remaining steps"
+      ]
+    },
+    {
+      "id": "hicks-law",
+      "name": "Hick's Law",
+      "category": "theory",
+      "principle": "The time it takes to make a decision increases with the number and complexity of choices.",
+      "source": "https://lawsofux.com/hicks-law/",
+      "applies_when": [
+        "Navigation, menus, CTA groups"
+      ],
+      "violation_heuristics": [
+        "Navigation or menu with more than ~7 top level items",
+        "Several primary styled buttons in one view",
+        "Complex decision screens without a recommended path"
+      ]
+    },
+    {
+      "id": "jakobs-law",
+      "name": "Jakob's Law",
+      "category": "theory",
+      "principle": "Users spend most of their time on other sites. This means that users prefer your site to work the same way as all the other sites they already know.",
+      "source": "https://lawsofux.com/jakobs-law/",
+      "applies_when": [
+        "Headers, nav, common patterns, controls"
+      ],
+      "violation_heuristics": [
+        "Nonstandard placement of logo, cart, search or account",
+        "Links not styled as links or buttons not styled as buttons",
+        "Custom controls replacing native ones without matching behavior (keyboard, focus)",
+        "Unconventional icons for common actions"
+      ]
+    },
+    {
+      "id": "law-of-common-region",
+      "name": "Law of Common Region",
+      "category": "theory",
+      "principle": "Elements tend to be perceived into groups if they are sharing an area with a clearly defined boundary.",
+      "source": "https://lawsofux.com/law-of-common-region/",
+      "applies_when": [
+        "Cards, panels, grouped forms"
+      ],
+      "violation_heuristics": [
+        "Related controls or info not enclosed in a shared container, card or fieldset",
+        "Containers that group unrelated items"
+      ]
+    },
+    {
+      "id": "law-of-proximity",
+      "name": "Law of Proximity",
+      "category": "theory",
+      "principle": "Objects that are near, or proximate to each other, tend to be grouped together.",
+      "source": "https://lawsofux.com/law-of-proximity/",
+      "applies_when": [
+        "Layout and spacing changes"
+      ],
+      "violation_heuristics": [
+        "Label farther from its input than from neighboring inputs",
+        "Uniform spacing between unrelated groups and related items",
+        "Helper or error text detached from its field"
+      ]
+    },
+    {
+      "id": "law-of-similarity",
+      "name": "Law of Similarity",
+      "category": "theory",
+      "principle": "The human eye tends to perceive similar elements as a complete picture, shape, or group, even if those elements are separated.",
+      "source": "https://lawsofux.com/law-of-similarity/",
+      "applies_when": [
+        "Styles, components, typography"
+      ],
+      "violation_heuristics": [
+        "Same style used for elements with different functions (links and plain text same color)",
+        "Different styles for elements of the same function (inconsistent button classes)"
+      ]
+    },
+    {
+      "id": "law-of-uniform-connectedness",
+      "name": "Law of Uniform Connectedness",
+      "category": "theory",
+      "principle": "Elements that are visually connected are perceived as more related than elements with no connection.",
+      "source": "https://lawsofux.com/law-of-uniform-connectedness/",
+      "applies_when": [
+        "Steppers, timelines, grouped items"
+      ],
+      "violation_heuristics": [
+        "Related steps or items with no visual connector (line, shared background, border) when relation matters",
+        "Visual connectors linking unrelated elements"
+      ]
+    },
+    {
+      "id": "mental-model",
+      "name": "Mental Model",
+      "category": "psychology",
+      "principle": "A compressed model based on what we think we know about a system and how it works.",
+      "source": "https://lawsofux.com/mental-model/",
+      "applies_when": [
+        "Copy, icons, interactions"
+      ],
+      "violation_heuristics": [
+        "Labels or icons that contradict common meaning (e.g. trash icon that archives)",
+        "Terminology inconsistent with the rest of the product",
+        "Interaction that behaves unlike similar elements elsewhere in the codebase"
+      ]
+    },
+    {
+      "id": "millers-law",
+      "name": "Miller's Law",
+      "category": "theory",
+      "principle": "The average person can only keep 7 (plus or minus 2) items in their working memory.",
+      "source": "https://lawsofux.com/millers-law/",
+      "applies_when": [
+        "Lists, nav, multi screen flows"
+      ],
+      "violation_heuristics": [
+        "Lists, tabs or nav exposing more than ~9 ungrouped items at once",
+        "Requiring users to remember info from a prior screen (codes, IDs)"
+      ]
+    },
+    {
+      "id": "occams-razor",
+      "name": "Occam's Razor",
+      "category": "theory",
+      "principle": "Among competing hypotheses that predict equally well, the one with the fewest assumptions should be selected.",
+      "source": "https://lawsofux.com/occams-razor/",
+      "applies_when": [
+        "Any UI change"
+      ],
+      "violation_heuristics": [
+        "Added wrappers, options or steps without clear user value",
+        "Duplicate controls for the same action in one view",
+        "Decorative elements that compete with content"
+      ]
+    },
+    {
+      "id": "paradox-of-the-active-user",
+      "name": "Paradox of the Active User",
+      "category": "theory",
+      "principle": "Users never read manuals but start using the software immediately.",
+      "source": "https://lawsofux.com/paradox-of-the-active-user/",
+      "applies_when": [
+        "New features, onboarding, empty states"
+      ],
+      "violation_heuristics": [
+        "Feature that only works after reading instructions or docs",
+        "Essential guidance only in a dismissible tour or tooltip",
+        "Empty states with no inline hint or action"
+      ]
+    },
+    {
+      "id": "pareto-principle",
+      "name": "Pareto Principle",
+      "category": "theory",
+      "principle": "The Pareto principle states that, for many events, roughly 80% of the effects come from 20% of the causes.",
+      "source": "https://lawsofux.com/pareto-principle/",
+      "applies_when": [
+        "Page hierarchy, CTA placement"
+      ],
+      "violation_heuristics": [
+        "Primary action or most used content buried below secondary content",
+        "Equal visual weight for core and rarely used actions"
+      ]
+    },
+    {
+      "id": "parkinsons-law",
+      "name": "Parkinson's Law",
+      "category": "theory",
+      "principle": "Any task will inflate until all of the available time is spent.",
+      "source": "https://lawsofux.com/parkinsons-law/",
+      "applies_when": [
+        "Forms, checkout, task flows"
+      ],
+      "violation_heuristics": [
+        "Forms asking for optional or unnecessary fields",
+        "Missing autofill/autocomplete attributes on standard inputs (name, email, address)",
+        "Extra confirmation steps that do not prevent real errors"
+      ]
+    },
+    {
+      "id": "peak-end-rule",
+      "name": "Peak-End Rule",
+      "category": "theory",
+      "principle": "People judge an experience largely based on how they felt at its peak and at its end, rather than the total sum or average of every moment of the experience.",
+      "source": "https://lawsofux.com/peak-end-rule/",
+      "applies_when": [
+        "Confirmation, error and end states"
+      ],
+      "violation_heuristics": [
+        "Success or completion state removed, generic or missing (e.g. after purchase or submit)",
+        "Error states with raw or blaming messages",
+        "Abrupt endings with no next step"
+      ]
+    },
+    {
+      "id": "postels-law",
+      "name": "Postel's Law",
+      "category": "theory",
+      "principle": "Be liberal in what you accept, and conservative in what you send.",
+      "source": "https://lawsofux.com/postels-law/",
+      "applies_when": [
+        "Inputs, forms, responsive layout, data rendering"
+      ],
+      "violation_heuristics": [
+        "Strict input validation rejecting valid formats (spaces in phone, case in email)",
+        "Missing inputmode, type or autocomplete hints",
+        "Layout that breaks with long text, translations or small viewports (fixed widths, no wrapping)",
+        "No handling for empty, null or error data"
+      ]
+    },
+    {
+      "id": "selective-attention",
+      "name": "Selective Attention",
+      "category": "psychology",
+      "principle": "The process of focusing our attention only to a subset of stimuli in an environment — usually those related to our goals.",
+      "source": "https://lawsofux.com/selective-attention/",
+      "applies_when": [
+        "Alerts, banners, notices"
+      ],
+      "violation_heuristics": [
+        "Important notices styled like ads or banners users ignore",
+        "Key message competing with motion or high contrast decoration",
+        "Critical status shown only via color"
+      ]
+    },
+    {
+      "id": "serial-position-effect",
+      "name": "Serial Position Effect",
+      "category": "theory",
+      "principle": "Users have a propensity to best remember the first and last items in a series.",
+      "source": "https://lawsofux.com/serial-position-effect/",
+      "applies_when": [
+        "Nav order, list order"
+      ],
+      "violation_heuristics": [
+        "Most important nav items or actions placed in the middle of a list",
+        "Key info buried in the middle of long content"
+      ]
+    },
+    {
+      "id": "teslers-law",
+      "name": "Tesler's Law",
+      "category": "theory",
+      "principle": "Tesler's Law, also known as The Law of Conservation of Complexity, states that for any system there is a certain amount of complexity which cannot be reduced.",
+      "source": "https://lawsofux.com/teslers-law/",
+      "applies_when": [
+        "Forms, settings, data entry"
+      ],
+      "violation_heuristics": [
+        "Complexity pushed to user that the system could handle (manual formatting, unit conversion, retyping known data)",
+        "Removing defaults or smart handling"
+      ]
+    },
+    {
+      "id": "von-restorff-effect",
+      "name": "Von Restorff Effect",
+      "category": "theory",
+      "principle": "The Von Restorff effect, also known as The Isolation Effect, predicts that when multiple similar objects are present, the one that differs from the rest is most likely to be remembered.",
+      "source": "https://lawsofux.com/von-restorff-effect/",
+      "applies_when": [
+        "CTAs, highlights, badges"
+      ],
+      "violation_heuristics": [
+        "Primary CTA not visually distinct from secondary actions",
+        "Too many highlighted elements so none stands out",
+        "Emphasis relying on color only (no shape, weight or text)"
+      ]
+    },
+    {
+      "id": "working-memory",
+      "name": "Working Memory",
+      "category": "psychology",
+      "principle": "A cognitive system that temporarily holds and manipulates information needed to complete tasks.",
+      "source": "https://lawsofux.com/working-memory/",
+      "applies_when": [
+        "Forms, comparisons, multi step tasks"
+      ],
+      "violation_heuristics": [
+        "Instructions or context removed from the screen where they are needed",
+        "Validation errors shown only after submit, away from fields",
+        "Comparisons requiring switching between pages or tabs"
+      ]
+    },
+    {
+      "id": "zeigarnik-effect",
+      "name": "Zeigarnik Effect",
+      "category": "theory",
+      "principle": "People remember uncompleted or interrupted tasks better than completed tasks.",
+      "source": "https://lawsofux.com/zeigarnik-effect/",
+      "applies_when": [
+        "Carts, forms, onboarding, long tasks"
+      ],
+      "violation_heuristics": [
+        "Incomplete tasks (cart, form, profile) with no saved state or reminder",
+        "Progress lost on refresh or navigation"
+      ]
+    }
+  ]
+}
