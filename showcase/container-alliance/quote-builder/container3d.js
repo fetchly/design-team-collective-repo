@@ -1140,7 +1140,7 @@ export function createContainer3D(host) {
     const under = pointerOnBody(e, a);
     if (!under) return;
     const dx = under.side === a.side ? drag.grabDx : 0;
-    if (placeAt(drag.id, under.side, under.x + dx)) drag.moved = true;
+    if (placeAt(drag.id, under.side, under.x + dx)) { drag.moved = true; emitMoved(drag.id); }
     // the body re-cuts in frame() (rAF-coalesced through the body key)
   }
   function endDrag(e) {

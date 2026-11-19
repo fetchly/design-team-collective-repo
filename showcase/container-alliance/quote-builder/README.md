@@ -6,6 +6,7 @@ A quote card with a live 3D container that updates as options change: size (20 f
 |---|---|
 | [`index.html`](index.html) | Quote card UI and state; loads the 3D viewer |
 | [`container3d.js`](container3d.js) | three.js scene, `createContainer3D(el).update(state)` |
+| [`blueprint.js`](blueprint.js) | Placement measurements and the 2D blueprint (roof plan, front and back elevations) |
 | `models/` | OBJ models and textures: container, AC unit, steel casement window |
 
 ## Run
@@ -19,6 +20,8 @@ python3 -m http.server 5178
 Then open http://localhost:5178.
 
 ## Notes
+
+- Measurements are outside dimensions on the model body (8 ft × 8 ft 6 in section, length × 0.3048 m). Each add-on is measured from the rear end face, the door end face, the base and the roof line to its opening edges; roof add-ons also from both long edges. The **2D blueprint** button shows the drawings and prints them.
 
 - three.js 0.160.0 from jsDelivr via import map; Google Fonts (Open Sans, Titillium Web).
 - Container Alliance's own brand tokens (navy `#174984`), not Fetchly's brand.
