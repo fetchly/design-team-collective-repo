@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,7 +27,7 @@ h1,h2,h3{font-family:var(--ca-font-title);margin:0}
 .viewer::after{content:"";position:absolute;left:0;right:0;top:64%;bottom:0;background:linear-gradient(#EAE5DC00,#E3DDD2);pointer-events:none}
 .viewer-host{position:absolute;inset:0;z-index:1}
 @media (max-width:875px){
-  .wrap{grid-template-columns:1fr;align-items:start;padding-top:62vh}
+  .wrap{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:62vh}
   .wrap>section:not(.viewer){grid-column:1}
   .viewer{position:fixed;bottom:auto;height:66vh}
 }
@@ -39,7 +38,7 @@ h1,h2,h3{font-family:var(--ca-font-title);margin:0}
 .loading[hidden]{display:block;opacity:0;pointer-events:none}
 .loading .bar{height:3px;border-radius:3px;background:rgba(70,81,98,.15);overflow:hidden;margin-top:10px}
 .loading .bar i{display:block;height:100%;width:0;background:var(--ca-navy);transition:width .25s}
-.views{position:absolute;left:clamp(16px,4vw,64px);top:24px;z-index:2;display:flex;flex-wrap:wrap;gap:6px}
+.views{position:absolute;left:clamp(16px,4vw,64px);top:24px;z-index:4;display:flex;flex-wrap:wrap;gap:6px}
 .views button{font:600 12px/1 inherit;font-family:inherit;padding:7px 11px;border-radius:999px;border:1px solid var(--ca-line);background:rgba(255,255,255,.92);color:var(--ca-gray);cursor:pointer}
 .views button[aria-pressed="true"]{background:#174984;border-color:#174984;color:#fff}
 .views .sep{width:1px;background:var(--ca-line);margin:2px 2px}
@@ -107,6 +106,48 @@ button.chk{cursor:pointer}
 .confirm dl{margin:12px 0 0;font-size:14px}
 .confirm dt{color:var(--muted);font-size:12px;margin-top:8px}
 .confirm dd{margin:0}
+/* 2D blueprint sheet + placement measurements */
+.views .mode{font-weight:700}
+.views [hidden],.viewer-tag[hidden]{display:none}
+.sheet{position:absolute;z-index:3;inset:0 var(--inset,0px) 0 0;background:#F4F7FC;overflow:auto;padding:72px clamp(16px,4vw,64px) 32px}
+.sheet[hidden]{display:none}
+.sheet-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sheet-head h2{font-size:20px;font-weight:600;color:var(--ca-navy)}
+.sheet-head p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.sheet-tools{display:flex;gap:8px;align-items:center}
+.sheet-tools .seg button{padding:5px 12px;font-size:12px}
+.print{border:1px solid var(--ca-line);background:#fff;border-radius:999px;padding:6px 14px;font:600 12px var(--ca-font-body);cursor:pointer;color:var(--ca-off-black)}
+.bp{width:100%;height:auto;display:block;background:#fff;border:1px solid #D6DEEA;border-radius:12px;margin-bottom:16px}
+.bp .body{fill:#EEF3FA;stroke:var(--ca-navy);stroke-width:calc(var(--sw)*1.6)}
+.bp .rib{stroke:#C9D5E6;stroke-width:var(--sw)}
+.bp .cut{fill:#fff;stroke:var(--ca-orange);stroke-width:calc(var(--sw)*1.6)}
+.bp .mount{fill:#FFF4E8;stroke:var(--ca-orange);stroke-width:calc(var(--sw)*1.3);stroke-dasharray:calc(var(--sw)*6) calc(var(--sw)*3)}
+.bp .dim,.bp .tick{stroke:var(--ca-gray);stroke-width:var(--sw)}
+.bp .tick{stroke-width:calc(var(--sw)*1.4)}
+.bp .ext{stroke:#AEB8C6;stroke-width:calc(var(--sw)*.7)}
+.bp text{font-family:var(--ca-font-body);font-size:var(--fs);fill:var(--ca-off-black)}
+.bp .vt{font-family:var(--ca-font-title);font-weight:900;fill:var(--ca-navy);font-size:calc(var(--fs)*1.2)}
+.bp .end{fill:var(--muted);font-size:calc(var(--fs)*.8);font-weight:600}
+.bp .tagc{fill:var(--ca-navy)}
+.bp .tagt{fill:#fff;font-weight:700;font-size:calc(var(--fs)*.85)}
+.spec-wrap{overflow-x:auto}
+.spec{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+.spec th{text-align:left;font-weight:600;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:6px 8px;border-bottom:1px solid var(--ca-line);white-space:nowrap}
+.spec td{padding:8px;border-bottom:1px solid var(--ca-line);vertical-align:top;white-space:nowrap;font-variant-numeric:tabular-nums}
+.spec small{display:block;font-size:11px;color:var(--muted)}
+.spec .tag{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ca-navy);color:#fff;font-size:11px;font-weight:700}
+.spec-empty{font-size:13px;color:var(--muted);margin:0}
+.specs{margin-bottom:20px}
+.specs-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600;font-size:14px}
+.specs .spec{font-size:12px}
+@media print{
+  body{background:#fff}
+  .wrap>section:not(.viewer),.viewer-host,.views,.viewer-tag,.loading,.sheet-tools,.viewer::after{display:none!important}
+  .viewer{position:static;background:none;height:auto}
+  .wrap{display:block;padding:0}
+  .sheet{position:static;padding:0;overflow:visible;background:#fff}
+  .bp{break-inside:avoid;border:0}
+}
 </style>
 </head>
 <body>
@@ -117,6 +158,9 @@ button.chk{cursor:pointer}
     <div class="loading" id="loading" role="status" aria-live="polite"><span id="loading-label">Loading container models</span><div class="bar"><i id="loading-bar"></i></div></div>
     <div class="viewer-tag">Drag to rotate</div>
     <div class="views" id="views" role="toolbar" aria-label="Camera views" hidden>
+      <button type="button" class="mode" data-mode="3d" aria-pressed="true">3D</button>
+      <button type="button" class="mode" data-mode="2d" aria-pressed="false">2D blueprint</button>
+      <span class="sep" aria-hidden="true"></span>
       <button type="button" data-view="iso" aria-pressed="true">3/4</button>
       <button type="button" data-view="side" aria-pressed="false">Side</button>
       <button type="button" data-view="doors" aria-pressed="false">Doors</button>
@@ -124,6 +168,17 @@ button.chk{cursor:pointer}
       <button type="button" data-view="top" aria-pressed="false">Top</button>
       <span class="sep" aria-hidden="true"></span>
       <button type="button" id="cut" aria-pressed="false">Cut view</button>
+    </div>
+    <div class="sheet" id="sheet" hidden>
+      <div class="sheet-head">
+        <div><h2>Build blueprint · <span id="sheetLen">20 ft</span></h2><p>Outside dimensions. Offsets run from the rear end face, the base and the roof line to each opening edge. Solid outline: cut opening. Dashed: surface mount.</p></div>
+        <div class="sheet-tools">
+          <div class="seg units" role="group" aria-label="Units"><button type="button" data-unit="imp" aria-pressed="true">ft-in</button><button type="button" data-unit="mm" aria-pressed="false">mm</button></div>
+          <button type="button" class="print" id="print">Print</button>
+        </div>
+      </div>
+      <div id="bp"></div>
+      <div class="spec-wrap" id="sheetSpecs"></div>
     </div>
   </section>
 
@@ -173,6 +228,11 @@ button.chk{cursor:pointer}
         </div>
       </div>
 
+      <div class="specs" id="specs" hidden>
+        <div class="specs-head"><span>Placement measurements</span><div class="seg units" role="group" aria-label="Units"><button type="button" data-unit="imp" aria-pressed="true">ft-in</button><button type="button" data-unit="mm" aria-pressed="false">mm</button></div></div>
+        <div class="spec-wrap" id="cardSpecs"></div>
+      </div>
+
       <button type="button" class="cta" id="add">Add to Quote</button>
 
       <div class="confirm" id="confirm" hidden aria-live="polite">
@@ -212,6 +272,25 @@ const state = {
 };
 
 let viewer = null;
+let unit = 'imp';
+const BP = await import('./blueprint.js');
+function renderSpecs() {
+  if (!viewer) return;
+  const L = viewer.getLength().m;
+  const rows = BP.measure(viewer.getAddons(), L);
+  document.getElementById('specs').hidden = !rows.length;
+  document.getElementById('cardSpecs').innerHTML = BP.tableHTML(rows, unit);
+  document.querySelectorAll('[data-unit]').forEach(b => b.setAttribute('aria-pressed', b.dataset.unit === unit));
+  if (document.getElementById('sheet').hidden) return;
+  document.getElementById('sheetLen').textContent = `${BP.fmt(L, unit)} × ${BP.fmt(BP.W, unit)} × ${BP.fmt(BP.H, unit)}`;
+  document.getElementById('bp').innerHTML = BP.blueprintSVG(rows, L, unit);
+  document.getElementById('sheetSpecs').innerHTML = BP.tableHTML(rows, unit);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-unit]');
+  if (b) { unit = b.dataset.unit; renderSpecs(); }
+  if (e.target.closest('#print')) print();
+});
 try {
   const { createContainer3D } = await import('./container3d.js');
   viewer = createContainer3D(document.getElementById('viewer'));
@@ -223,13 +302,27 @@ try {
     if (d.finished) setTimeout(() => { document.getElementById('loading').hidden = true; }, 400);
   });
   const card = document.querySelector('.wrap>section:not(.viewer)');
-  const frameScene = () => viewer.setFrame(innerWidth > 875 ? innerWidth - card.getBoundingClientRect().left : 0);
+  const frameScene = () => {
+    const inset = innerWidth > 875 ? innerWidth - card.getBoundingClientRect().left : 0;
+    viewer.setFrame(inset);
+    document.querySelector('.viewer').style.setProperty('--inset', inset + 'px');
+  };
+  document.getElementById('viewer').addEventListener('ca-addon-moved', () => renderSpecs());
   addEventListener('resize', frameScene); frameScene();
   const views = document.getElementById('views');
   views.hidden = false;
   views.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (!b) return;
+    if (b.dataset.mode) {
+      const two = b.dataset.mode === '2d';
+      views.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      views.querySelectorAll('[data-view],#cut,.sep').forEach(x => { x.hidden = two; });
+      document.getElementById('sheet').hidden = !two;
+      document.querySelector('.viewer-tag').hidden = two;
+      renderSpecs();
+      return;
+    }
     if (b.id === 'cut') {
       const on = b.getAttribute('aria-pressed') !== 'true';
       b.setAttribute('aria-pressed', on);
@@ -256,7 +349,7 @@ function render() {
   document.querySelectorAll('[data-size]').forEach(b => b.setAttribute('aria-pressed', b.dataset.size === state.sizeMode));
   $('customLen').hidden = state.sizeMode !== 'custom';
   $('sizeLine').textContent = state.lengthFt + ' ft';
-  if (viewer) { try { viewer.update(structuredClone(state)); } catch (e) { console.warn(e); } }
+  if (viewer) { try { viewer.update(structuredClone(state)); renderSpecs(); } catch (e) { console.warn(e); } }
 }
 
 $('checks').innerHTML = CHECKS.map(([label]) => `<div class="chk fixed"><span class="box">${tick}</span>${label}</div>`).join('');
@@ -290,5 +383,3 @@ render();
 </body>
 </html>
 
-
-</body></html>
