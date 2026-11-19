@@ -1,0 +1,294 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Container Quote Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Titillium+Web:wght@600;900&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+:root{
+  --ca-navy:#174984;--ca-logo-navy:#194985;--ca-slate:#70797E;--ca-light:#F7F9FF;
+  --ca-orange:#FF810F;--ca-yellow:#FFD119;--ca-green:#44CE75;--ca-turquoise:#3DD3BD;
+  --ca-purple:#6D6BFF;--ca-red:#EF3636;--ca-app-blue:#0A66F0;--ca-gray:#465162;
+  --ca-off-black:#061627;--ca-line:#EBEBEB;
+  --ca-font-body:"Open Sans",Arial,sans-serif;
+  --ca-font-title:"Titillium Web","Open Sans",Arial,sans-serif;
+  --bg:#F7F7F5;--cta:#2447F0;--cta-hover:#1a37c9;--sel-fill:#EEF2FF;--warm:#F0EEEA;--muted:#6B7280;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ca-off-black);font-family:var(--ca-font-body);font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:var(--ca-font-title);margin:0}
+.wrap{min-height:100vh;min-height:100dvh;padding:32px clamp(16px,4vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,480px);align-items:center;pointer-events:none}
+.wrap>section:not(.viewer){position:relative;z-index:1;grid-column:2;pointer-events:auto}
+/* full bleed scene: warm paper wall, soft floor, Scandinavian calm */
+.viewer{position:fixed;inset:0;z-index:0;pointer-events:auto;background:radial-gradient(120% 70% at 30% 38%,#FBFAF7 0%,#F3F0EA 55%,#E8E3DA 100%)}
+.viewer::after{content:"";position:absolute;left:0;right:0;top:64%;bottom:0;background:linear-gradient(#EAE5DC00,#E3DDD2);pointer-events:none}
+.viewer-host{position:absolute;inset:0;z-index:1}
+@media (max-width:875px){
+  .wrap{grid-template-columns:1fr;align-items:start;padding-top:62vh}
+  .wrap>section:not(.viewer){grid-column:1}
+  .viewer{position:fixed;bottom:auto;height:66vh}
+}
+.viewer-fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;padding:16px}
+.viewer-fallback[hidden]{display:none}
+.loading{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:min(260px,60vw);text-align:center;font-size:13px;color:var(--ca-gray);transition:opacity .4s}
+@media (min-width:876px){.loading{left:calc((100% - 520px)/2)}}
+.loading[hidden]{display:block;opacity:0;pointer-events:none}
+.loading .bar{height:3px;border-radius:3px;background:rgba(70,81,98,.15);overflow:hidden;margin-top:10px}
+.loading .bar i{display:block;height:100%;width:0;background:var(--ca-navy);transition:width .25s}
+.views{position:absolute;left:clamp(16px,4vw,64px);top:24px;z-index:2;display:flex;flex-wrap:wrap;gap:6px}
+.views button{font:600 12px/1 inherit;font-family:inherit;padding:7px 11px;border-radius:999px;border:1px solid var(--ca-line);background:rgba(255,255,255,.92);color:var(--ca-gray);cursor:pointer}
+.views button[aria-pressed="true"]{background:#174984;border-color:#174984;color:#fff}
+.views .sep{width:1px;background:var(--ca-line);margin:2px 2px}
+html,body{overflow-x:clip}
+.viewer-tag{position:absolute;z-index:2;left:clamp(16px,4vw,64px);bottom:24px;background:rgba(255,255,255,.9);border:1px solid var(--ca-line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--ca-gray);pointer-events:none}
+.partner{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:12px;font-size:14px}
+.partner .lbl{font-size:12px;color:var(--muted)}
+.partner .name{font-weight:700}
+.partner .loc{display:inline-flex;align-items:center;gap:4px;color:var(--ca-gray)}
+.card{background:#fff;border-radius:16px;padding:24px;border:1px solid var(--ca-line);box-shadow:0 24px 60px -30px rgba(40,32,20,.25)}
+.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.head h1{font-size:24px;font-weight:600;line-height:1.2}
+.head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--ca-line);border-radius:999px;flex-shrink:0}
+.stepper button{width:36px;height:36px;border:0;background:none;font-size:18px;cursor:pointer;border-radius:999px;color:var(--ca-off-black)}
+.stepper button:disabled{color:#C5C5C5;cursor:default}
+.stepper output{min-width:24px;text-align:center;font-weight:600}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:20px 0}
+@media (max-width:420px){.checks{grid-template-columns:1fr}}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;background:none;border:0;padding:0;text-align:left;font-family:inherit;color:inherit}
+button.chk{cursor:pointer}
+.chk.fixed .box{background:none!important;border:0!important;width:16px;height:16px}
+.chk.fixed .box svg path{stroke:var(--cta)}
+.box{width:18px;height:18px;border-radius:4px;border:1.5px solid #C5C5C5;display:grid;place-items:center;flex-shrink:0;background:#fff}
+.chk[aria-pressed="true"] .box,.chk.fixed .box{background:var(--cta);border-color:var(--cta)}
+.box svg{opacity:0}
+.chk[aria-pressed="true"] .box svg,.chk.fixed .box svg{opacity:1}
+.mods{background:var(--warm);border-radius:12px;margin-bottom:20px}
+.mods-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;background:none;border:0;padding:14px 16px;font:600 14px var(--ca-font-body);cursor:pointer;color:inherit;text-align:left}
+.mods-toggle .chev{transition:transform .2s}
+.mods-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.mods-body{padding:0 16px 16px}
+.mods-body[hidden]{display:none}
+.mods-title{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;margin-bottom:10px}
+.badge{background:var(--cta);color:#fff;border-radius:999px;font-size:12px;min-width:20px;padding:0 6px;text-align:center;line-height:20px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #D9D6D0;background:#fff;border-radius:999px;padding:6px 12px;font:400 13px var(--ca-font-body);cursor:pointer;color:var(--ca-off-black)}
+.pill svg{flex-shrink:0;color:var(--ca-gray)}
+.pill[aria-pressed="true"]{border-color:var(--cta);background:var(--sel-fill);color:var(--cta)}
+.pill[aria-pressed="true"] svg{color:var(--cta)}
+.pill:focus-visible,.chk:focus-visible,.stepper button:focus-visible,.mods-toggle:focus-visible,.swatch:focus-visible,.cta:focus-visible,.link:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
+.swatches{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.swatches[hidden]{display:none}
+.swatches span{font-size:13px;color:var(--muted)}
+.swatch{width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;padding:0}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--cta)}
+.size{margin:20px 0 0}
+.size-lbl{font-size:13px;color:var(--muted);margin-bottom:8px}
+.seg{display:inline-flex;border:1px solid var(--ca-line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:none;border-radius:999px;padding:7px 16px;font:600 13px var(--ca-font-body);cursor:pointer;color:var(--ca-off-black)}
+.seg button[aria-pressed="true"]{background:var(--cta);color:#fff}
+.seg button:focus-visible,.custom-len input:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
+.custom-len{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px}
+.custom-len[hidden]{display:none}
+.custom-len input{width:72px;border:1px solid var(--ca-line);border-radius:999px;padding:6px 12px;font:400 14px var(--ca-font-body)}
+.hint{font-size:12px;color:var(--muted);margin:10px 0 0}
+.note{font-size:12px;color:var(--muted);margin:12px 0 0}
+.cta{width:100%;border:0;border-radius:999px;background:var(--cta);color:#fff;font:600 16px var(--ca-font-body);padding:14px;cursor:pointer}
+.cta:hover{background:var(--cta-hover)}
+.confirm{margin-top:20px;border-top:1px solid var(--ca-line);padding-top:16px}
+.confirm[hidden]{display:none}
+.confirm-head{display:flex;justify-content:space-between;align-items:center}
+.confirm h2{font-size:18px;font-weight:600}
+.link{background:none;border:0;color:var(--cta);font:600 14px var(--ca-font-body);cursor:pointer;padding:4px}
+.confirm dl{margin:12px 0 0;font-size:14px}
+.confirm dt{color:var(--muted);font-size:12px;margin-top:8px}
+.confirm dd{margin:0}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="viewer" aria-label="3D container preview">
+    <div class="viewer-fallback" id="fallback">Loading 3D preview...</div>
+    <div class="viewer-host" id="viewer"></div>
+    <div class="loading" id="loading" role="status" aria-live="polite"><span id="loading-label">Loading container models</span><div class="bar"><i id="loading-bar"></i></div></div>
+    <div class="viewer-tag">Drag to rotate</div>
+    <div class="views" id="views" role="toolbar" aria-label="Camera views" hidden>
+      <button type="button" data-view="iso" aria-pressed="true">3/4</button>
+      <button type="button" data-view="side" aria-pressed="false">Side</button>
+      <button type="button" data-view="doors" aria-pressed="false">Doors</button>
+      <button type="button" data-view="rear" aria-pressed="false">Rear</button>
+      <button type="button" data-view="top" aria-pressed="false">Top</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" id="cut" aria-pressed="false">Cut view</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="partner">
+      <span class="lbl">Partner</span>
+      <span class="name">Container Alliance National</span>
+      <span class="loc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Santa Barbara, CA 93101</span>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <div>
+          <h1>Price available by quote</h1>
+          <p>Get a personalized price for this <span id="sizeLine">20 ft</span> container and your location.</p>
+        </div>
+        <div class="stepper" role="group" aria-label="Quantity">
+          <button type="button" id="dec" aria-label="Decrease quantity">&minus;</button>
+          <output id="qty" aria-live="polite">1</output>
+          <button type="button" id="inc" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <div class="size">
+        <div class="size-lbl" id="sizeLbl">Container size</div>
+        <div class="seg" id="seg" role="group" aria-labelledby="sizeLbl">
+          <button type="button" data-size="20" aria-pressed="true">20 ft</button>
+          <button type="button" data-size="40" aria-pressed="false">40 ft</button>
+          <button type="button" data-size="custom" aria-pressed="false">Custom</button>
+        </div>
+        <label class="custom-len" id="customLen" hidden>Length (ft) <input type="number" id="lenFt" min="10" max="53" step="1" value="30"></label>
+      </div>
+
+      <div class="checks" id="checks"></div>
+
+      <div class="mods">
+        <button type="button" class="mods-toggle" id="modsToggle" aria-expanded="false" aria-controls="modsBody">
+          <span>+ Add Container Modifications to your Quote</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="mods-body" id="modsBody" hidden>
+          <div class="mods-title">Modifications <span class="badge" id="count">0</span></div>
+          <div class="pills" id="pills"></div>
+          <p class="hint">Drag add-ons on the container to reposition them.</p>
+          <div class="swatches" id="swatches" hidden><span>Paint color</span></div>
+          <p class="note">Selected add-ons will be priced by a sales representative.</p>
+        </div>
+      </div>
+
+      <button type="button" class="cta" id="add">Add to Quote</button>
+
+      <div class="confirm" id="confirm" hidden aria-live="polite">
+        <div class="confirm-head"><h2>Added to your quote</h2><button type="button" class="link" id="edit">Edit</button></div>
+        <dl id="summary"></dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="module">
+const tick = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
+const ic = d => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+
+const CHECKS = [
+  ['Like New Condition'], ['Marine Grade Flooring'], ['Lock Box Included','lockBox'],
+  ['Water Proof Guarantee'], ['Doors On Both Ends','doorsBothEnds'], ['Color Options']
+];
+const MODS = [
+  ['customDoors','Custom Doors','<rect x="5" y="3" width="14" height="18" rx="1"/><circle cx="15" cy="12" r="1"/>'],
+  ['hvac','Heating & Air Conditioning','<path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1 19.1 4.9"/>'],
+  ['paint','Custom Paint - Refurbishing','<path d="M4 4h12v5H4z"/><path d="M16 6h3v5h-8v3"/><path d="M10 14h2v7h-2z"/>'],
+  ['cutting','Cutting and Framing','<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>'],
+  ['electrical','Electrical','<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'],
+  ['flooring','Flooring','<path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v6M15 9v6M9 15v6"/>'],
+  ['security','Security Features','<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/>'],
+  ['skylights','Skylights','<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>'],
+  ['ventilation','Ventilation','<path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8"/>'],
+  ['windows','Windows','<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M12 3v18M3 12h18"/>']
+];
+const COLORS = [['#174984','Navy'],['#FF810F','Orange'],['#44CE75','Green'],['#70797E','Slate'],['#EF3636','Red'],['#F2F2F2','White']];
+
+const state = {
+  qty: 1, paintColor: '#174984', lengthFt: 20, sizeMode: '20',
+  mods: Object.fromEntries(MODS.map(m => [m[0], false])),
+  conditions: { lockBox: true, doorsBothEnds: true }
+};
+
+let viewer = null;
+try {
+  const { createContainer3D } = await import('./container3d.js');
+  viewer = createContainer3D(document.getElementById('viewer'));
+  document.getElementById('fallback').hidden = true;
+  document.getElementById('viewer').addEventListener('ca-loading', ({ detail: d }) => {
+    const pct = d.total ? Math.min(100, Math.round(d.done / d.total * 100)) : 0;
+    document.getElementById('loading-bar').style.width = pct + '%';
+    document.getElementById('loading-label').textContent = d.finished ? 'Ready' : `Loading container models ${pct}%`;
+    if (d.finished) setTimeout(() => { document.getElementById('loading').hidden = true; }, 400);
+  });
+  const card = document.querySelector('.wrap>section:not(.viewer)');
+  const frameScene = () => viewer.setFrame(innerWidth > 875 ? innerWidth - card.getBoundingClientRect().left : 0);
+  addEventListener('resize', frameScene); frameScene();
+  const views = document.getElementById('views');
+  views.hidden = false;
+  views.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.id === 'cut') {
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', on);
+      viewer.setCut(on);
+      return;
+    }
+    views.querySelectorAll('[data-view]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    viewer.setView(b.dataset.view);
+  });
+} catch (e) {
+  console.warn('3D preview unavailable', e);
+  document.getElementById('fallback').textContent = '3D preview unavailable';
+}
+const $ = id => document.getElementById(id);
+
+function render() {
+  $('qty').textContent = state.qty;
+  $('dec').disabled = state.qty <= 1;
+  document.querySelectorAll('[data-cond]').forEach(b => b.setAttribute('aria-pressed', state.conditions[b.dataset.cond]));
+  document.querySelectorAll('[data-mod]').forEach(b => b.setAttribute('aria-pressed', state.mods[b.dataset.mod]));
+  document.querySelectorAll('[data-color]').forEach(b => b.setAttribute('aria-pressed', b.dataset.color === state.paintColor));
+  $('count').textContent = Object.values(state.mods).filter(Boolean).length;
+  $('swatches').hidden = !state.mods.paint;
+  document.querySelectorAll('[data-size]').forEach(b => b.setAttribute('aria-pressed', b.dataset.size === state.sizeMode));
+  $('customLen').hidden = state.sizeMode !== 'custom';
+  $('sizeLine').textContent = state.lengthFt + ' ft';
+  if (viewer) { try { viewer.update(structuredClone(state)); } catch (e) { console.warn(e); } }
+}
+
+$('checks').innerHTML = CHECKS.map(([label]) => `<div class="chk fixed"><span class="box">${tick}</span>${label}</div>`).join('');
+$('pills').innerHTML = MODS.map(([k, l, d]) => `<button type="button" class="pill" data-mod="${k}" aria-pressed="false">${ic(d)}${l}</button>`).join('');
+$('swatches').insertAdjacentHTML('beforeend', COLORS.map(([c, n]) => `<button type="button" class="swatch" data-color="${c}" style="background:${c}" aria-label="${n}" aria-pressed="false"></button>`).join(''));
+
+$('dec').onclick = () => { state.qty = Math.max(1, state.qty - 1); render(); };
+$('inc').onclick = () => { state.qty = Math.min(99, state.qty + 1); render(); };
+$('pills').onclick = e => { const b = e.target.closest('[data-mod]'); if (!b) return; state.mods[b.dataset.mod] = !state.mods[b.dataset.mod]; render(); };
+$('swatches').onclick = e => { const b = e.target.closest('[data-color]'); if (!b) return; state.paintColor = b.dataset.color; render(); };
+$('seg').onclick = e => { const b = e.target.closest('[data-size]'); if (!b) return; state.sizeMode = b.dataset.size; state.lengthFt = b.dataset.size === 'custom' ? clampLen() : +b.dataset.size; render(); };
+const clampLen = () => { const v = Math.round(+$('lenFt').value); return Math.min(53, Math.max(10, Number.isFinite(v) && v ? v : 30)); };
+$('lenFt').oninput = () => { state.lengthFt = clampLen(); render(); };
+$('lenFt').onchange = () => { $('lenFt').value = state.lengthFt; };
+$('modsToggle').onclick = () => { const open = $('modsToggle').getAttribute('aria-expanded') !== 'true'; $('modsToggle').setAttribute('aria-expanded', open); $('modsBody').hidden = !open; };
+
+$('add').onclick = () => {
+  const conds = CHECKS.filter(([, k]) => !k || state.conditions[k]).map(([l]) => l);
+  const mods = MODS.filter(([k]) => state.mods[k]).map(([k, l]) => k === 'paint' ? `${l} (${COLORS.find(c => c[0] === state.paintColor)[1]})` : l);
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  $('summary').innerHTML = `<dt>Size</dt><dd>${state.lengthFt} ft container</dd>
+    <dt>Quantity</dt><dd>${state.qty} container${state.qty > 1 ? 's' : ''}</dd>
+    <dt>Conditions</dt><dd>${conds.map(esc).join(', ')}</dd>
+    <dt>Modifications</dt><dd>${mods.length ? mods.map(esc).join(', ') : 'None'}</dd>`;
+  $('confirm').hidden = false; $('add').hidden = true;
+};
+$('edit').onclick = () => { $('confirm').hidden = true; $('add').hidden = false; $('add').focus(); };
+
+render();
+</script>
+</body>
+</html>
+
+
+</body></html>
