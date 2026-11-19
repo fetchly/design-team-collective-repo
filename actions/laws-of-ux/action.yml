@@ -1,0 +1,63 @@
+name: Laws of UX check
+description: Scores a PR's UI changes against the 29 Laws of UX with Claude. Fails when violated ÷ applicable laws is over the threshold.
+inputs:
+  anthropic-api-key: { description: "Anthropic Console API key (sk-ant-api03-...)", required: true }
+  threshold: { description: Fail when violated ÷ applicable is over this value, default: "0.75" }
+  model: { description: Claude model id, default: claude-opus-5-5 }
+  screenshots: { description: Optional folder of preview screenshots (png, jpg, webp), default: "" }
+  github-token: { description: Token used to post the PR comment, default: "${{ github.token }}" }
+  comment: { description: Post or update one summary comment on the PR, default: "true" }
+outputs:
+  ratio: { description: violated ÷ applicable, value: "${{ steps.check.outputs.ratio }}" }
+  blocked: { description: true when over threshold, value: "${{ steps.check.outputs.blocked }}" }
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with: { node-version: "22" }
+    - name: Install
+      shell: bash
+      run: cd "$GITHUB_ACTION_PATH" && npm install --omit=dev --no-audit --no-fund --silent
+    - name: Build PR diff
+      shell: bash
+      env:
+        BASE: ${{ github.event.pull_request.base.sha }}
+        HEAD: ${{ github.event.pull_request.head.sha }}
+      run: |
+        git fetch --no-tags origin "$BASE" "$HEAD" 2>/dev/null || true
+        git diff --unified=3 "$BASE...$HEAD" > "$RUNNER_TEMP/pr.diff"
+    - name: Score
+      id: check
+      shell: bash
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        SHOTS: ${{ inputs.screenshots }}
+      run: |
+        set +e
+        extra=(); [ -n "$SHOTS" ] && extra=(--screenshots "$SHOTS")
+        node "$GITHUB_ACTION_PATH/check.mjs" --diff "$RUNNER_TEMP/pr.diff" \
+          --threshold "${{ inputs.threshold }}" --model "${{ inputs.model }}" "${extra[@]}" \
+          --out "$RUNNER_TEMP/ux.json" --summary "$RUNNER_TEMP/ux.md"
+        echo "code=$?" >> "$GITHUB_OUTPUT"
+        [ -f "$RUNNER_TEMP/ux.md" ] && cat "$RUNNER_TEMP/ux.md" >> "$GITHUB_STEP_SUMMARY"
+        exit 0
+    - name: Comment on PR
+      if: inputs.comment == 'true' && github.event.pull_request.number
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        PR: ${{ github.event.pull_request.number }}
+      run: |
+        f="$RUNNER_TEMP/ux.md"
+        [ -f "$f" ] || printf '<!-- laws-of-ux-check -->\n## Laws of UX check: ⚠️ error\n\nThe checker failed. See the job log.\n' > "$f"
+        id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate -q '.[] | select(.body | startswith("<!-- laws-of-ux-check -->")) | .id' | tail -1)
+        if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@"$f" >/dev/null
+        else gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -F body=@"$f" >/dev/null; fi
+    - name: Enforce
+      shell: bash
+      run: |
+        case "${{ steps.check.outputs.code }}" in
+          0) exit 0 ;;
+          1) echo "::error::Laws of UX violation ratio is over the threshold. Merge blocked."; exit 1 ;;
+          *) echo "::error::Laws of UX checker failed to run."; exit 1 ;;
+        esac
